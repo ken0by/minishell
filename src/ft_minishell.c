@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:31:09 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/10 14:57:36 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/10 17:33:26 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	ft_init_var(t_minishell *shell, char **env)
 	shell->oldpwd = ft_env(env, "OLDPWD=");
 	shell->root = ft_env(env, "HOME=");
 	shell->env = ft_cpy_env(env);
-	shell->code_error = 0;
+	code_error = 0;
 	ft_init_signal();
 }
 
@@ -34,7 +34,10 @@ int	main(int ac, char **av, char **env)
 	ft_signal_dis();
 	while (1)
 	{
-		shell.cmd_line = readline(GREEN"Minishell: "RESET);
+		if (!code_error)
+			shell.cmd_line = readline(GREEN"Minishell: "RESET);
+		else
+			shell.cmd_line = readline(RED"Minishell: "RESET);
 		if (!shell.cmd_line)
 			ft_error_cmd();
 		if (!ft_strncmp(shell.cmd_line, "exit", 4))

@@ -1,41 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lst.c                                           :+:      :+:    :+:   */
+/*   ft_plst.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 12:25:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/10 17:15:04 by rofuente         ###   ########.fr       */
+/*   Created: 2024/01/10 17:14:28 by rofuente          #+#    #+#             */
+/*   Updated: 2024/01/10 17:26:53 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-t_command	*ft_lst_first(char *str, char c)
+t_pipe	*ft_plst_first(char *str)
 {
-	t_command	*new;
+	t_pipe	*new;
 
-	new = malloc(sizeof(t_command));
+	new = malloc(sizeof(t_pipe));
 	if (!new)
 		return (NULL);
-	new->command = ft_strdup(str);
-	new->built = NULL;
-	new->infile = NULL;
-	new->outfile = NULL;
+	new->argv = ft_strdup(str);
+	new->builtin = 0;
+	new->infile = 0;
+	new->outfile = 0;
+	new->heredoc = 0;
+	new->append = 0;
+	new->redir = 0;
+	new->prev = NULL;
 	new->next = NULL;
-	new->inf = 0;
-	new->out = 0;
-	if (c == 39)
-		new->dollar = 1;
-	else
-		new->dollar = 0;
 	return (new);
 }
 
-int	ft_lstsize_shell(t_command *lst)
+int	ft_plstsize(t_pipe *lst)
 {
-	t_command	*aux;
+	t_pipe	*aux;
 	int			i;
 
 	aux = lst;
@@ -49,9 +47,9 @@ int	ft_lstsize_shell(t_command *lst)
 }
 
 
-t_command	*ft_lstlast_shell(t_command *lst)
+t_pipe	*ft_plstlast(t_pipe *lst)
 {
-	t_command	*aux;
+	t_pipe	*aux;
 
 	if (!lst)
 		return (NULL);
@@ -61,32 +59,34 @@ t_command	*ft_lstlast_shell(t_command *lst)
 	return (aux);
 }
 
-t_command	*ft_lstnew_shell(char *str)
+t_pipe	*ft_plstnew(char *str)
 {
-	t_command	*new;
+	t_pipe	*new;
 
-	new = malloc(sizeof(t_command));
+	new = malloc(sizeof(t_pipe));
 	if (!new)
 		return (NULL);
-	new->command = ft_strdup(str);
-	new->built = NULL;
-	new->infile = NULL;
-	new->outfile = NULL;
-	new->inf = 0;
-	new->out = 0;
+	new->argv = ft_strdup(str);
+	new->builtin = 0;
+	new->infile = 0;
+	new->outfile = 0;
+	new->heredoc = 0;
+	new->append = 0;
+	new->redir = 0;
+	new->prev = NULL;
 	new->next = NULL;
 	return (new);
 }
 
-void	ft_lstadd_back_shell(t_command **lst, t_command *new)
+void	ft_plstadd_back(t_pipe **lst, t_pipe *new)
 {
-	t_command	*aux;
+	t_pipe	*aux;
 
 	if (!*lst)
 	{
 		*lst = new;
 		return ;
 	}
-	aux = ft_lstlast_shell(*lst);
+	aux = ft_plstlast(*lst);
 	aux->next = new;
 }

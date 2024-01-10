@@ -6,13 +6,13 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 16:36:32 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/10 14:59:57 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/10 17:22:27 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static char	*ft_strlcat_gnl(char *dst, char *s1, char *s2)
+static char	*ft_str_gcat(char *dst, char *s1, char *s2)
 {
 	size_t	i;
 	size_t	j;
@@ -33,7 +33,7 @@ static char	*ft_strlcat_gnl(char *dst, char *s1, char *s2)
 	return (dst);
 }
 
-static char	*ft_strjoin_gnl(char *s1, char *s2)
+static char	*ft_str_gjoin(char *s1, char *s2)
 {
 	char	*dst;
 	size_t	a;
@@ -49,12 +49,12 @@ static char	*ft_strjoin_gnl(char *s1, char *s2)
 	dst = malloc(sizeof(char) * a);
 	if (!dst)
 		return (NULL);
-	dst = ft_strlcat_gnl(dst, s1, s2);
+	dst = ft_str_gcat(dst, s1, s2);
 	free(s1);
 	return (dst);
 }
 
-t_pipe	*ft_join(t_pipe **cmd)
+t_pipe	*ft_pjoin(t_pipe **cmd)
 {
 	t_pipe	**pipe;
 	t_pipe	*aux;
@@ -68,17 +68,17 @@ t_pipe	*ft_join(t_pipe **cmd)
 	{
 		if (ft_strlen(aux->argv) == 1 && aux->argv[0] == '|')
 		{
-			ft_plstadd_back(pipe, ft_plst_new(line));
+			ft_plstadd_back(pipe, ft_plstnew(line));
 			free(line);
 			line = NULL;
 			aux = aux->next;
 		}
-		line = ft_strjoin_gnl(line, aux->argv);
+		line = ft_str_gjoin(line, aux->argv);
 		if (aux->next && aux->next->argv[0] != '|')
-			line = ft_strjoin_gnl(line, " ");
+			line = ft_str_gjoin(line, " ");
 		aux = aux->next;
 	}
-	ft_plstadd_back(pipe, ft_plst_new(line));
+	ft_plstadd_back(pipe, ft_plstnew(line));
 	free(line);
 	return (*pipe);
 }

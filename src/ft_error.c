@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:58:21 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/10 11:26:05 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/01/10 16:55:10 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_put_msg(char *var, char *s)
 	ft_putstr_fd(var, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putstr_fd(s, STDERR_FILENO);
-	g_global.code_error = 127;
+	code_error = 127;
 	exit (127);
 }
 
@@ -62,12 +62,13 @@ void	ft_per(char *var, char *s)
 	ft_putstr_fd(var, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	//exit (127);
-	g_global.code_error = 127;
+	code_error = 127;
 	perror(s);
 }
 
 void	ft_error(char *str)
 {
 	printf("%s\n", str);
-	exit (127);
+	code_error = 1;
+	exit (1);
 }

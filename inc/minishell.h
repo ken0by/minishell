@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/10 15:10:32 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/10 17:55:37 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,17 @@
 # define GREEN   "\033[32m"
 # define RESET   "\x1b[0m"
 
+/*-----VARIABLE GLOBAL-----*/
+int	code_error;
+
 /*-----ESTRUCTURAS-----*/
 
 typedef struct s_minishell
 {
 	int		shlvl;
-	int		code_error;
 	char	*cmd_line;
+	int		infile;
+	int		outfile;
 	char	*path;
 	char	*pwd;
 	char	*oldpwd;
@@ -95,7 +99,7 @@ typedef struct s_signal
 
 /* ----- BUILTINS ----- */
 /* FT_ECHO.C */
-void		ft_echo(t_command *cmd, t_minishell *shell);
+void		ft_echo(t_command *cmd);
 
 /* FT_ECUTIL.C */
 char		*ft_var(char *var);
@@ -105,21 +109,23 @@ void		ft_exp_code(t_pipe *pipe, t_minishell *shell);
 /* FT_PRINT.C */
 void		ft_print_pwd(t_minishell *shell);
 void		ft_print_env(t_minishell *shell);
+void		ft_print_ordenv(char **env);
 
 /* FT_EXPORT.C */
 void		ft_exist(t_command *cmd, t_minishell *shell);
 
 /* FT_EXUTIL.C */
-void		ft_free_mtx(char **mtx);
 int			ft_check_var(char *str, char **env);
 char		*ft_get_var(t_command *cmd);
+int			ft_strcmp(char *s1, char *s2);
 
 /* FT_EXUTIL2.C */
 char		*ft_get_content(char *str, char *var);
 int			ft_varct(char *str);
+void		ft_alfa(char **env);
 
 /* FT_UNSET.C */
-void	ft_unset(t_command *cmd, t_minishell *shell);
+void		ft_unset(t_command *cmd, t_minishell *shell);
 
 /* FT_CD.C */
 void		ft_cd(t_command *cmd, t_minishell *shell);
@@ -146,6 +152,7 @@ void		ft_error_car(void);
 void		ft_error_cmd(void);
 void		ft_error_arguments(void);
 void		ft_error_path(int i);
+void		ft_error_fd(char *var, int fd);
 
 /* ----- PIPE ----- */
 /* FT_PIPE.C */
@@ -156,11 +163,12 @@ void		ft_ord(t_pipe *pipe, t_minishell *shell);
 /* FT_PIPE_UTILS.C */
 int			ft_isbuilt(char *cmd);
 void		ft_redir(t_pipe *pipe, t_minishell *shell);
-void		ft_check_exp(t_pipe *pipe, t_minishell *shell);
 int			ft_check_built(char *cmd);
+void		ft_free_pipe(t_pipe **pipe);
 
 /* FT_PIPE_UTILS2.C */
-int			ft_file(t_pipe *pipe, int x, t_minishell *shell);
+int			ft_file(t_pipe *pipe, int x);
+int			ft_quotes(char	*cmd);
 
 /* FT_PIPE_UTILS3.C */
 int			ft_pipe_system(char **cmd, t_minishell *shell);
@@ -169,9 +177,16 @@ void		ft_free_cmd(t_cmd **cmd);
 void		ft_del_redir(t_pipe *pipe, t_minishell *shell);
 
 /* FT_PIPE_JOIN.C */
-t_pipe		*ft_join(t_pipe **cmd);
+t_pipe		*ft_pjoin(t_pipe **cmd);
 t_cmd		*ft_cmdlst_new(char *str);
 void		ft_cmdlstadd_back(t_cmd **cmd, t_cmd *new);
+
+/* FT_PLST.C */
+void		ft_plstadd_back(t_pipe **lst, t_pipe *new);
+t_pipe		*ft_plstnew(char *str);
+t_pipe		*ft_plstlast(t_pipe *lst);
+int			ft_plstsize(t_pipe *lst);
+t_pipe		*ft_plst_first(char *str);
 
 /* ----- SRC ----- */
 /* FT_UTILS.C */
@@ -182,6 +197,7 @@ void		ft_exit_code(char *str);
 /* FT_UTILS_2.C */
 int			ft_strchr_out(const char *s, int c);
 int			ft_strchr_in(const char *s, int c);
+void		ft_lstdel(t_pipe *pipe, t_pipe *del);
 
 /* FT_ERROR.C */
 void		ft_put_msg(char *var, char *s);
@@ -189,6 +205,13 @@ void		ft_error(char *str);
 void		ft_per(char *var, char *s);
 void		ft_free_mtx(char **mtx);
 void		ft_error_perror(char *command, char *s);
+
+/* FT_LST.C */
+void		ft_lstadd_back_shell(t_command **lst, t_command *new);
+t_command	*ft_lstnew_shell(char *str);
+t_command	*ft_lstlast_shell(t_command *lst);
+int			ft_lstsize_shell(t_command *lst);
+t_command	*ft_lst_first(char *str, char c);
 
 /* FT_SIGNAL.C */
 void		ft_int(int i);

@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:24:27 by rodro             #+#    #+#             */
-/*   Updated: 2024/01/10 14:59:46 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/10 17:30:29 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,18 +105,16 @@ void	ft_ord(t_pipe *pipe, t_minishell *shell)
 			if (ft_isbuilt(aux->argv))
 				aux->builtin = 1;
 			else if (ft_is_file(aux->argv))
-				shell->infile = ft_file(aux, 0, shell);
+				shell->infile = ft_file(aux, 0);
 			else if (aux->argv[0] == '>' || aux->argv[0] == '<')
 			{
 				ft_redir(aux, shell);
 				aux = aux->next;
 			}
-			else if (ft_quotes(aux->argv) || aux->argv[0] == '$')
-				ft_check_exp(aux, shell);
 		}
 		aux = aux->next;
 	}
 	ft_del_redir(pipe, shell);
-	pipe = ft_join(&pipe);
+	pipe = ft_pjoin(&pipe);
 	ft_order(ft_psplit(pipe), shell);
 }

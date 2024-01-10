@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 17:12:21 by rofuente          #+#    #+#             */
-/*   Updated: 2023/12/13 17:37:20 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/01/10 18:23:58 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,16 @@ void	ft_exist(t_command *cmd, t_minishell *shell)
 {
 	char	*var;
 	char	*ct;
+	char	**command;
 
-	if (!cmd->argv[1] || !ft_varct(cmd->argv[1]))
-		return ;
-	var = ft_get_var(cmd);		// da error a veces con el contenido q le añade mierda
-	ct = ft_get_content(cmd->argv[1], var);
+	command = ft_split(cmd->command, ' ');
+	if (!command[1] || !ft_varct(command[1]))		//hay q ver si hay q guardar solo una letra cuando la pasan sin =
+		ft_alfa(shell->env);
+	var = ft_get_var(cmd);		// esto no hace falta al hacer el split el command[1] es la variable
+	ct = ft_get_content(command[1], var);
 	// var = ft_split(cmd->argv[1], '=');		// Da error a veces con el contenido
 	if (!ft_check_var(var, shell->env))
 		ft_export(shell, var, ct);		// crear la nueva variable y la añade a env
 	else
-		ft_change(shell, cmd->argv[1], var);		// cambia el contenido de una variable x el nuevo dado
+		ft_change(shell, command[1], var);		// cambia el contenido de una variable x el nuevo dado
 }

@@ -6,13 +6,13 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 00:53:20 by rodro             #+#    #+#             */
-/*   Updated: 2024/01/10 14:59:49 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/10 17:06:32 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int	ft_built(char *argv)
+static int	ft_builtin(char *argv)
 {
 	if (!ft_strncmp(argv, "echo", ft_strlen(argv)))
 		return (1);
@@ -35,14 +35,14 @@ int	ft_pipe_system(char **cmd, t_minishell *shell)
 
 	pd = fork();
 	if (pd < 0)
-		error("fork() error", shell);
+		ft_error("fork() error");
 	if (pd == 0)
 	{
-		path = ft_cmdpath(cmd[0], shell);
+		path = ft_cmdpath(cmd[0], shell->env);
 		if (!path)
 		{
 			ft_put_msg(cmd[0], "command not found\n");
-			shell->code_error = 127;
+			code_error = 127;
 			return (1);
 		}
 		else if (execve(path, cmd, shell->env) < 0)
@@ -50,13 +50,13 @@ int	ft_pipe_system(char **cmd, t_minishell *shell)
 	}
 	else
 		waitpid(-1, &status, 0);
-	shell->code_error = 0;
+	code_error = 0;
 	return (0);
 }
 
 int	ft_pipe_built(char *str, char *str1, t_minishell *shell)
 {
-	if (ft_built(str))
+	if (ft_builtin(str))
 	{
 		return (1);
 	}

@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 10:48:52 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/10 15:04:26 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/10 16:30:08 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*ft_change_doll(char *fir_line, char *sec_line)
 	char	*line;
 
 	//ft_printf("code error1; %d\n", g_global.code_error);
-	line = ft_strjoin_gnl(fir_line, ft_itoa(g_global.code_error));
+	line = ft_strjoin_gnl(fir_line, ft_itoa(code_error));
 	if (sec_line)
 		line = ft_strjoin_gnl(line, sec_line);
 	return (line);

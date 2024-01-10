@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exutil2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:44:48 by rofuente          #+#    #+#             */
-/*   Updated: 2023/12/13 17:37:37 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/01/10 18:24:31 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,43 @@ int	ft_varct(char *str)
 		if (str[i] == '=')
 			return (1);
 	return (0);
+}
+
+static int	ft_count(char **env)
+{
+	int	i;
+
+	if (!env || !env[0])
+		return (0);
+	i = 0;
+	while (env[i])
+		i++;
+	return (i);
+}
+
+void	ft_alfa(char **env)
+{
+	int		i;
+	int		j;
+	int		len;
+	char	*aux;
+
+	i = 0;
+	len = ft_count(env);
+	while (i < len)
+	{
+		j = -1;
+		while (++j < (len - i - 1))
+		{
+			aux = env[j];
+			if (ft_strcmp(env[j], env[j + 1]) > 0)
+			{
+				aux = env[j];
+				env[j] = env[j + 1];
+				env[j + 1] = aux;
+			}
+		}
+		i++;
+	}
+	ft_print_ordenv(env);
 }

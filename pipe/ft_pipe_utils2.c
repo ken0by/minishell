@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 21:04:32 by rodro             #+#    #+#             */
-/*   Updated: 2024/01/10 14:59:52 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/10 17:00:16 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ static void	ft_here(char *end)
 
 	pipe(fd);
 	if (fd < 0)
-		ft_perror("pipe", STDERR_FILENO);
+		ft_error_fd("pipe", STDERR_FILENO);
 	pid = fork();
 	if (pid < 0)
-		ft_perror("fork", STDERR_FILENO);
+		ft_error_fd("fork", STDERR_FILENO);
 	if (pid == 0)
 	{
 		write(1, "pipe heredoc> ", 14);
@@ -53,7 +53,7 @@ static void	ft_here(char *end)
 	}
 }
 
-static int	ft_heredoc(t_pipe *pipe, int x, t_minishell *shell)
+static int	ft_heredoc(t_pipe *pipe, int x)
 {
 	int	fd;
 
@@ -62,19 +62,19 @@ static int	ft_heredoc(t_pipe *pipe, int x, t_minishell *shell)
 	{
 		fd = open(pipe->argv, O_RDWR | O_CREAT | O_APPEND, 0644);
 		if (access(pipe->argv, W_OK | R_OK) < 0)
-			ft_err_msg("Error opening heredoc\n", shell);
+			ft_error("Error opening heredoc\n");
 		ft_here(pipe->next->argv);
 	}
 	else if (x == 3)
 	{
 		fd = open(pipe->argv, O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR);
 		if (access(pipe->argv, W_OK | R_OK) < 0)
-			ft_err_msg("Error opening append\n", shell);
+			ft_error("Error opening append\n");
 	}
 	return (fd);
 }
 
-int	ft_file(t_pipe *pipe, int x, t_minishell *shell)
+int	ft_file(t_pipe *pipe, int x)
 {
 	int	fd;
 
@@ -83,17 +83,30 @@ int	ft_file(t_pipe *pipe, int x, t_minishell *shell)
 	{
 		fd = open(pipe->argv, O_RDONLY, 0644);
 		if (access(pipe->argv, R_OK) < 0)
-			ft_err_msg("Error opening infile\n", shell);
+			ft_error("Error opening infile\n");
 	}
 	else if (x == 1)
 	{
 		fd = open(pipe->argv, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 		if (access(pipe->argv, W_OK | R_OK) < 0)
-			ft_err_msg("Error opening outfile\n", shell);
+			ft_error("Error opening outfile\n");
 	}
 	else
-		fd = ft_heredoc(pipe, x, shell);
+		fd = ft_heredoc(pipe, x);
 	if (fd < 0)
-		ft_err_msg("Error opening file\n", shell);
+		ft_error("Error opening file\n");
 	return (fd);
+}
+
+int	ft_quotes(char	*cmd)
+{
+	int	i;
+
+	i = -1;
+	while (cmd[++i])
+	{
+		if (cmd[i] == 39 || cmd[i] == 34)
+			return (1);
+	}
+	return (0);
 }

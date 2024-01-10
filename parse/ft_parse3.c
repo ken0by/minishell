@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 12:31:43 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/10 15:05:26 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/10 16:29:52 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static char	*ft_param(char *line, char **env)
 	return (line);
 }
 
-t_command	*ft_sust(t_command **cmd, t_minishell *shell)
+t_command	*ft_sust(t_command **cmd, char **env)
 {
 	t_command	*aux;
 
@@ -96,9 +96,9 @@ t_command	*ft_sust(t_command **cmd, t_minishell *shell)
 		if (aux->dollar == 1)
 			aux = aux->next;
 		else if (ft_strnstr(aux->command, "$?", ft_strlen(aux->command)) != 0)
-			aux->command = ft_sust_doll(aux->command, shell->code_error);
+			aux->command = ft_sust_doll(aux->command);
 		else if (ft_strnstr(aux->command, "$", ft_strlen(aux->command)) != 0)
-			aux->command = ft_param(aux->command, shell->env);
+			aux->command = ft_param(aux->command, env);
 		else
 			aux = aux->next;
 	}

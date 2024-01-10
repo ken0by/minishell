@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:28:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/10 11:41:18 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/01/10 16:27:30 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void ft_p_list(t_command *cmd)
+/* static void ft_p_list(t_command *cmd)
 {
 	int i = 1;
-	
+
 	while (cmd)
 	{
 		ft_printf("Lista numero: %d\n", i);
@@ -25,11 +25,11 @@ static void ft_p_list(t_command *cmd)
 		if (cmd->outfile != NULL)
 			ft_printf("outfile: %s\n", cmd->outfile);
 		ft_printf("%s\n", cmd->built);
-		ft_printf("comillas simples: %d\n", cmd->dollar); 
+		ft_printf("comillas simples: %d\n", cmd->dollar);
 		cmd = cmd->next;
 		i++;
 	}
-}
+} */
 
 static t_command	*ft_join(t_command **cmd)
 {

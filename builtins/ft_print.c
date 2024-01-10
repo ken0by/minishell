@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 16:26:57 by rofuente          #+#    #+#             */
-/*   Updated: 2023/12/13 17:36:58 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/01/10 18:24:35 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,13 @@ void	ft_print_env(t_minishell *shell)
 	i = -1;
 	while (shell->env[++i])
 		ft_printf("%s\n", shell->env[i]);
+}
+
+void	ft_print_ordenv(char **env)
+{
+	int	i;
+
+	i = -1;
+	while (env[++i])
+		printf("%s\n", env[i]);
 }

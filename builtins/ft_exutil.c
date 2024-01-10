@@ -3,25 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exutil.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:37:25 by dmonjas-          #+#    #+#             */
-/*   Updated: 2023/12/13 17:37:32 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/01/10 17:55:18 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-void	ft_free_mtx(char **mtx)
-{
-	int	i;
-
-	i = -1;
-	while (mtx[++i])
-		free(mtx[i]);
-	free(mtx);
-	mtx = NULL;
-}
+#include <minishell.h>
 
 /* Esta funcion comprueba q si la variable existe */
 int	ft_check_var(char *str, char **env)
@@ -68,14 +57,14 @@ char	*ft_get_var(t_command *cmd)		// Al pasar la estructura va mejor q pansando 
 	char	*var;
 	int		i;
 
-	if (!cmd->argv[1])
+	if (!cmd->next->command)
 		return (NULL);
-	if (!ft_contain(cmd->argv[1], '='))
-		var = ft_strdup(cmd->argv[1]);
+	if (!ft_contain(cmd->next->command, '='))
+		var = ft_strdup(cmd->next->command);
 	else
 	{
-		i = ft_find(cmd->argv[1], '=');
-		var = ft_substr(&cmd->argv[1][0], 0, i);		// argv[] se corrompe aqui ns xq
+		i = ft_find(cmd->next->command, '=');
+		var = ft_substr(&cmd->next->command[0], 0, i);		// command[] se corrompe aqui ns xq
 	}
 	if (var != NULL && var[0] == '\0')
 	{
@@ -83,4 +72,21 @@ char	*ft_get_var(t_command *cmd)		// Al pasar la estructura va mejor q pansando 
 		var = NULL;
 	}
 	return (var);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (s1[i] && s2[j])
+	{
+		if (s1[i] != s2[j])
+			return (s1[i] - s2[j]);
+		i++;
+		j++;
+	}
+	return (s1[i] - s2[j]);
 }

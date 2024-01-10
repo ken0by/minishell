@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 17:38:16 by rofuente          #+#    #+#             */
-/*   Updated: 2023/12/13 17:37:00 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/01/10 16:36:49 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_no_var(char *str)
 	{
 		if (str[i] == '=')
 		{
-			ft_egro("unset", str);
+			ft_error_perror("unset", str);
 			return (1);
 		}
 	}
@@ -37,7 +37,7 @@ static char	**ft_malloc(t_minishell *shell, t_command *cmd)
 	i = -1;
 	j = 0;
 	while (shell->env[++i])
-		if (!ft_strncmp(shell->env[i], cmd->argv[1], ft_strlen(cmd->argv[1])))
+		if (!ft_strncmp(shell->env[i], cmd->next->command, ft_strlen(cmd->next->command)))
 			j = 1;
 	if (j == 1)
 		aux = malloc(sizeof(char *) * i);
@@ -54,7 +54,7 @@ void	ft_unset(t_command *cmd, t_minishell *shell)
 	int		j;
 	char	**aux;
 
-	if (ft_no_var(cmd->argv[1]))
+	if (ft_no_var(cmd->next->command))
 		return ;
 	aux = ft_malloc(shell, cmd);
 	if (!aux)
@@ -63,7 +63,7 @@ void	ft_unset(t_command *cmd, t_minishell *shell)
 	j = 0;
 	while (shell->env[++i])
 	{
-		if (ft_strncmp(shell->env[i], cmd->argv[1], ft_strlen(cmd->argv[1])))
+		if (ft_strncmp(shell->env[i], cmd->next->command, ft_strlen(cmd->next->command)))
 		{
 			aux[j] = ft_strdup(shell->env[i]);
 			j++;

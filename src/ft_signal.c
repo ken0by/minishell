@@ -6,13 +6,11 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 12:31:50 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/10 14:59:02 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/10 17:15:17 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include <readline/readline.h>
-#include <readline/history.h>
+#include <minishell.h>
 
 void	ft_signal_dis(void)
 {
