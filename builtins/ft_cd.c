@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:37:03 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/11 13:11:23 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:42:39 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_cd(t_command *cmd, t_minishell *shell)
 	char	**comm;
 
 	comm = ft_split(cmd->command, ' ');
-	if (!comm[1])
+	if (!comm[1] || (comm[1][0] == '~' && ft_strlen(comm[1]) == 1))
 	{
 		if (chdir(shell->root) != 0)
 			ft_per(comm[0], comm[1]);
@@ -69,5 +69,4 @@ void	ft_cd(t_command *cmd, t_minishell *shell)
 	oldpwd = ft_strdup(shell->pwd);
 	if (getcwd(new_pwd, sizeof(new_pwd) - 1))
 		ft_new_pwd(shell, oldpwd, new_pwd);
-	//exit (0);		//no funciona el cd si se pone este exit, pero luego "peta" por el fork habria que sacar los builtins fura del fork
 }

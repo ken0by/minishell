@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 17:38:16 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/10 16:36:49 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:33:51 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	ft_no_var(char *str)
 	return (0);
 }
 
-static char	**ft_malloc(t_minishell *shell, t_command *cmd)
+static char	**ft_malloc(t_minishell *shell, char *var)
 {
 	int		i;
 	int		j;
@@ -37,7 +37,7 @@ static char	**ft_malloc(t_minishell *shell, t_command *cmd)
 	i = -1;
 	j = 0;
 	while (shell->env[++i])
-		if (!ft_strncmp(shell->env[i], cmd->next->command, ft_strlen(cmd->next->command)))
+		if (!ft_strncmp(shell->env[i], var, ft_strlen(var)))
 			j = 1;
 	if (j == 1)
 		aux = malloc(sizeof(char *) * i);
@@ -53,17 +53,19 @@ void	ft_unset(t_command *cmd, t_minishell *shell)
 	int		i;
 	int		j;
 	char	**aux;
+	char	**tmp;
 
-	if (ft_no_var(cmd->next->command))
+	tmp = ft_split(cmd->command, ' ');
+	if (ft_no_var(tmp[1]))
 		return ;
-	aux = ft_malloc(shell, cmd);
+	aux = ft_malloc(shell, tmp[1]);
 	if (!aux)
 		return ;
 	i = -1;
 	j = 0;
 	while (shell->env[++i])
 	{
-		if (ft_strncmp(shell->env[i], cmd->next->command, ft_strlen(cmd->next->command)))
+		if (ft_strncmp(shell->env[i], tmp[1], ft_strlen(tmp[1])))
 		{
 			aux[j] = ft_strdup(shell->env[i]);
 			j++;
@@ -71,5 +73,6 @@ void	ft_unset(t_command *cmd, t_minishell *shell)
 	}
 	aux[j] = NULL;
 	ft_free_mtx(shell->env);
+	free(tmp);
 	shell->env = aux;
 }

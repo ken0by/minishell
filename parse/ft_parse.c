@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:28:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/11 12:30:26 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:53:15 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 	}
 } */
 
-static void	ft_shell_up(t_minishell *shell)
+void	ft_shell_up(t_minishell *shell)
 {
 	int		i;
 	int		j;
@@ -124,22 +124,15 @@ void	ft_check_line(t_minishell *shell)
 	char		*line;
 	char		*cmd_line;
 
-	if (!ft_strncmp(shell->cmd_line, "exit", 4))
-		ft_exit_code(shell);
-	else if (!ft_strncmp(shell->cmd_line, "minishell", ft_strlen(shell->cmd_line)))
-		ft_shell_up(shell);
-	else
-	{
-		line = NULL;
-		cmd_line = shell->cmd_line;
-		if (cmd_line[0] == '\0')
-			return ;
-		signal(SIGQUIT, ft_quit);
-		cmd = ft_take_cmd(&cmd, line, cmd_line);
-		cmd = ft_sust(&cmd, shell->env);
-		cmd = ft_join(&cmd);
-		cmd = ft_inout(&cmd);
-		///ft_p_list(cmd);
-		ft_system(cmd, shell);
-	}
+	line = NULL;
+	cmd_line = shell->cmd_line;
+	if (cmd_line[0] == '\0')
+		return ;
+	signal(SIGQUIT, ft_quit);
+	cmd = ft_take_cmd(&cmd, line, cmd_line);
+	cmd = ft_sust(&cmd, shell->env);
+	cmd = ft_join(&cmd);
+	cmd = ft_inout(&cmd);
+	///ft_p_list(cmd);
+	ft_system(cmd, shell);
 }

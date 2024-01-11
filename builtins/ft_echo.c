@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:37:07 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/11 12:40:49 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:20:43 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,4 @@ void	ft_echo(t_command *cmd)
 		ft_printf("%s", &cmd->command[i]);
 		printf("\n");
 	}
-	exit (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:44:31 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/11 13:25:56 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:54:29 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static int	ft_select(t_command *cmd, t_minishell *shell)
 		ft_print_env(shell);
 	else
 		return (1);
-	code_error = 0;
 	return (0);
 }
 
@@ -79,9 +78,14 @@ static void	ft_one(t_command *cmd, t_minishell *shell)
 
 void	ft_system(t_command *cmd, t_minishell *shell)
 {
+	code_error = 0;
 	if (ft_lstsize_shell(cmd) == 1)
 	{
-		if (ft_select(cmd, shell))
+		if (!ft_strncmp(cmd->command, "exit", 4))
+			ft_exit_code(shell);
+		else if (!ft_strncmp(cmd->command, "minishell", ft_strlen(cmd->command)))
+			ft_shell_up(shell);
+		else if (ft_select(cmd, shell) == 1)
 			ft_one(cmd, shell);
 	}
 	else if (ft_lstsize_shell(cmd) > 1)

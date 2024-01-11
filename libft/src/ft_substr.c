@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 08:38:14 by dmonjas-          #+#    #+#             */
-/*   Updated: 2023/01/23 17:12:26 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:48:42 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!dst)
 		return (0);
 	while (i < len && s[start])
-			dst[i++] = s[start++];
+		dst[i++] = s[start++];
 	dst[i] = '\0';
 	return (dst);
 }

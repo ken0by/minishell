@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 16:16:06 by dmonjas-          #+#    #+#             */
-/*   Updated: 2023/03/27 15:43:14 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:48:24 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	ft_flags(va_list a, int *r, char c)
 	else if (c == 'u')
 		*r += ft_putnbr_base(va_arg(a, int), "0123456789");
 	else if (c == 'p')
-	{	
+	{
 		*r += ft_putstr_fd("0x", 1);
 		*r += ft_putnbr_base_void(va_arg(a, unsigned long), "0123456789abcdef");
 	}

@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:59:53 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/11 12:16:30 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/11 18:11:00 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 static int	ft_flag(int flag, char *nb)
 {
 	if (!flag)
+	{
+		ft_printf("exit\n");
 		return (ft_atoi(nb));
+	}
 	else
 	{
 		ft_printf("exit: numeric argument required\n");
@@ -51,11 +54,13 @@ static int	ft_code_nb(char *str)
 
 void	ft_exit_code(t_minishell *shell)
 {
-	ft_printf("exit\n");
 	if (shell->shlvl == 1)
 		exit (ft_code_nb(shell->cmd_line));
 	else
+	{
+		code_error = ft_code_nb(shell->cmd_line);
 		ft_shell_down(shell);
+	}
 }
 
 static char	*ft_copy_path(char *str, int i)

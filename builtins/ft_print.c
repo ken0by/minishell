@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 16:26:57 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/10 18:24:35 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:19:24 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,23 @@ void	ft_print_env(t_minishell *shell)
 void	ft_print_ordenv(char **env)
 {
 	int	i;
+	int	j;
 
 	i = -1;
 	while (env[++i])
-		printf("%s\n", env[i]);
+	{
+		printf("declare -x ");
+		j = -1;
+		while (env[i][++j])
+		{
+			if (env[i][j] == '=')
+			{
+				printf("%c", env[i][j]);
+				printf("\"");
+			}
+			else
+				printf("%c", env[i][j]);
+		}
+		printf("\"\n");
+	}
 }

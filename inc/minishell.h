@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/11 13:33:21 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:53:25 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void		ft_cd(t_command *cmd, t_minishell *shell);
 /* ----- PARSE ----- */
 /* FT_PARSE.C */
 void		ft_check_line(t_minishell *shell);
+void		ft_shell_up(t_minishell *shell);
 void		ft_shell_down(t_minishell *shell);
 
 /* FT_PARSE2.C */
