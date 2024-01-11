@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:28:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/10 16:27:30 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:30:26 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,64 @@
 		i++;
 	}
 } */
+
+static void	ft_shell_up(t_minishell *shell)
+{
+	int		i;
+	int		j;
+	int		k;
+	char	*aux;
+
+	shell->shlvl += 1;
+	i = -1;
+	aux = ft_itoa(shell->shlvl);
+	while (shell->env[++i])
+	{
+		if (!ft_strncmp(shell->env[i], "SHLVL", 5))
+		{
+			j = -1;
+			while (shell->env[i][++j])
+				if (shell->env[i][j] == '=')
+					break ;
+			k = 0;
+			while (shell->env[i][++j])
+			{
+				shell->env[i][j] = aux[k];
+				k++;
+			}
+			break ;
+		}
+	}
+}
+
+void	ft_shell_down(t_minishell *shell)
+{
+	int		i;
+	int		j;
+	int		k;
+	char	*aux;
+
+	shell->shlvl -= 1;
+	i = -1;
+	aux = ft_itoa(shell->shlvl);
+	while (shell->env[++i])
+	{
+		if (!ft_strncmp(shell->env[i], "SHLVL", 5))
+		{
+			j = -1;
+			while (shell->env[i][++j])
+				if (shell->env[i][j] == '=')
+					break ;
+			k = 0;
+			while (shell->env[i][++j])
+			{
+				shell->env[i][j] = aux[k];
+				k++;
+			}
+			break ;
+		}
+	}
+}
 
 static t_command	*ft_join(t_command **cmd)
 {
@@ -66,14 +124,22 @@ void	ft_check_line(t_minishell *shell)
 	char		*line;
 	char		*cmd_line;
 
-	line = NULL;
-	cmd_line = shell->cmd_line;
-	if (cmd_line[0] == '\0')
-		return ;
-	cmd = ft_take_cmd(&cmd, line, cmd_line);
-	cmd = ft_sust(&cmd, shell->env);
-	cmd = ft_join(&cmd);
-	cmd = ft_inout(&cmd);
-	///ft_p_list(cmd);
-	ft_system(cmd, shell);
+	if (!ft_strncmp(shell->cmd_line, "exit", 4))
+		ft_exit_code(shell);
+	else if (!ft_strncmp(shell->cmd_line, "minishell", ft_strlen(shell->cmd_line)))
+		ft_shell_up(shell);
+	else
+	{
+		line = NULL;
+		cmd_line = shell->cmd_line;
+		if (cmd_line[0] == '\0')
+			return ;
+		signal(SIGQUIT, ft_quit);
+		cmd = ft_take_cmd(&cmd, line, cmd_line);
+		cmd = ft_sust(&cmd, shell->env);
+		cmd = ft_join(&cmd);
+		cmd = ft_inout(&cmd);
+		///ft_p_list(cmd);
+		ft_system(cmd, shell);
+	}
 }

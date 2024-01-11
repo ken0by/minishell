@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:58:21 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/10 16:55:10 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:37:04 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	ft_per(char *var, char *s)
 	//exit (127);
 	code_error = 127;
 	perror(s);
+	exit (127);
 }
 
 void	ft_error(char *str)

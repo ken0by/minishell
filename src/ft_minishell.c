@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:31:09 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/10 17:33:26 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:21:10 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 static void	ft_init_var(t_minishell *shell, char **env)
 {
+	shell->shlvl = 1;
+	shell->infile = 0;
+	shell->outfile = 0;
 	shell->cmd_line = NULL;
 	shell->path = ft_env(env, "PATH=");
 	shell->pwd = ft_env(env, "PWD=");
@@ -35,13 +38,11 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		if (!code_error)
-			shell.cmd_line = readline(GREEN"Minishell: "RESET);
+			shell.cmd_line = readline(GREEN"Minishell  🤯 $ "RESET);
 		else
-			shell.cmd_line = readline(RED"Minishell: "RESET);
+			shell.cmd_line = readline(RED"Minishell  🤯 $ "RESET);
 		if (!shell.cmd_line)
 			ft_error_cmd();
-		if (!ft_strncmp(shell.cmd_line, "exit", 4))
-			ft_exit_code(shell.cmd_line);
 		shell.cmd_line[ft_strlen(shell.cmd_line)] = '\0';
 		add_history(shell.cmd_line);
 		ft_check_line(&shell);

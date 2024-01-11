@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:44:31 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/10 18:13:29 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:25:56 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@ static void	ft_err(char *av)
 	exit (EXIT_FAILURE);
 }
 
-static void	ft_red(t_command *cmd, t_minishell *shell)
+static void	ft_red(t_command *cmd)
 {
-	shell->oldpwd = shell->oldpwd;
 	cmd->inf = open(cmd->infile, O_RDONLY);
 	if (cmd->inf < 0)
 		ft_err(cmd->infile);
@@ -58,23 +57,20 @@ static void	ft_one(t_command *cmd, t_minishell *shell)
 	pid_t	pd;
 
 	status = 0;
-	pd = fork();
+	pd = fork();		//los builtins tinen que ir fuera del fork pq el cd no funciona si hay un exit al final
 	if (pd < 0)
 		ft_error("fork() error");
 	if (pd == 0)
 	{
-		if (ft_select(cmd, shell))
-		{
-			command = ft_split(cmd->command, ' ');
-			path = ft_cmdpath(command[0], shell->env);
-			if (!path)
-				ft_put_msg(command[0], "command not found\n");
-			if (cmd->infile || cmd->outfile)
-				ft_red(cmd, shell);
-			if (execve(path, command, shell->env) < 0)
-				ft_per(command[0], "");
-			//exit (0);
-		}
+		command = ft_split(cmd->command, ' ');
+		path = ft_cmdpath(command[0], shell->env);
+		if (!path)
+			ft_put_msg(command[0], "command not found\n");
+		if (cmd->infile || cmd->outfile)
+			ft_red(cmd);
+		if (execve(path, command, shell->env) < 0)
+			ft_per(command[0], "");
+		//exit (0);
 	}
 	else
 		waitpid(pd, &status, 0);
@@ -85,7 +81,8 @@ void	ft_system(t_command *cmd, t_minishell *shell)
 {
 	if (ft_lstsize_shell(cmd) == 1)
 	{
-		ft_one(cmd, shell);
+		if (ft_select(cmd, shell))
+			ft_one(cmd, shell);
 	}
 	else if (ft_lstsize_shell(cmd) > 1)
 		ft_printf("son dos comando");

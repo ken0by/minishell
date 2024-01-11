@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/10 17:55:37 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:33:21 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,6 @@ typedef struct s_signal
 /* FT_ECHO.C */
 void		ft_echo(t_command *cmd);
 
-/* FT_ECUTIL.C */
-char		*ft_var(char *var);
-char		*ft_exp(char *var, t_minishell *shell);
-void		ft_exp_code(t_pipe *pipe, t_minishell *shell);
-
 /* FT_PRINT.C */
 void		ft_print_pwd(t_minishell *shell);
 void		ft_print_env(t_minishell *shell);
@@ -116,7 +111,7 @@ void		ft_exist(t_command *cmd, t_minishell *shell);
 
 /* FT_EXUTIL.C */
 int			ft_check_var(char *str, char **env);
-char		*ft_get_var(t_command *cmd);
+char		*ft_get_var(char *cmd);
 int			ft_strcmp(char *s1, char *s2);
 
 /* FT_EXUTIL2.C */
@@ -133,6 +128,7 @@ void		ft_cd(t_command *cmd, t_minishell *shell);
 /* ----- PARSE ----- */
 /* FT_PARSE.C */
 void		ft_check_line(t_minishell *shell);
+void		ft_shell_down(t_minishell *shell);
 
 /* FT_PARSE2.C */
 t_command	*ft_take_cmd(t_command **cmd, char *line, char *cmd_line);
@@ -192,12 +188,15 @@ t_pipe		*ft_plst_first(char *str);
 /* FT_UTILS.C */
 char		*ft_env(char **env, char *c);
 char		**ft_cpy_env(char **env);
-void		ft_exit_code(char *str);
+void		ft_exit_code(t_minishell *shell);
 
 /* FT_UTILS_2.C */
 int			ft_strchr_out(const char *s, int c);
 int			ft_strchr_in(const char *s, int c);
 void		ft_lstdel(t_pipe *pipe, t_pipe *del);
+
+/* FT_UTILS3.C */
+char		*ft_cp_nb(char *str, int j);
 
 /* FT_ERROR.C */
 void		ft_put_msg(char *var, char *s);

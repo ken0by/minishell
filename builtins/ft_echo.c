@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:37:07 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/10 11:47:02 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:40:49 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_echo(t_command *cmd)
 		i = 8;
 		ft_printf("%s", &cmd->command[i]);
 		ft_printf("%%");
-		ft_printf("\n");
+		ft_printf("\n");		//estas dos lineas no hacen falta
 	}
 	else
 	{

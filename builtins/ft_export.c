@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 17:12:21 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/10 18:23:58 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:36:52 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,11 @@ void	ft_exist(t_command *cmd, t_minishell *shell)
 
 	command = ft_split(cmd->command, ' ');
 	if (!command[1] || !ft_varct(command[1]))		//hay q ver si hay q guardar solo una letra cuando la pasan sin =
+	{
 		ft_alfa(shell->env);
-	var = ft_get_var(cmd);		// esto no hace falta al hacer el split el command[1] es la variable
+		return ;
+	}
+	var = ft_get_var(command[1]);		// esto no hace falta al hacer el split el command[1] es la variable
 	ct = ft_get_content(command[1], var);
 	// var = ft_split(cmd->argv[1], '=');		// Da error a veces con el contenido
 	if (!ft_check_var(var, shell->env))

@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 09:50:47 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/10 16:58:47 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:26:57 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_error_car(void)
 
 void	ft_error_cmd(void)
 {
-	ft_printf("Error readline\n");
+	ft_printf("exit\n");
 	exit (0);
 }
 

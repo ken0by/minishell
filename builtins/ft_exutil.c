@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:37:25 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/10 17:55:18 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:34:49 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,19 @@ static int	ft_find(char *str, char c)
 	return (i);
 }
 
-char	*ft_get_var(t_command *cmd)		// Al pasar la estructura va mejor q pansando como un char, pero sigue mal a veces
+char	*ft_get_var(char *cmd)		// Al pasar la estructura va mejor q pansando como un char, pero sigue mal a veces
 {
 	char	*var;
 	int		i;
 
-	if (!cmd->next->command)
+	if (!cmd)
 		return (NULL);
-	if (!ft_contain(cmd->next->command, '='))
-		var = ft_strdup(cmd->next->command);
+	if (!ft_contain(cmd, '='))
+		var = ft_strdup(cmd);
 	else
 	{
-		i = ft_find(cmd->next->command, '=');
-		var = ft_substr(&cmd->next->command[0], 0, i);		// command[] se corrompe aqui ns xq
+		i = ft_find(cmd, '=');
+		var = ft_substr(cmd, 0, i);		// command[] se corrompe aqui ns xq
 	}
 	if (var != NULL && var[0] == '\0')
 	{

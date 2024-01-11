@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:37:03 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/10 11:32:14 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:11:23 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,27 @@ static void	ft_update(t_minishell *shell)
 	while (shell->env[++i])
 	{
 		if (!ft_strncmp(shell->env[i], "PWD=", 4))
+		{
+			free(shell->env[i]);
 			shell->env[i] = ft_strdup(pwd);
+		}
 		if (!ft_strncmp(shell->env[i], "OLDPWD=", 7))
+		{
+			free(shell->env[i]);
 			shell->env[i] = ft_strdup(oldpwd);
+		}
 	}
 	free(pwd);
 	free(oldpwd);
+}
+
+static void	ft_new_pwd(t_minishell *shell,char *oldpwd, char *new_pwd)
+{
+	free(shell->pwd);
+	free(shell->oldpwd);
+	shell->pwd = ft_strdup(new_pwd);
+	shell->oldpwd = ft_strdup(oldpwd);
+	ft_update(shell);
 }
 
 void	ft_cd(t_command *cmd, t_minishell *shell)
@@ -45,17 +60,14 @@ void	ft_cd(t_command *cmd, t_minishell *shell)
 			ft_per(comm[0], comm[1]);
 	}
 	else if (comm[1][0] == '-')
-		ft_per(comm[0], comm[1]);
+	{
+		if (chdir(shell->oldpwd) != 0)
+			ft_per(comm[0], comm[1]);
+	}
 	else if (chdir(comm[1]) != 0)
 		ft_per(comm[0], comm[1]);
 	oldpwd = ft_strdup(shell->pwd);
 	if (getcwd(new_pwd, sizeof(new_pwd) - 1))
-	{
-		free(shell->pwd);
-		free(shell->oldpwd);
-		shell->pwd = ft_strdup(new_pwd);
-		shell->oldpwd = ft_strdup(oldpwd);
-		ft_update(shell);
-	}
-	exit (0);
+		ft_new_pwd(shell, oldpwd, new_pwd);
+	//exit (0);		//no funciona el cd si se pone este exit, pero luego "peta" por el fork habria que sacar los builtins fura del fork
 }
