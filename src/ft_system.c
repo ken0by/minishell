@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:44:31 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/11 17:54:29 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/15 17:47:50 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,5 @@ void	ft_system(t_command *cmd, t_minishell *shell)
 			ft_one(cmd, shell);
 	}
 	else if (ft_lstsize_shell(cmd) > 1)
-		ft_printf("son dos comando");
+		ft_ord(cmd, shell);
 }

@@ -6,7 +6,7 @@
 #    By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/29 10:00:52 by dmonjas-          #+#    #+#              #
-#    Updated: 2024/01/11 13:12:29 by rofuente         ###   ########.fr        #
+#    Updated: 2024/01/15 19:24:23 by rofuente         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ NAME	=	minishell
 
 BUILT	=	ft_cd.c ft_echo.c ft_export.c ft_exutil.c ft_exutil2.c ft_print.c ft_unset.c
 PARSE	=	ft_parse.c ft_parse2.c ft_parse3.c ft_parse4.c ft_parse5.c ft_parse_error.c
-PIPE	=	ft_pipe.c ft_pipe_utils.c ft_pipe_utils2.c ft_pipe_utils3.c ft_pipe_join.c ft_plst.c
+PIPE	=	ft_pipe.c ft_pipe_utils.c ft_pipe_utils2.c
 SRC	=	ft_minishell.c ft_utils.c ft_error.c ft_lst.c ft_utils2.c ft_signal.c ft_system.c ft_path.c ft_utils3.c
 
 SRC_DIR	=	./src/

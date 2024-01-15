@@ -6,74 +6,76 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 17:05:35 by rodro             #+#    #+#             */
-/*   Updated: 2024/01/10 17:30:14 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/15 19:26:51 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	ft_redir(t_pipe *pipe, t_minishell *shell)
+static int	ft_builtin(char *argv)
 {
-	if (pipe->argv[0] == '>' && pipe->argv[1] == '>')
-		shell->outfile = ft_file(pipe->next, 3);
-	else if (pipe->argv[0] == '<' && pipe->argv[1] == '<')
-		shell->infile = ft_file(pipe->next, 2);
-	else if (pipe->argv[0] == '>')
-		 shell->outfile = ft_file(pipe->next, 1);
-	else if (pipe->argv[0] == '<')
-		shell->infile = ft_file(pipe->next, 0);
-	pipe->redir = 1;
-}
-
-int	ft_isbuilt(char *cmd)
-{
-	if  (!ft_strncmp(cmd, "echo", ft_strlen(cmd))
-		&& ft_strlen(cmd) > 0)
+	if (!ft_strncmp(argv, "echo", ft_strlen(argv)))
 		return (1);
-	if  (!ft_strncmp(cmd, "cd", ft_strlen(cmd))
-		&& ft_strlen(cmd) > 0)
+	if (!ft_strncmp(argv, "cd", ft_strlen(argv)))
 		return (1);
-	if  (!ft_strncmp(cmd, "pwd", ft_strlen(cmd))
-		&& ft_strlen(cmd) > 0)
+	if (!ft_strncmp(argv, "export", ft_strlen(argv)))
 		return (1);
-	if  (!ft_strncmp(cmd, "export", ft_strlen(cmd))
-		&& ft_strlen(cmd) > 0)
-		return (1);
-	if  (!ft_strncmp(cmd, "unset", ft_strlen(cmd))
-		&& ft_strlen(cmd) > 0)
-		return (1);
-	if  (!ft_strncmp(cmd, "env", ft_strlen(cmd))
-		&& ft_strlen(cmd) > 0)
+	if (!ft_strncmp(argv, "unset", ft_strlen(argv)))
 		return (1);
 	return (0);
 }
 
-int	ft_check_built(char *cmd)
+/* Da un error al ejecutar cat (cat : Bad address). Creo q es x quitar el infile,
+q deberia dejarlo */
+/* Hay q hacer un split al cmd para q encuentre el path q sino da error */
+int	ft_pipe_system(char **cmd, t_minishell *shell)
 {
-	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
-		return (1);
-	if  (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
-		return (1);
-	if  (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
-		return (1);
-	if  (!ft_strncmp(cmd, "export ", ft_strlen(cmd)))
-		return (1);
-	if  (!ft_strncmp(cmd, "unset ", ft_strlen(cmd)))
-		return (1);
-	if  (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
-		return (1);
-	return (0);
-}
+	pid_t	pd;
+	char	*path;
+	int		status;
 
-void	ft_free_pipe(t_pipe **pipe)
-{
-	t_pipe	*aux;
-
-	while (*pipe)
+	pd = fork();
+	if (pd < 0)
+		ft_error("fork() error");
+	if (pd == 0)
 	{
-		aux = (*pipe)->next;
-		free(*pipe);
-		*pipe = aux;
+		path = ft_cmdpath(cmd[0], shell->env);
+		if (!path)
+		{
+			ft_put_msg(cmd[0], "command not found\n");
+			code_error = 127;
+			return (1);
+		}
+		else if (execve(path, cmd, shell->env) < 0)
+			ft_per(cmd[0], "");
 	}
-	pipe = NULL;
+	else
+		waitpid(-1, &status, 0);
+	code_error = 0;
+	return (0);
+}
+
+int	ft_pipe_built(char *str, char *str1, t_minishell *shell)
+{
+	if (ft_builtin(str))
+	{
+		return (1);
+	}
+	(void)str;
+	(void)str1;
+	(void)shell;
+	return (0);
+}
+
+void	ft_free_cmd(t_command **cmd)
+{
+	t_command	*aux;
+
+	while (*cmd)
+	{
+		aux = (*cmd)->next;
+		free (*cmd);
+		*cmd = aux;
+	}
+	cmd = NULL;
 }

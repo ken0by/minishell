@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 08:24:23 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/10 17:10:06 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/15 19:22:15 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	ft_strchr_out(const char *s, int c)
 	{
 		if (s[i] == (char)c)
 		{
+			if (s[i + 1] == (char)c)
+				i++;
 			i++;
 			while (s[i] == ' ')
 				i++;
@@ -57,22 +59,4 @@ int	ft_strchr_out(const char *s, int c)
 		i++;
 	}
 	return (0);
-}
-
-void	ft_lstdel(t_pipe *pipe, t_pipe *del)
-{
-	t_pipe	*aux;
-	t_pipe	*aux1;
-
-	aux = pipe;
-	while (aux)
-	{
-		if (aux->next->argv == del->argv)
-		{
-			aux1 = aux->next;
-			aux->next = aux1->next;
-			free(aux1->argv);
-		}
-		aux = aux->next;
-	}
 }

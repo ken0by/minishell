@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:59:53 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/11 18:11:00 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/15 16:32:16 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static int	ft_code_nb(char *str)
 		}
 		return (ft_flag(flag, ft_cp_nb(str, j)));
 	}
+	ft_printf("exit\n");
 	return (0);
 }
 
@@ -57,8 +58,7 @@ void	ft_exit_code(t_minishell *shell)
 	if (shell->shlvl == 1)
 		exit (ft_code_nb(shell->cmd_line));
 	else
-	{
-		code_error = ft_code_nb(shell->cmd_line);
+	{	code_error = ft_code_nb(shell->cmd_line);
 		ft_shell_down(shell);
 	}
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lst2.c                                          :+:      :+:    :+:   */
+/*   ft_utils3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 12:11:48 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/11 12:21:53 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:54:14 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,16 @@ char	*ft_cp_nb(char *str, int j)
 		j++;
 	}
 	return (nb);
+}
+
+void	ft_err_msg(char *s)
+{
+	ft_printf("%s\n", s);
+	code_error = 1;
+}
+
+void	ft_per_nb(char *s, int nb)
+{
+	perror(s);
+	code_error = nb;
 }
