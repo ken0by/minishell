@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 08:24:23 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/15 19:22:15 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/16 16:43:17 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,32 @@ int	ft_strchr_out(const char *s, int c)
 		i++;
 	}
 	return (0);
+}
+
+char	*ft_cp_nb(char *str, int j)
+{
+	int		i;
+	char	*nb;
+
+	nb = malloc(sizeof(char) * j);
+	i = 4;
+	j = 0;
+	while (str[++i])
+	{
+		nb[j] = str[i];
+		j++;
+	}
+	return (nb);
+}
+
+void	ft_err_msg(char *s)
+{
+	ft_printf("%s\n", s);
+	code_error = 1;
+}
+
+void	ft_per_nb(char *s, int nb)
+{
+	perror(s);
+	code_error = nb;
 }

@@ -6,27 +6,30 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 16:26:57 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/11 16:19:24 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/16 17:55:11 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_print_pwd(t_minishell *shell)
+void	ft_print_pwd(t_minishell *shell, int fd)
 {
-	ft_printf("%s\n", shell->pwd);
+	ft_putstr_fd(shell->pwd, fd);
 }
 
-void	ft_print_env(t_minishell *shell)
+void	ft_print_env(t_minishell *shell, int fd)
 {
 	int	i;
 
 	i = -1;
 	while (shell->env[++i])
-		ft_printf("%s\n", shell->env[i]);
+	{
+		ft_putstr_fd(shell->env[i], fd);
+		ft_putstr_fd("\n", fd);
+	}
 }
 
-void	ft_print_ordenv(char **env)
+void	ft_print_ordenv(char **env, int fd)
 {
 	int	i;
 	int	j;
@@ -34,18 +37,18 @@ void	ft_print_ordenv(char **env)
 	i = -1;
 	while (env[++i])
 	{
-		printf("declare -x ");
+		ft_putstr_fd("declare -x ", fd);
 		j = -1;
 		while (env[i][++j])
 		{
 			if (env[i][j] == '=')
 			{
-				printf("%c", env[i][j]);
-				printf("\"");
+				ft_putchar_fd(env[i][j], fd);
+				ft_putstr_fd("\"", fd);
 			}
 			else
-				printf("%c", env[i][j]);
+				ft_putchar_fd(env[i][j], fd);
 		}
-		printf("\"\n");
+		ft_putstr_fd("\"\n", fd);
 	}
 }

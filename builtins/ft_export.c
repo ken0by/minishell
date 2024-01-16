@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 17:12:21 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/11 16:26:00 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/16 17:50:09 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,16 +88,16 @@ static void	ft_change(t_minishell *shell, char *str, char *var)
 
 /* Esta funcion comprueba si la variable existe, si existe cambia su contenido y sino la crea */
 /* Ns si hay q gestionar si te pasan una variable sin = */
-void	ft_exist(t_command *cmd, t_minishell *shell)
+void	ft_exist(char *cmd, t_minishell *shell, int fd)
 {
 	char	*var;
 	char	*ct;
 	char	**command;
 
-	command = ft_split(cmd->command, ' ');
-	if (!command[1])		//si solo pasan el comando export tiene que ordenar en orden alfabateico el env, las nuevas creadas al final a no ser que sea mayuscula la primera letra del nombre
+	command = ft_split(cmd, ' ');
+	if (!command[1])
 	{
-		ft_alfa(shell->env);
+		ft_alfa(shell->env, fd);
 		return ;
 	}
 	var = ft_get_var(command[1]);		// esto no hace falta al hacer el split el command[1] es la variable

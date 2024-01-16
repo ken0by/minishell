@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:37:03 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/11 17:42:39 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/16 17:48:02 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ static void	ft_new_pwd(t_minishell *shell,char *oldpwd, char *new_pwd)
 	ft_update(shell);
 }
 
-void	ft_cd(t_command *cmd, t_minishell *shell)
+void	ft_cd(char *cmd, t_minishell *shell)
 {
 	char	new_pwd[1024];
 	char	*oldpwd;
 	char	**comm;
 
-	comm = ft_split(cmd->command, ' ');
+	comm = ft_split(cmd, ' ');
 	if (!comm[1] || (comm[1][0] == '~' && ft_strlen(comm[1]) == 1))
 	{
 		if (chdir(shell->root) != 0)

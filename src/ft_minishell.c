@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:31:09 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/11 17:55:44 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/16 15:07:37 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ static void	ft_init_var(t_minishell *shell, char **env)
 int	main(int ac, char **av, char **env)
 {
 	t_minishell	shell;
+	t_command	*cmd;
 
 	if (ac != 1 || av[1])
 		ft_error_arguments();
 	ft_init_var(&shell, env);
 	ft_signal_dis();
+	cmd = NULL;
 	while (1)
 	{
 		if (!code_error)
@@ -45,7 +47,7 @@ int	main(int ac, char **av, char **env)
 			ft_error_cmd();
 		shell.cmd_line[ft_strlen(shell.cmd_line)] = '\0';
 		add_history(shell.cmd_line);
-		ft_check_line(&shell);
+		ft_check_line(cmd, &shell);
 		free(shell.cmd_line);
 	}
 	return (0);

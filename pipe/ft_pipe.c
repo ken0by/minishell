@@ -6,56 +6,13 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:24:27 by rodro             #+#    #+#             */
-/*   Updated: 2024/01/15 19:24:01 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/16 19:37:39 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-/* Esta funcion ve si es built-in o un ejecutable. Hay q ver como hacer q tenga un archivo outfile temporal
-xa cada comando, xq xa el primero seria outfile, pero xa el siguiente infile y asi sucesivamente hasta el ultimo
-q si hay outfile lo envia ahi y sino a la salida estandart (q eso ya esta solo falta el tmp) */
-static void	ft_order(t_command *cmd, t_minishell *shell)
-{
-	t_command	*aux;
-	int			i;
-
-	dup2(shell->infile, STDOUT_FILENO);
-	close (shell->infile);
-	aux = cmd;
-	while (aux->next)
-	{
-		if (ft_strncmp(aux->built, "exec", ft_strlen(aux->built)))
-		{
-			i = -1;
-			while (aux->command[++i])
-			{
-				write(shell->outfile, &aux->command[i], ft_strlen(&aux->command[i]));
-				write(shell->outfile, " ", 1);
-			}
-		}
-		else
-		{
-			i = -1;
-			while (aux->command[++i])
-			{
-				write(shell->outfile, &aux->command[i], ft_strlen(&aux->command[i]));
-				write(shell->outfile, " ", 1);
-			}
-			if (ft_pipe_system(&aux->command, shell))
-				break ;
-		}
-		write(shell->outfile, "\n", 1);
-		aux = aux->next;
-	}
-	dup2(shell->outfile, STDOUT_FILENO);
-	close (shell->outfile);
-	//ejecutar ultimo comando aqui
-	dup2(STDIN_FILENO, STDOUT_FILENO);
-	ft_free_cmd(&cmd);
-}
-
-void	ft_ord(t_command *cmd, t_minishell *shell)
+static void	ft_check_inout(t_command *cmd, t_minishell *shell)
 {
 	t_command	*aux;
 
@@ -68,5 +25,68 @@ void	ft_ord(t_command *cmd, t_minishell *shell)
 			shell->outfile = aux->out;
 		aux = aux->next;
 	}
-	ft_order(cmd, shell);
+}
+
+int	ft_check_in(t_minishell *shell)
+{
+	if (shell->infile)
+		return (shell->infile);
+	return (STDIN_FILENO);
+}
+
+int	ft_check_out(t_minishell *shell)
+{
+	if (shell->outfile)
+		return (shell->outfile);
+	return (STDOUT_FILENO);
+}
+
+static void	ft_order(char *cmd, t_minishell *shell, int fdin, int fdout)
+{
+	char	**command;
+
+	command = ft_split(cmd, ' ');
+	if  (!ft_strncmp(command[0], "echo", ft_strlen(command[0])))
+		ft_echo(cmd, fdout);
+	else if  (!ft_strncmp(command[0], "cd", ft_strlen(command[0])))
+		ft_cd(cmd, shell);
+	else if  (!ft_strncmp(command[0], "pwd", ft_strlen(command[0])))
+		ft_print_pwd(shell, fdout);
+	else if  (!ft_strncmp(command[0], "export", ft_strlen(command[0])))
+		ft_exist(cmd, shell, fdout);
+	else if  (!ft_strncmp(command[0], "unset", ft_strlen(command[0])))
+		ft_unset(cmd, shell);
+	else if  (!ft_strncmp(command[0], "env", ft_strlen(command[0])))
+		ft_print_env(shell, fdout);
+	else
+		ft_exec(command, shell, fdin, fdout);
+	ft_free_mtx(command);
+}
+
+void	ft_ord(t_command *cmd, t_minishell *shell)
+{
+	t_command	*aux;
+	int			fd[2];
+	int			fdin;
+	int			fdout;
+
+	ft_check_inout(cmd, shell);
+	fdin = ft_check_in(shell);
+	fdout = ft_check_out(shell);
+	aux = cmd;
+	while (aux)
+	{
+		if (pipe(fd) == -1)
+			exit (1);
+		if (!aux->next)
+			ft_order(aux->command, shell, fdin, fdout);
+		else
+			ft_order(aux->command, shell, fdin, fd[1]);
+		close (fd[1]);
+		fdin = fd[0];
+		aux = aux->next;
+	}
+	close(fdin);
+	close(fdout);
+	ft_free_cmd(&cmd);
 }

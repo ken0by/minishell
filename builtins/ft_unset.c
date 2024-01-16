@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 17:38:16 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/11 17:33:51 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/16 17:50:39 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,14 @@ static char	**ft_malloc(t_minishell *shell, char *var)
 	return (aux);
 }
 
-void	ft_unset(t_command *cmd, t_minishell *shell)
+void	ft_unset(char *cmd, t_minishell *shell)
 {
 	int		i;
 	int		j;
 	char	**aux;
 	char	**tmp;
 
-	tmp = ft_split(cmd->command, ' ');
+	tmp = ft_split(cmd, ' ');
 	if (ft_no_var(tmp[1]))
 		return ;
 	aux = ft_malloc(shell, tmp[1]);

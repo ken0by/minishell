@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:44:48 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/10 18:24:31 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/16 17:20:17 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	ft_count(char **env)
 	return (i);
 }
 
-void	ft_alfa(char **env)
+void	ft_alfa(char **env, int fd)
 {
 	int		i;
 	int		j;
@@ -97,5 +97,5 @@ void	ft_alfa(char **env)
 		}
 		i++;
 	}
-	ft_print_ordenv(env);
+	ft_print_ordenv(env, fd);
 }

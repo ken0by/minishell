@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/15 19:21:49 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/16 19:38:00 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,15 @@ typedef struct s_signal
 
 /* ----- BUILTINS ----- */
 /* FT_ECHO.C */
-void		ft_echo(t_command *cmd);
+void		ft_echo(char *cmd, int fd);
 
 /* FT_PRINT.C */
-void		ft_print_pwd(t_minishell *shell);
-void		ft_print_env(t_minishell *shell);
-void		ft_print_ordenv(char **env);
+void		ft_print_pwd(t_minishell *shell, int fd);
+void		ft_print_env(t_minishell *shell, int fd);
+void		ft_print_ordenv(char **env, int fd);
 
 /* FT_EXPORT.C */
-void		ft_exist(t_command *cmd, t_minishell *shell);
+void		ft_exist(char *cmd, t_minishell *shell, int fd);
 
 /* FT_EXUTIL.C */
 int			ft_check_var(char *str, char **env);
@@ -95,19 +95,20 @@ int			ft_strcmp(char *s1, char *s2);
 /* FT_EXUTIL2.C */
 char		*ft_get_content(char *str, char *var);
 int			ft_varct(char *str);
-void		ft_alfa(char **env);
+void		ft_alfa(char **env, int fd);
 
 /* FT_UNSET.C */
-void		ft_unset(t_command *cmd, t_minishell *shell);
+void		ft_unset(char *cmd, t_minishell *shell);
 
 /* FT_CD.C */
-void		ft_cd(t_command *cmd, t_minishell *shell);
+void		ft_cd(char *cmd, t_minishell *shell);
 
 /* ----- PARSE ----- */
 /* FT_PARSE.C */
-void		ft_check_line(t_minishell *shell);
+void		ft_check_line(t_command *cmd, t_minishell *shell);
 void		ft_shell_up(t_minishell *shell);
 void		ft_shell_down(t_minishell *shell);
+char		*ft_spr(char *line);
 
 /* FT_PARSE2.C */
 t_command	*ft_take_cmd(t_command **cmd, char *line, char *cmd_line);
@@ -121,7 +122,7 @@ int			ft_inf(char *infile, int x);
 
 /* FT_PARSE5.C */
 char		*ft_built(t_command *cmd);
-t_command	*ft_inout(t_command **cmd);
+t_command	*ft_inout(t_command **cmd, t_minishell *shell);
 
 /* FT_PARSE_ERROR.C */
 void		ft_error_car(void);
@@ -133,30 +134,29 @@ void		ft_error_fd(char *var, int fd);
 /* ----- PIPE ----- */
 /* FT_PIPE.C */
 void		ft_ord(t_command *cmd, t_minishell *shell);
+int			ft_check_in(t_minishell *shell);
+int			ft_check_out(t_minishell *shell);
 
 /* FT_PIPE_UTILS.C */
-int			ft_pipe_system(char **cmd, t_minishell *shell);
-int			ft_pipe_built(char *str, char *str1, t_minishell *shell);
+void		ft_exec(char **cmd, t_minishell *shell, int fdin, int fdout);
 void		ft_free_cmd(t_command **cmd);
-
-/* FT_PIPE_UTILS2.C */
-
-/* FT_PIPE_UTILS3.C */
+void		ft_peror(char *var, char *s);
 
 /* ----- SRC ----- */
 /* FT_UTILS.C */
 char		*ft_env(char **env, char *c);
 char		**ft_cpy_env(char **env);
-void		ft_exit_code(t_minishell *shell);
+int			ft_skip_space(char *cmd, int i);
 
 /* FT_UTILS_2.C */
 int			ft_strchr_out(const char *s, int c);
 int			ft_strchr_in(const char *s, int c);
-
-/* FT_UTILS3.C */
 char		*ft_cp_nb(char *str, int j);
 void		ft_err_msg(char *s);
 void		ft_per_nb(char *s, int nb);
+
+/* FT_EXIT.C */
+void		ft_exit_code(t_minishell *shell);
 
 /* FT_ERROR.C */
 void		ft_put_msg(char *var, char *s);
@@ -179,8 +179,9 @@ void		ft_init_signal(void);
 void		ft_signal_dis(void);
 
 /* FT_SYSTEM.C */
-void		ft_system(t_command *cmd, t_minishell *shell);
+void		ft_system(t_command *cmd, t_minishell *shell, int fdin, int fdout);
 char		*ft_cmdpath(char *cmd, char **env);
+int			ft_cw(int fdout, pid_t pd, int status);
 
 /* FT_PATH.C */
 char		*ft_cmdpath(char *cmd, char **env);
