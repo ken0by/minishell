@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:59:53 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/16 18:04:26 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/17 12:57:34 by dmonjas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,19 @@ char	*ft_env(char **env, char *c)
 	if (!str)
 		ft_error_path(1);
 	return (str);
+}
+
+int	ft_space(char *line, int i)
+{
+	int	j;
+
+	j = 0;
+	while (line[i] != ' ' && line[i] != '>')
+	{
+		i++;
+		j++;
+	}
+	return (j);
 }
 
 char	**ft_cpy_env(char **env)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_system.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:44:31 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/16 19:20:33 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/17 13:07:50 by dmonjas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,7 @@ static void	ft_one(char **cmd, t_minishell *shell, int fdin, int fdout)
 	{
 		path = ft_cmdpath(cmd[0], shell->env);
 		if (!path)
-		{
 			ft_put_msg(cmd[0], "command not found\n");
-			exit (127);
-		}
 		close(fdin);
 		dup2(fdout, STDOUT_FILENO);
 		if (execve(path, cmd, shell->env) == -1)

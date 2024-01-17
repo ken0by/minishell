@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:28:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/16 18:21:22 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/17 12:58:44 by dmonjas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+/* 
+static void ft_p_list(t_command *cmd)
+{
+	int i = 1;
+
+	while (cmd)
+	{
+		ft_printf("Lista numero: %d\n", i);
+		ft_printf("%s\n", cmd->command);
+		if (cmd->infile != NULL)
+			ft_printf("infile: %s\n", cmd->infile);
+		if (cmd->outfile != NULL)
+			ft_printf("outfile: %s\n", cmd->outfile);
+		ft_printf("%s\n", cmd->built);
+		ft_printf("comillas simples: %d\n", cmd->dollar);
+		cmd = cmd->next;
+		i++;
+	}
+} */
 
 void	ft_shell_up(t_minishell *shell)
 {
@@ -113,7 +132,7 @@ void	ft_check_line(t_command *cmd, t_minishell *shell)
 	cmd = ft_sust(&cmd, shell->env);
 	cmd = ft_join(&cmd);
 	cmd = ft_inout(&cmd, shell);
-	///ft_p_list(cmd);
+	//ft_p_list(cmd);
 	ft_system(cmd, shell, ft_check_in(shell), ft_check_out(shell));
 }
 

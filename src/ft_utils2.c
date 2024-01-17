@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 08:24:23 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/16 16:43:17 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/17 12:34:47 by dmonjas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_strchr_in(const char *s, int c)
 	j = ft_strlen(s);
 	i = 0;
 	if (!s)
-		return (0);
+		return (-1);
 	while (i <= j)
 	{
 		if (s[i] == (char)c)
@@ -33,7 +33,7 @@ int	ft_strchr_in(const char *s, int c)
 		}
 		i++;
 	}
-	return (0);
+	return (-1);
 }
 
 int	ft_strchr_out(const char *s, int c)

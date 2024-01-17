@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/16 19:38:00 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/17 12:58:02 by dmonjas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ void		ft_peror(char *var, char *s);
 char		*ft_env(char **env, char *c);
 char		**ft_cpy_env(char **env);
 int			ft_skip_space(char *cmd, int i);
+int			ft_space(char *line, int i);
 
 /* FT_UTILS_2.C */
 int			ft_strchr_out(const char *s, int c);
