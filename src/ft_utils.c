@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:59:53 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/17 12:19:11 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/17 19:10:40 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,17 @@ char	**ft_cpy_env(char **env)
 	}
 	tmp[i] = NULL;
 	return (tmp);
+}
+
+int	ft_space(char *line, int i)
+{
+	int	j;
+
+	j = 0;
+	while (line[i] != ' ' && line[i] != '>' && line[i])
+	{
+		i++;
+		j++;
+	}
+	return (j);
 }

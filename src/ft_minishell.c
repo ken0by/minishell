@@ -6,23 +6,40 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:31:09 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/16 15:07:37 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/17 19:15:43 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+static void	ft_cpy_no_env(t_minishell *shell)
+{
+	shell->env = (char **)malloc(sizeof(char *) * (3));
+	shell->env[0] = ft_strjoin("PWD=", getcwd(shell->pwd, 100));
+	shell->env[1] = ft_strdup("SHLVL=1");
+	shell->env[2] = ft_strdup("_=");
+}
 
 static void	ft_init_var(t_minishell *shell, char **env)
 {
 	shell->shlvl = 1;
 	shell->infile = 0;
 	shell->outfile = 0;
+	shell->heredoc = 0;
 	shell->cmd_line = NULL;
-	shell->path = ft_env(env, "PATH=");
-	shell->pwd = ft_env(env, "PWD=");
-	shell->oldpwd = ft_env(env, "OLDPWD=");
-	shell->root = ft_env(env, "HOME=");
-	shell->env = ft_cpy_env(env);
+	if (!env[0])
+	{
+		ft_cpy_no_env(shell);
+		shell->pwd = ft_env(shell->env, "PWD=");
+	}
+	else
+	{
+		shell->env = ft_cpy_env(env);
+		shell->path = ft_env(env, "PATH=");
+		shell->pwd = ft_env(env, "PWD=");
+		shell->oldpwd = ft_env(env, "OLDPWD=");
+		shell->root = ft_env(env, "HOME=");
+	}
 	code_error = 0;
 	ft_init_signal();
 }
@@ -45,6 +62,7 @@ int	main(int ac, char **av, char **env)
 			shell.cmd_line = readline(RED"Minishell  🤯 $ "RESET);
 		if (!shell.cmd_line)
 			ft_error_cmd();
+		code_error = 0;
 		shell.cmd_line[ft_strlen(shell.cmd_line)] = '\0';
 		add_history(shell.cmd_line);
 		ft_check_line(cmd, &shell);

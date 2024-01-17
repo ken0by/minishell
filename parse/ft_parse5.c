@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:18:39 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/16 17:25:20 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/17 19:08:23 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,33 @@ char	*ft_built(t_command *cmd)
 		return (ft_spr(ft_strnstr(cmd->command, "env", ft_strlen(cmd->command))));
 	return ("exec");
 }
-static char	*ft_take_com(char *command, int size_inf, int size_out)
+static char	*ft_take_com(char *command)
 {
-	if (size_inf != 0)
-		size_inf += 1;
-	if (size_out == -1)
-		size_out = ft_strlen(command);
-	while (command[size_inf] == ' ' || command[size_inf] == '<')
-		size_inf++;
-	while (command[size_out] == ' ' || command[size_out] == '>')
-		size_out--;
-	command = ft_substr(command, size_inf, (size_out - size_inf) + 1);
-	return (command);
+	int		i;
+	int		j;
+	char	*tmp;
+
+	tmp = ft_take_size(command);
+	i = -1;
+	j = 0;
+	while (command[++i])
+	{
+		if (command[i] == '>')
+			break ;
+		if (command[i] == '<')
+		{
+			i++;
+			while (command[i] == ' ' && command[i + 1] == ' ')
+				i++;
+		}
+		else
+		{
+			tmp[j] = command[i];
+			j++;
+		}
+	}
+	free (command);
+	return (tmp);
 }
 
 static int	ft_open(char *outfile, int x)
@@ -56,17 +71,17 @@ static int	ft_open(char *outfile, int x)
 	if (x == 1)
 	{
 		fd = open(outfile, O_CREAT | O_TRUNC | O_WRONLY, 0644);
-		if (access(outfile, W_OK | R_OK) < 0)
-			ft_err_msg("Error opening outfile\n");
+		if (fd > 0 && access(outfile, W_OK | R_OK) < 0)
+			ft_err_msg("Error opening outfile");
 	}
 	if (x == 2)
 	{
 		fd = open(outfile, O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR);
-		if (access(outfile, W_OK | R_OK) < 0)
-			ft_err_msg("Error opening append\n");
+		if (fd > 0 && access(outfile, W_OK | R_OK) < 0)
+			ft_err_msg("Error opening append");
 	}
 	if (fd < 0)
-		ft_err_msg("Error opening file\n");
+		ft_err_msg("No such file or directory");
 	return (fd);
 }
 
@@ -96,7 +111,7 @@ t_command	*ft_inout(t_command **cmd, t_minishell *shell)
 		{
 			aux->inf = ft_count(aux->command, '<');
 			aux->infile = ft_substr(aux->command, ft_strchr_out(aux->command,'<'),
-				ft_strlen(ft_strchr(aux->command, '<')));
+				ft_space(aux->command, ft_strchr_out(aux->command,'<')));
 			shell->infile = ft_inf(aux->infile, aux->inf);
 		}
 		if (ft_strchr(aux->command, '>'))
@@ -107,8 +122,7 @@ t_command	*ft_inout(t_command **cmd, t_minishell *shell)
 			shell->outfile = ft_open(aux->outfile, aux->out);
 		}
 		aux->built = ft_built(aux);
-		aux->command = ft_take_com(aux->command, ft_strchr_in(aux->command, '<'),
-			ft_strchr_out(aux->command,'>') - 1);
+		aux->command = ft_take_com(aux->command);
 		aux = aux->next;
 	}
 	return (*cmd);

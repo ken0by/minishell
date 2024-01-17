@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/17 12:44:07 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/17 19:19:07 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,10 @@ int			ft_inf(char *infile, int x);
 char		*ft_built(t_command *cmd);
 t_command	*ft_inout(t_command **cmd, t_minishell *shell);
 
+/* FT_PARSE6.C */
+void		ft_swap(t_command *cmd);
+char		*ft_take_size(char *cmd);
+
 /* FT_PARSE_ERROR.C */
 void		ft_error_car(void);
 void		ft_error_cmd(void);
@@ -147,6 +151,7 @@ void		ft_peror(char *var, char *s);
 char		*ft_env(char **env, char *c);
 char		**ft_cpy_env(char **env);
 char		*ft_skip_space(char *cmd);
+int			ft_space(char *line, int i);
 
 /* FT_UTILS_2.C */
 int			ft_strchr_out(const char *s, int c);

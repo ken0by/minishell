@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 16:26:57 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/16 17:55:11 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:55:02 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	ft_print_pwd(t_minishell *shell, int fd)
 {
 	ft_putstr_fd(shell->pwd, fd);
+	ft_putstr_fd("\n", fd);
 }
 
 void	ft_print_env(t_minishell *shell, int fd)
