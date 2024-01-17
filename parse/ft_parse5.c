@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse5.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:18:39 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/17 12:59:18 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/01/16 17:25:20 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,28 +34,17 @@ char	*ft_built(t_command *cmd)
 		return (ft_spr(ft_strnstr(cmd->command, "env", ft_strlen(cmd->command))));
 	return ("exec");
 }
-
 static char	*ft_take_com(char *command, int size_inf, int size_out)
 {
-	if (size_inf == 0)
-	{
-		size_inf += 2;
-		if (size_out == -1)
-			size_out = ft_strlen(command);
-		else
-		{
-			while (command[size_out] == ' ' || command[size_out] == '>')
-				size_out--;
-		}
-		while (command[size_inf] != ' ')
-			size_inf++;
+	if (size_inf != 0)
+		size_inf += 1;
+	if (size_out == -1)
+		size_out = ft_strlen(command);
+	while (command[size_inf] == ' ' || command[size_inf] == '<')
 		size_inf++;
-		command = ft_substr(command, size_inf, (size_out - size_inf) + 1);
-	}
-	else if (size_inf > 0)
-		command = ft_substr(command, 0, size_inf);
-	else if (size_inf == -1)
-		command = ft_substr(command, 0, ft_strlen(command));
+	while (command[size_out] == ' ' || command[size_out] == '>')
+		size_out--;
+	command = ft_substr(command, size_inf, (size_out - size_inf) + 1);
 	return (command);
 }
 
@@ -107,7 +96,7 @@ t_command	*ft_inout(t_command **cmd, t_minishell *shell)
 		{
 			aux->inf = ft_count(aux->command, '<');
 			aux->infile = ft_substr(aux->command, ft_strchr_out(aux->command,'<'),
-				ft_space(aux->command, ft_strchr_out(aux->command,'<')));
+				ft_strlen(ft_strchr(aux->command, '<')));
 			shell->infile = ft_inf(aux->infile, aux->inf);
 		}
 		if (ft_strchr(aux->command, '>'))

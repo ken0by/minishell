@@ -3,20 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:59:53 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/17 12:57:34 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/01/17 12:19:11 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	ft_skip_space(char *cmd, int i)
+char	*ft_skip_space(char *cmd)
 {
-	while (cmd[i] == ' ')
+	int		i;
+	int		j;
+	int		k;
+	char	*tmp;
+
+	i = 0;
+	while (cmd[i] == ' ' || cmd[i] == '\t')
 		i++;
-	return (i);
+	i -= 1;
+	j = i;
+	k = 0;
+	while (cmd[++i])
+		k++;
+	tmp = malloc(sizeof(char) * k + 1);
+	if (!tmp)
+		return (NULL);
+	k = 0;
+	while (cmd[++j])
+	{
+		tmp[k] = cmd[j];
+		k++;
+	}
+	tmp[k] = '\0';
+	//free (cmd);
+	return (tmp);
 }
 
 static char	*ft_copy_path(char *str, int i)
@@ -51,19 +73,6 @@ char	*ft_env(char **env, char *c)
 	if (!str)
 		ft_error_path(1);
 	return (str);
-}
-
-int	ft_space(char *line, int i)
-{
-	int	j;
-
-	j = 0;
-	while (line[i] != ' ' && line[i] != '>')
-	{
-		i++;
-		j++;
-	}
-	return (j);
 }
 
 char	**ft_cpy_env(char **env)

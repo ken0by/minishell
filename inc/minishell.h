@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/17 12:58:02 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/01/17 12:44:07 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,8 +146,7 @@ void		ft_peror(char *var, char *s);
 /* FT_UTILS.C */
 char		*ft_env(char **env, char *c);
 char		**ft_cpy_env(char **env);
-int			ft_skip_space(char *cmd, int i);
-int			ft_space(char *line, int i);
+char		*ft_skip_space(char *cmd);
 
 /* FT_UTILS_2.C */
 int			ft_strchr_out(const char *s, int c);
@@ -182,7 +181,7 @@ void		ft_signal_dis(void);
 /* FT_SYSTEM.C */
 void		ft_system(t_command *cmd, t_minishell *shell, int fdin, int fdout);
 char		*ft_cmdpath(char *cmd, char **env);
-int			ft_cw(int fdout, pid_t pd, int status);
+int			ft_cw(int fdout, pid_t pd);
 
 /* FT_PATH.C */
 char		*ft_cmdpath(char *cmd, char **env);

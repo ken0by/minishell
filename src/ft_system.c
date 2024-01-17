@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_system.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:44:31 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/17 13:07:50 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/01/17 13:00:17 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,11 @@ static int	ft_select(t_command *cmd, t_minishell *shell, int fd)
 	return (0);
 }
 
-int	ft_cw(int fdout, pid_t pd, int status)
+int	ft_cw(int fdout, pid_t pd)
 {
+	int	status;
+
+	status = 0;
 	close(fdout);
 	waitpid(pd, &status, 0);
 	return (status);
@@ -41,10 +44,8 @@ int	ft_cw(int fdout, pid_t pd, int status)
 static void	ft_one(char **cmd, t_minishell *shell, int fdin, int fdout)
 {
 	char	*path;
-	int		status;
 	pid_t	pd;
 
-	status = 0;
 	pd = fork();
 	if (pd == -1)
 		ft_error("fork() error");
@@ -52,16 +53,20 @@ static void	ft_one(char **cmd, t_minishell *shell, int fdin, int fdout)
 	{
 		path = ft_cmdpath(cmd[0], shell->env);
 		if (!path)
+		{
 			ft_put_msg(cmd[0], "command not found\n");
-		close(fdin);
+			exit (127);
+		}
+		dup2(fdin, STDIN_FILENO);
 		dup2(fdout, STDOUT_FILENO);
+		close(fdin);
 		if (execve(path, cmd, shell->env) == -1)
 			ft_peror(cmd[0], "");
+		free (path);
 		close(fdout);
 	}
 	else
-		status = ft_cw(fdout, pd, status);
-	code_error = (status >> 8) & 0xFF;
+		code_error = (ft_cw(fdout, pd) >> 8) & 0xFF;
 }
 
 void	ft_system(t_command *cmd, t_minishell *shell, int fdin, int fdout)

@@ -6,26 +6,11 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:24:27 by rodro             #+#    #+#             */
-/*   Updated: 2024/01/16 19:37:39 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/17 13:05:23 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-static void	ft_check_inout(t_command *cmd, t_minishell *shell)
-{
-	t_command	*aux;
-
-	aux = cmd;
-	while (aux)
-	{
-		if (aux->inf)
-			shell->infile = aux->inf;
-		if (aux->out)
-			shell->outfile = aux->out;
-		aux = aux->next;
-	}
-}
 
 int	ft_check_in(t_minishell *shell)
 {
@@ -70,7 +55,6 @@ void	ft_ord(t_command *cmd, t_minishell *shell)
 	int			fdin;
 	int			fdout;
 
-	ft_check_inout(cmd, shell);
 	fdin = ft_check_in(shell);
 	fdout = ft_check_out(shell);
 	aux = cmd;
