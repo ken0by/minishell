@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:28:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/17 19:15:57 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/18 14:55:33 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void	ft_check_line(t_command *cmd, t_minishell *shell)
 	char		*line;
 	char		*cmd_line;
 	int			flag;
+	//t_command *aux;
 
 	line = NULL;
 	flag = 0;
@@ -133,6 +134,12 @@ void	ft_check_line(t_command *cmd, t_minishell *shell)
 		return ;
 	if (flag)
 		ft_swap(cmd);
+	/* aux = cmd;
+	while (aux)
+	{
+		ft_printf("%s\n", aux->command);
+		aux = aux->next;
+	} */
 	ft_system(cmd, shell, ft_check_in(shell), ft_check_out(shell));
 }
 

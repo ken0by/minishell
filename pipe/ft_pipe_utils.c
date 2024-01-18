@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 17:05:35 by rodro             #+#    #+#             */
-/*   Updated: 2024/01/17 13:00:24 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/18 12:49:06 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,34 +19,6 @@ void	ft_peror(char *var, char *s)
 	perror(s);
 	code_error = 127;
 	exit (1);
-}
-
-void	ft_exec(char **cmd, t_minishell *shell, int fdin, int fdout)
-{
-	char	*path;
-	pid_t	pd;
-
-	pd = fork();
-	if (pd == -1)
-		ft_error("fork() error");
-	if (pd == 0)
-	{
-		path = ft_cmdpath(cmd[0], shell->env);
-		if (!path)
-		{
-			ft_put_msg(cmd[0], "command not found\n");
-			exit (127);
-		}
-		dup2(fdin, STDIN_FILENO);
-		dup2(fdout, STDOUT_FILENO);
-		close(fdin);
-		if (execve(path, cmd, shell->env) == -1)
-			ft_peror(cmd[0], "");
-		free (path);
-		close(fdout);
-	}
-	else
-		code_error = (ft_cw(fdout, pd) >> 8) & 0xFF;
 }
 
 void	ft_free_cmd(t_command **cmd)

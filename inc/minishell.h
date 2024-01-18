@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/17 19:19:07 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/18 13:09:43 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_minishell
 	int		shlvl;
 	int		infile;
 	int		outfile;
+	int		heredoc;
 	char	*cmd_line;
 	char	*path;
 	char	*pwd;
@@ -118,7 +119,7 @@ t_command	*ft_sust(t_command **cmd, char **env);
 
 /* FT_PARSE4.C */
 char		*ft_sust_doll(char *line);
-int			ft_inf(char *infile, int x);
+int			ft_inf(char *infile, int x, t_minishell *shell);
 
 /* FT_PARSE5.C */
 char		*ft_built(t_command *cmd);
@@ -127,6 +128,7 @@ t_command	*ft_inout(t_command **cmd, t_minishell *shell);
 /* FT_PARSE6.C */
 void		ft_swap(t_command *cmd);
 char		*ft_take_size(char *cmd);
+//void		ft_exec_heredoc(char **cmd, t_minishell *shell);
 
 /* FT_PARSE_ERROR.C */
 void		ft_error_car(void);
@@ -142,7 +144,6 @@ int			ft_check_in(t_minishell *shell);
 int			ft_check_out(t_minishell *shell);
 
 /* FT_PIPE_UTILS.C */
-void		ft_exec(char **cmd, t_minishell *shell, int fdin, int fdout);
 void		ft_free_cmd(t_command **cmd);
 void		ft_peror(char *var, char *s);
 
@@ -185,6 +186,7 @@ void		ft_signal_dis(void);
 
 /* FT_SYSTEM.C */
 void		ft_system(t_command *cmd, t_minishell *shell, int fdin, int fdout);
+void		ft_exec(char **cmd, t_minishell *shell, int fdin, int fdout);
 char		*ft_cmdpath(char *cmd, char **env);
 int			ft_cw(int fdout, pid_t pd);
 

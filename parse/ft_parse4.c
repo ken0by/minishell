@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 10:48:52 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/17 18:37:27 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/18 13:14:03 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void	ft_here(char *end)
 	}
 }
 
-int	ft_inf(char *infile, int x)
+int	ft_inf(char *infile, int x, t_minishell *shell)
 {
 	int	fd;
 
@@ -103,6 +103,7 @@ int	ft_inf(char *infile, int x)
 		fd = open(infile, O_RDWR | O_CREAT | O_APPEND, 0644);
 		if (fd > 0 && access(infile, W_OK | R_OK) < 0)
 			ft_err_msg("Error opening heredoc");
+		shell->heredoc = 1;
 		ft_here(infile);
 	}
 	if (fd < 0)

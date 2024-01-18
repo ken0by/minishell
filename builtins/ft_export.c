@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 17:12:21 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/16 17:50:09 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/18 12:42:17 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,10 @@ void	ft_exist(char *cmd, t_minishell *shell, int fd)
 		ft_alfa(shell->env, fd);
 		return ;
 	}
-	var = ft_get_var(command[1]);		// esto no hace falta al hacer el split el command[1] es la variable
+	var = ft_get_var(command[1]);
 	ct = ft_get_content(command[1], var);
-	// var = ft_split(cmd->argv[1], '=');		// Da error a veces con el contenido
 	if (!ft_check_var(var, shell->env))
-		ft_export(shell, var, ct);		// crear la nueva variable y la añade a env
+		ft_export(shell, var, ct);
 	else
-		ft_change(shell, command[1], var);		// cambia el contenido de una variable x el nuevo dado
+		ft_change(shell, command[1], var);
 }

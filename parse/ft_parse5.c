@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:18:39 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/17 19:08:23 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/18 13:00:11 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ t_command	*ft_inout(t_command **cmd, t_minishell *shell)
 			aux->inf = ft_count(aux->command, '<');
 			aux->infile = ft_substr(aux->command, ft_strchr_out(aux->command,'<'),
 				ft_space(aux->command, ft_strchr_out(aux->command,'<')));
-			shell->infile = ft_inf(aux->infile, aux->inf);
+			shell->infile = ft_inf(aux->infile, aux->inf, shell);
 		}
 		if (ft_strchr(aux->command, '>'))
 		{

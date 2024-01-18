@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:44:31 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/17 13:00:17 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/18 13:10:01 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int	ft_select(t_command *cmd, t_minishell *shell, int fd)
 		ft_print_env(shell, fd);
 	else
 		return (1);
+	close (fd);
 	return (0);
 }
 
@@ -41,7 +42,7 @@ int	ft_cw(int fdout, pid_t pd)
 	return (status);
 }
 
-static void	ft_one(char **cmd, t_minishell *shell, int fdin, int fdout)
+void	ft_exec(char **cmd, t_minishell *shell, int fdin, int fdout)
 {
 	char	*path;
 	pid_t	pd;
@@ -72,6 +73,8 @@ static void	ft_one(char **cmd, t_minishell *shell, int fdin, int fdout)
 void	ft_system(t_command *cmd, t_minishell *shell, int fdin, int fdout)
 {
 	code_error = 0;
+	/* if (shell->heredoc)
+		ft_exec_heredoc(ft_split(cmd->command, ' '), shell); */
 	if (ft_lstsize_shell(cmd) == 1)
 	{
 		if (!ft_strncmp(cmd->command, "exit", 4))
@@ -79,7 +82,7 @@ void	ft_system(t_command *cmd, t_minishell *shell, int fdin, int fdout)
 		else if (!ft_strncmp(cmd->command, "minishell", ft_strlen(cmd->command)))
 			ft_shell_up(shell);
 		else if (ft_select(cmd, shell, fdout) == 1)
-			ft_one(ft_split(cmd->command, ' '), shell, fdin, fdout);
+			ft_exec(ft_split(cmd->command, ' '), shell, fdin, fdout);
 	}
 	else if (ft_lstsize_shell(cmd) > 1)
 		ft_ord(cmd, shell);
