@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/18 13:09:43 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/22 17:18:17 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_minishell
 	char	*oldpwd;
 	char	*root;
 	char	**env;
+	char	*inf;
 }	t_minishell;
 
 typedef struct s_command

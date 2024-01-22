@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:44:31 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/18 13:10:01 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/22 17:34:39 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,55 @@ void	ft_exec(char **cmd, t_minishell *shell, int fdin, int fdout)
 		code_error = (ft_cw(fdout, pd) >> 8) & 0xFF;
 }
 
+/* Esta funcion tiene q leer el archivo creado y sustituir los $ por su valor si existe esa variable.
+Ns si hacerlo asi o sustituir la linea en el mismo archivo en vez de crear otro archivo e ir metiendolo ahi. */
+/* int	ft_check_exp(int file, t_minishell *shell)
+{
+	char		*line;
+	t_command	*tmp;
+	t_command	*aux;
+	int			fd;
+
+	tmp = NULL;
+	line = get_next_line(file);
+	while (line)
+	{
+		ft_printf("%s\n", line);
+		ft_lstadd_back_shell(&tmp, ft_lst_first(line, 'c'));
+		free(line);
+		line = get_next_line(file);
+	}
+	tmp = ft_sust(&tmp, shell->env);
+	unlink(shell->inf);
+	fd = open(shell->inf, O_RDWR | O_CREAT | O_APPEND, 0644);
+	if (fd > 0 && access(shell->inf, W_OK | R_OK) < 0)
+		ft_err_msg("Error opening new file");
+	aux = tmp;
+	while (aux)
+	{
+		write(fd, aux->command, ft_strlen(aux->command));
+		write(fd, "\n", 1);
+		aux = aux->next;
+	}
+	ft_free_cmd(&tmp);
+	return (fd);
+} */
+
 void	ft_system(t_command *cmd, t_minishell *shell, int fdin, int fdout)
 {
 	code_error = 0;
-	/* if (shell->heredoc)
-		ft_exec_heredoc(ft_split(cmd->command, ' '), shell); */
 	if (ft_lstsize_shell(cmd) == 1)
 	{
 		if (!ft_strncmp(cmd->command, "exit", 4))
 			ft_exit_code(shell);
 		else if (!ft_strncmp(cmd->command, "minishell", ft_strlen(cmd->command)))
 			ft_shell_up(shell);
+		else if (shell->heredoc)
+		{
+			//fdin = ft_check_exp(fdin, shell);
+			ft_exec(ft_split(cmd->command, ' '), shell, fdin, fdout);
+			unlink(ft_split(cmd->command, ' ')[1]);
+		}
 		else if (ft_select(cmd, shell, fdout) == 1)
 			ft_exec(ft_split(cmd->command, ' '), shell, fdin, fdout);
 	}

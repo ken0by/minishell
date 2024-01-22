@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 10:48:52 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/18 13:14:03 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/22 16:47:01 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,45 +46,39 @@ char	*ft_sust_doll(char *line)
 	return (line);
 }
 
-static void	ft_loop(int *fd, char *line, char *end)
+static void	ft_loop(int fd, char *line, char *end)
 {
 	while (line)
 	{
-		close(fd[0]);
+		//close(fd);
 		if ((ft_strncmp(line, end, ft_strlen(end)) == 0) && (ft_strlen(line) == ft_strlen(end) + 1))
 			exit(EXIT_SUCCESS);
-		write(1, "pipe heredoc> ", 14);
-		write(fd[1], line, ft_strlen(line));
+		write(1, "> ", 2);
+		write(fd, line, ft_strlen(line));
 		free(line);
 		line = get_next_line(STDIN_FILENO);
 	}
 }
 
-static void	ft_here(char *end)
+static int	ft_here(char *end, int file)
 {
 	pid_t	pid;
-	int		fd[2];
 	char	*line;
 
-	pipe(fd);
-	if (fd < 0)
-		ft_per_nb("pipe", STDERR_FILENO);
 	pid = fork();
 	if (pid < 0)
 		ft_per_nb("fork", STDERR_FILENO);
 	if (pid == 0)
 	{
-		write(1, "pipe heredoc> ", 14);
+		//dup2(file, STDOUT_FILENO);
+		write(1, "> ", 2);
 		line = get_next_line(STDIN_FILENO);
-		ft_loop(fd, line, end);
+		ft_loop(file, line, end);
+		close(file);
 	}
 	else
-	{
-		close(fd[1]);
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
 		wait(NULL);
-	}
+	return (file);
 }
 
 int	ft_inf(char *infile, int x, t_minishell *shell)
@@ -104,7 +98,7 @@ int	ft_inf(char *infile, int x, t_minishell *shell)
 		if (fd > 0 && access(infile, W_OK | R_OK) < 0)
 			ft_err_msg("Error opening heredoc");
 		shell->heredoc = 1;
-		ft_here(infile);
+		shell->infile = ft_here(infile, fd);
 	}
 	if (fd < 0)
 		ft_err_msg("No such file or directory");
