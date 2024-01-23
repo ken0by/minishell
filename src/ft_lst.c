@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:25:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/17 12:20:18 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/23 18:16:49 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ t_command	*ft_lstnew_shell(char *str)
 	new->outfile = NULL;
 	new->inf = 0;
 	new->out = 0;
+	if (str[0] == 39)
+		new->dollar = 1;
+	else
+		new->dollar = 0;
 	new->next = NULL;
 	return (new);
 }

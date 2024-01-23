@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 12:31:43 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/10 16:29:52 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:22:01 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static char	*ft_change(char *fir_line, char *sec_line, char *change, char **env)
 	return (line);
 }
 
-static char	*ft_param(char *line, char **env)
+char	*ft_param(char *line, char **env)
 {
 	int		i;
 	int		j;

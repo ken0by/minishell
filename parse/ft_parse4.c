@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 10:48:52 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/22 16:47:01 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/23 18:28:38 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static char	*ft_change_doll(char *fir_line, char *sec_line)
 {
 	char	*line;
 
-	//ft_printf("code error1; %d\n", g_global.code_error);
 	line = ft_strjoin_gnl(fir_line, ft_itoa(code_error));
 	if (sec_line)
 		line = ft_strjoin_gnl(line, sec_line);
@@ -46,11 +45,11 @@ char	*ft_sust_doll(char *line)
 	return (line);
 }
 
-static void	ft_loop(int fd, char *line, char *end)
+static void	ft_loop(int fd, char *line, char *end, t_minishell *shell)
 {
 	while (line)
 	{
-		//close(fd);
+		line = ft_exp(line, shell->env);
 		if ((ft_strncmp(line, end, ft_strlen(end)) == 0) && (ft_strlen(line) == ft_strlen(end) + 1))
 			exit(EXIT_SUCCESS);
 		write(1, "> ", 2);
@@ -60,7 +59,7 @@ static void	ft_loop(int fd, char *line, char *end)
 	}
 }
 
-static int	ft_here(char *end, int file)
+static int	ft_here(char *end, int file, t_minishell *shell)
 {
 	pid_t	pid;
 	char	*line;
@@ -70,10 +69,9 @@ static int	ft_here(char *end, int file)
 		ft_per_nb("fork", STDERR_FILENO);
 	if (pid == 0)
 	{
-		//dup2(file, STDOUT_FILENO);
 		write(1, "> ", 2);
 		line = get_next_line(STDIN_FILENO);
-		ft_loop(file, line, end);
+		ft_loop(file, line, end, shell);
 		close(file);
 	}
 	else
@@ -98,7 +96,7 @@ int	ft_inf(char *infile, int x, t_minishell *shell)
 		if (fd > 0 && access(infile, W_OK | R_OK) < 0)
 			ft_err_msg("Error opening heredoc");
 		shell->heredoc = 1;
-		shell->infile = ft_here(infile, fd);
+		shell->infile = ft_here(infile, fd, shell);
 	}
 	if (fd < 0)
 		ft_err_msg("No such file or directory");
