@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/24 16:30:51 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/24 18:42:31 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,10 +199,5 @@ int			ft_cw(int fdout, pid_t pd);
 
 /* FT_PATH.C */
 char		*ft_cmdpath(char *cmd, char **env);
-
-/* ---------- COLORES ---------- */
-# define RED     "\x1b[31m"
-# define GREEN   "\033[32m"
-# define RESET   "\x1b[0m"
 
 #endif
