@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 11:12:11 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/17 12:12:23 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:33:08 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,12 @@ t_command	*ft_take_cmd(t_command **cmd, char *line, char *cmd_line)
 {
 	int	i;
 
-	i = 0;
-	while (cmd_line[i])
+	i = -1;
+	while (cmd_line[++i])
 	{
 		if (cmd_line[i] != ' ')
 		{
-			if (cmd_line[i] == 39)		//comillas simples
+			if (cmd_line[i] == 39)
 				i += ft_simple(&cmd_line[i], &line);
 			else if (cmd_line[i] == '"')
 				i += ft_doble(&cmd_line[i], &line);
@@ -123,10 +123,10 @@ t_command	*ft_take_cmd(t_command **cmd, char *line, char *cmd_line)
 				i += ft_car(&cmd_line[i], &line);
 			else
 				i += ft_num(&cmd_line[i], &line);
-			ft_lstadd_back_shell(cmd, ft_lst_first(ft_skip_space(line), cmd_line[i]));
+			ft_lstadd_back_shell(cmd,
+				ft_lst_first(ft_skip_space(line), cmd_line[i]));
 			free (line);
 		}
-		i++;
 	}
 	return (*cmd);
 }

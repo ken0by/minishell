@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:28:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/22 16:15:32 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:40:31 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,8 @@ void	ft_check_line(t_command *cmd, t_minishell *shell)
 	cmd = ft_take_cmd(&cmd, line, cmd_line);
 	cmd = ft_sust(&cmd, shell->env);
 	cmd = ft_join(&cmd);
-	cmd = ft_inout(&cmd, shell);
-	if (code_error != 0)
+	ft_inout(&cmd, shell);
+	if (g_code_error != 0)
 		return ;
 	if (flag)
 		ft_swap(cmd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 12:15:13 by dmonjas-          #+#    #+#             */
-/*   Updated: 2023/01/25 15:29:35 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:44:11 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	ft_bzero(void *s, size_t n)
 	dst = (char *)s;
 	while (i < n)
 	{
-	dst[i] = 0;
-	i++;
+		dst[i] = 0;
+		i++;
 	}
 	return ;
 }

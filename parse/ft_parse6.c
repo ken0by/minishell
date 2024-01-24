@@ -6,12 +6,11 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:50:00 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/23 17:25:09 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:40:57 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
 
 static char	*ft_sjoin(char *s1, char *s2)
 {

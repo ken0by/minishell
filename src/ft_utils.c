@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:59:53 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/17 19:10:40 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:43:06 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ char	*ft_skip_space(char *cmd)
 		k++;
 	}
 	tmp[k] = '\0';
-	//free (cmd);
 	return (tmp);
 }
 

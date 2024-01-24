@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:24:27 by rodro             #+#    #+#             */
-/*   Updated: 2024/01/17 13:05:23 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:41:53 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,17 @@ static void	ft_order(char *cmd, t_minishell *shell, int fdin, int fdout)
 	char	**command;
 
 	command = ft_split(cmd, ' ');
-	if  (!ft_strncmp(command[0], "echo", ft_strlen(command[0])))
+	if (!ft_strncmp(command[0], "echo", ft_strlen(command[0])))
 		ft_echo(cmd, fdout);
-	else if  (!ft_strncmp(command[0], "cd", ft_strlen(command[0])))
+	else if (!ft_strncmp(command[0], "cd", ft_strlen(command[0])))
 		ft_cd(cmd, shell);
-	else if  (!ft_strncmp(command[0], "pwd", ft_strlen(command[0])))
+	else if (!ft_strncmp(command[0], "pwd", ft_strlen(command[0])))
 		ft_print_pwd(shell, fdout);
-	else if  (!ft_strncmp(command[0], "export", ft_strlen(command[0])))
+	else if (!ft_strncmp(command[0], "export", ft_strlen(command[0])))
 		ft_exist(cmd, shell, fdout);
-	else if  (!ft_strncmp(command[0], "unset", ft_strlen(command[0])))
+	else if (!ft_strncmp(command[0], "unset", ft_strlen(command[0])))
 		ft_unset(cmd, shell);
-	else if  (!ft_strncmp(command[0], "env", ft_strlen(command[0])))
+	else if (!ft_strncmp(command[0], "env", ft_strlen(command[0])))
 		ft_print_env(shell, fdout);
 	else
 		ft_exec(command, shell, fdin, fdout);

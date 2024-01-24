@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 10:48:52 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/23 18:28:38 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:33:28 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	*ft_change_doll(char *fir_line, char *sec_line)
 {
 	char	*line;
 
-	line = ft_strjoin_gnl(fir_line, ft_itoa(code_error));
+	line = ft_strjoin_gnl(fir_line, ft_itoa(g_code_error));
 	if (sec_line)
 		line = ft_strjoin_gnl(line, sec_line);
 	return (line);
@@ -50,7 +50,8 @@ static void	ft_loop(int fd, char *line, char *end, t_minishell *shell)
 	while (line)
 	{
 		line = ft_exp(line, shell->env);
-		if ((ft_strncmp(line, end, ft_strlen(end)) == 0) && (ft_strlen(line) == ft_strlen(end) + 1))
+		if ((ft_strncmp(line, end, ft_strlen(end)) == 0)
+			&& (ft_strlen(line) == ft_strlen(end) + 1))
 			exit(EXIT_SUCCESS);
 		write(1, "> ", 2);
 		write(fd, line, ft_strlen(line));

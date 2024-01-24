@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/28 09:50:47 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/11 13:26:57 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:40:55 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,5 @@ void	ft_error_fd(char *var, int fd)
 {
 	ft_putstr_fd(var, fd);
 	ft_putstr_fd("\n", fd);
-	code_error = 127;
+	g_code_error = 127;
 }

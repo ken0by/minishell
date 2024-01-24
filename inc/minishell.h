@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/23 17:25:46 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:44:46 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define RESET   "\x1b[0m"
 
 /*-----VARIABLE GLOBAL-----*/
-int	code_error;
+int	g_code_error;
 
 /*-----ESTRUCTURAS-----*/
 
@@ -62,7 +62,7 @@ typedef struct s_command
 {
 	char				*command;
 	char				*built;
-	int					dollar;	//comillas simples
+	int					dollar;
 	int					inf;
 	int					out;
 	char				*infile;
@@ -124,8 +124,8 @@ char		*ft_sust_doll(char *line);
 int			ft_inf(char *infile, int x, t_minishell *shell);
 
 /* FT_PARSE5.C */
-char		*ft_built(t_command *cmd);
-t_command	*ft_inout(t_command **cmd, t_minishell *shell);
+char		*ft_built(char *cmd);
+void		ft_inout(t_command **cmd, t_minishell *shell);
 
 /* FT_PARSE6.C */
 void		ft_swap(t_command *cmd);

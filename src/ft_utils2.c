@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 08:24:23 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/17 18:00:52 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:42:07 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,11 @@ char	*ft_cp_nb(char *str, int j)
 void	ft_err_msg(char *s)
 {
 	ft_printf("%s\n", s);
-	code_error = 1;
+	g_code_error = 1;
 }
 
 void	ft_per_nb(char *s, int nb)
 {
 	perror(s);
-	code_error = nb;
+	g_code_error = nb;
 }

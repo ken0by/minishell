@@ -6,34 +6,35 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:18:39 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/23 17:17:28 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:45:23 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_built(t_command *cmd)
+char	*ft_built(char *cmd)
 {
-	if  (ft_strnstr(cmd->command, "echo", ft_strlen(cmd->command))
-		&& ft_strlen(cmd->command) > 0)
-		return (ft_spr(ft_strnstr(cmd->command, "echo", ft_strlen(cmd->command))));
-	else if  (ft_strnstr(cmd->command, "cd", ft_strlen(cmd->command))
-		&& ft_strlen(cmd->command) > 0)
-		return (ft_spr(ft_strnstr(cmd->command, "cd", ft_strlen(cmd->command))));
-	else if  (ft_strnstr(cmd->command, "pwd", ft_strlen(cmd->command))
-		&& ft_strlen(cmd->command) > 0)
-		return (ft_spr(ft_strnstr(cmd->command, "pwd", ft_strlen(cmd->command))));
-	else if  (ft_strnstr(cmd->command, "export", ft_strlen(cmd->command))
-		&& ft_strlen(cmd->command) > 0)
-		return (ft_spr(ft_strnstr(cmd->command, "export", ft_strlen(cmd->command))));
-	else if  (ft_strnstr(cmd->command, "unset", ft_strlen(cmd->command))
-		&& ft_strlen(cmd->command) > 0)
-		return (ft_spr(ft_strnstr(cmd->command, "unset", ft_strlen(cmd->command))));
-	else if  (ft_strnstr(cmd->command, "env", ft_strlen(cmd->command))
-		&& ft_strlen(cmd->command) > 0)
-		return (ft_spr(ft_strnstr(cmd->command, "env", ft_strlen(cmd->command))));
+	if (ft_strnstr(cmd, "echo", ft_strlen(cmd))
+		&& ft_strlen(cmd) > 0)
+		return (ft_spr(ft_strnstr(cmd, "echo", ft_strlen(cmd))));
+	else if (ft_strnstr(cmd, "cd", ft_strlen(cmd))
+		&& ft_strlen(cmd) > 0)
+		return (ft_spr(ft_strnstr(cmd, "cd", ft_strlen(cmd))));
+	else if (ft_strnstr(cmd, "pwd", ft_strlen(cmd))
+		&& ft_strlen(cmd) > 0)
+		return (ft_spr(ft_strnstr(cmd, "pwd", ft_strlen(cmd))));
+	else if (ft_strnstr(cmd, "export", ft_strlen(cmd))
+		&& ft_strlen(cmd) > 0)
+		return (ft_spr(ft_strnstr(cmd, "export", ft_strlen(cmd))));
+	else if (ft_strnstr(cmd, "unset", ft_strlen(cmd))
+		&& ft_strlen(cmd) > 0)
+		return (ft_spr(ft_strnstr(cmd, "unset", ft_strlen(cmd))));
+	else if (ft_strnstr(cmd, "env", ft_strlen(cmd))
+		&& ft_strlen(cmd) > 0)
+		return (ft_spr(ft_strnstr(cmd, "env", ft_strlen(cmd))));
 	return ("exec");
 }
+
 static char	*ft_take_com(char *command)
 {
 	int		i;
@@ -100,7 +101,7 @@ static int	ft_count(char *cmd, char c)
 	return (count);
 }
 
-t_command	*ft_inout(t_command **cmd, t_minishell *shell)
+void	ft_inout(t_command **cmd, t_minishell *shell)
 {
 	t_command	*aux;
 
@@ -110,21 +111,21 @@ t_command	*ft_inout(t_command **cmd, t_minishell *shell)
 		if (ft_strchr(aux->command, '<'))
 		{
 			aux->inf = ft_count(aux->command, '<');
-			aux->infile = ft_substr(aux->command, ft_strchr_out(aux->command,'<'),
-				ft_space(aux->command, ft_strchr_out(aux->command,'<')));
-			//shell->inf = ft_substr(aux->infile, 0, ft_strlen(aux->infile));
+			aux->infile = ft_substr(aux->command,
+					ft_strchr_out(aux->command, '<'),
+					ft_space(aux->command, ft_strchr_out(aux->command, '<')));
 			shell->infile = ft_inf(aux->infile, aux->inf, shell);
 		}
 		if (ft_strchr(aux->command, '>'))
 		{
 			aux->out = ft_count(aux->command, '>');
-			aux->outfile = ft_substr(aux->command, ft_strchr_out(aux->command,'>'),
-				ft_strlen(ft_strchr(aux->command, '>')));
+			aux->outfile = ft_substr(aux->command,
+					ft_strchr_out(aux->command, '>'),
+					ft_strlen(ft_strchr(aux->command, '>')));
 			shell->outfile = ft_open(aux->outfile, aux->out);
 		}
-		aux->built = ft_built(aux);
+		aux->built = ft_built(aux->command);
 		aux->command = ft_take_com(aux->command);
 		aux = aux->next;
 	}
-	return (*cmd);
 }

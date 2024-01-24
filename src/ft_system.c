@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:44:31 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/23 17:17:11 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:42:54 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 static int	ft_select(t_command *cmd, t_minishell *shell, int fd)
 {
-	if  (!ft_strncmp(cmd->built, "echo", ft_strlen(cmd->built)))
+	if (!ft_strncmp(cmd->built, "echo", ft_strlen(cmd->built)))
 		ft_echo(cmd->command, fd);
-	else if  (!ft_strncmp(cmd->built, "cd", ft_strlen(cmd->built)))
+	else if (!ft_strncmp(cmd->built, "cd", ft_strlen(cmd->built)))
 		ft_cd(cmd->command, shell);
-	else if  (!ft_strncmp(cmd->built, "pwd", ft_strlen(cmd->built)))
+	else if (!ft_strncmp(cmd->built, "pwd", ft_strlen(cmd->built)))
 		ft_print_pwd(shell, fd);
-	else if  (!ft_strncmp(cmd->built, "export", ft_strlen(cmd->built)))
+	else if (!ft_strncmp(cmd->built, "export", ft_strlen(cmd->built)))
 		ft_exist(cmd->command, shell, fd);
-	else if  (!ft_strncmp(cmd->built, "unset", ft_strlen(cmd->built)))
+	else if (!ft_strncmp(cmd->built, "unset", ft_strlen(cmd->built)))
 		ft_unset(cmd->command, shell);
-	else if  (!ft_strncmp(cmd->built, "env", ft_strlen(cmd->built)))
+	else if (!ft_strncmp(cmd->built, "env", ft_strlen(cmd->built)))
 		ft_print_env(shell, fd);
 	else
 		return (1);
@@ -67,17 +67,18 @@ void	ft_exec(char **cmd, t_minishell *shell, int fdin, int fdout)
 		close(fdout);
 	}
 	else
-		code_error = (ft_cw(fdout, pd) >> 8) & 0xFF;
+		g_code_error = (ft_cw(fdout, pd) >> 8) & 0xFF;
 }
 
 void	ft_system(t_command *cmd, t_minishell *shell, int fdin, int fdout)
 {
-	code_error = 0;
+	g_code_error = 0;
 	if (ft_lstsize_shell(cmd) == 1)
 	{
 		if (!ft_strncmp(cmd->command, "exit", 4))
 			ft_exit_code(shell);
-		else if (!ft_strncmp(cmd->command, "minishell", ft_strlen(cmd->command)))
+		else if (!ft_strncmp(cmd->command, "minishell",
+				ft_strlen(cmd->command)))
 			ft_shell_up(shell);
 		else if (shell->heredoc)
 		{

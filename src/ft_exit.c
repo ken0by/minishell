@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:03:29 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/18 15:13:38 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:41:38 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void	ft_exit_code(t_minishell *shell)
 	if (shell->shlvl == 1)
 		exit (ft_code_nb(shell->cmd_line));
 	else
-	{	code_error = ft_code_nb(shell->cmd_line);
+	{
+		g_code_error = ft_code_nb(shell->cmd_line);
 		ft_shell_down(shell);
 	}
 }

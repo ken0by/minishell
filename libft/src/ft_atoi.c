@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 11:26:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2023/01/25 15:50:54 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:43:43 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_atoi(const char *str)
 	if (str[i] == '+')
 		i++;
 	else if (str[i] == '-')
-	{	
+	{
 		count = count * -1;
 		i++;
 	}
@@ -35,7 +35,7 @@ int	ft_atoi(const char *str)
 	{
 		valor = (valor * 10) + str[i] - 48;
 		i++;
-	}	
+	}
 	return (valor * count);
 }
 /*

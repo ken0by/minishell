@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:25:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/23 18:16:49 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:42:14 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	ft_lstsize_shell(t_command *lst)
 	}
 	return (i);
 }
-
 
 t_command	*ft_lstlast_shell(t_command *lst)
 {

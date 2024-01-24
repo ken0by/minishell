@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:37:03 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/16 17:48:02 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:30:26 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	ft_update(t_minishell *shell)
 	free(oldpwd);
 }
 
-static void	ft_new_pwd(t_minishell *shell,char *oldpwd, char *new_pwd)
+static void	ft_new_pwd(t_minishell *shell, char *oldpwd, char *new_pwd)
 {
 	free(shell->pwd);
 	free(shell->oldpwd);

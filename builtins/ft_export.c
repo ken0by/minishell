@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 17:12:21 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/18 12:42:17 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/24 12:30:54 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ static void	ft_change(t_minishell *shell, char *str, char *var)
 	}
 }
 
-/* Esta funcion comprueba si la variable existe, si existe cambia su contenido y sino la crea */
-/* Ns si hay q gestionar si te pasan una variable sin = */
+/* Esta funcion comprueba si la variable existe, si existe cambia su contenido
+y sino la crea. Ns si hay q gestionar si te pasan una variable sin = */
 void	ft_exist(char *cmd, t_minishell *shell, int fd)
 {
 	char	*var;
