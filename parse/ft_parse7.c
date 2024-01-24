@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 17:24:53 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/24 12:27:33 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/24 17:36:25 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ static char	*ft_here_exp(char *line, char **env)
 	while (aux[++i])
 		line[i] = aux[i];
 	line[i] = '\n';
-	free (aux);
-	return (line);
+	return (free(aux), line);
 }
 
 /* Esta funcion mira si hay que sustituir cuando me pasan un variable
@@ -97,14 +96,13 @@ char	*ft_exp(char *line, char **env)
 	i = 0;
 	while (cmd[i])
 	{
-		if (cmd[i][0] == 39 && (ft_strlen(cmd[i]) - 1) == 39)
-			i++;
+		if (cmd[i][0] != '$')
+			cmd[i] = ft_find_var(cmd[i], env);
 		else if (ft_strnstr(cmd[i], "$?", ft_strlen(cmd[i])) != 0)
 			cmd[i] = ft_sust_doll(cmd[i]);
 		else if (ft_strnstr(cmd[i], "$", ft_strlen(cmd[i])) != 0)
 			cmd[i] = ft_here_exp(cmd[i], env);
-		else
-			i++;
+		i++;
 	}
 	return (ft_join_line(cmd));
 }
