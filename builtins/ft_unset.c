@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 17:38:16 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/16 17:50:39 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:03:46 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,14 @@ static int	ft_no_var(char *str)
 	{
 		if (str[i] == '=')
 		{
-			ft_error_perror("unset", str);
+			ft_putstr_fd("unset", STDERR_FILENO);
+			ft_putstr_fd(": ", STDERR_FILENO);
+			ft_putstr_fd("`", STDERR_FILENO);
+			ft_putstr_fd(str, STDERR_FILENO);
+			ft_putstr_fd("'", STDERR_FILENO);
+			ft_putstr_fd(": ", STDERR_FILENO);
+			ft_putstr_fd("not a valid identifier", STDERR_FILENO);
+			ft_putstr_fd("\n", STDERR_FILENO);
 			return (1);
 		}
 	}

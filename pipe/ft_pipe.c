@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:24:27 by rodro             #+#    #+#             */
-/*   Updated: 2024/01/24 12:41:53 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/25 19:02:48 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,4 @@ void	ft_ord(t_command *cmd, t_minishell *shell)
 	}
 	close(fdin);
 	close(fdout);
-	ft_free_cmd(&cmd);
 }

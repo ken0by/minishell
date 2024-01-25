@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:44:31 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/24 12:42:54 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/25 19:25:09 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	ft_exec(char **cmd, t_minishell *shell, int fdin, int fdout)
 		if (execve(path, cmd, shell->env) == -1)
 			ft_peror(cmd[0], "");
 		free (path);
+		ft_free_mtx(cmd);
 		close(fdout);
 	}
 	else

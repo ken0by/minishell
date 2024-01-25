@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:37:03 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/24 12:30:26 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:07:52 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	ft_cd(char *cmd, t_minishell *shell)
 	char	**comm;
 
 	comm = ft_split(cmd, ' ');
+	if (comm[1] && comm[1][ft_strlen(comm[1]) - 1] == '/')
+		comm[1][ft_strlen(comm[1]) - 1] = '\0';
 	if (!comm[1] || (comm[1][0] == '~' && ft_strlen(comm[1]) == 1))
 	{
 		if (chdir(shell->root) != 0)

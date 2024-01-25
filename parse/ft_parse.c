@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:28:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/24 18:27:19 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/25 18:43:19 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ static t_command	*ft_join(t_command **cmd)
 		aux = aux->next;
 	}
 	ft_lstadd_back_shell(pipe, ft_lstnew_shell(line));
-	free(line);
-	return (*pipe);
+	ft_free_cmd(cmd);
+	return (free(line), *pipe);
 }
 
 void	ft_check_line(t_command *cmd, t_minishell *shell)

@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:50:00 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/24 12:40:57 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/25 16:47:06 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	ft_swap(t_command *cmd)
 	tmp[1] = aux;
 	free (cmd->command);
 	cmd->command = ft_sjoin(tmp[0], tmp[1]);
+	ft_free_mtx(tmp);
 }
 
 char	*ft_take_size(char *cmd)
