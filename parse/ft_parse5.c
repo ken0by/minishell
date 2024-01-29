@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:18:39 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/24 12:45:23 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:57:51 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,25 +64,27 @@ static char	*ft_take_com(char *command)
 	return (tmp);
 }
 
-static int	ft_open(char *outfile, int x)
+static int	ft_open(char *outfile, int x, t_minishell *shell)
 {
 	int	fd;
 
 	fd = 0;
+	if (shell->outfile)
+		close(shell->outfile);
 	if (x == 1)
 	{
 		fd = open(outfile, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 		if (fd > 0 && access(outfile, W_OK | R_OK) < 0)
-			ft_err_msg("Error opening outfile");
+			return (ft_err_msg("Error opening outfile"), 0);
 	}
 	if (x == 2)
 	{
 		fd = open(outfile, O_WRONLY | O_APPEND | O_CREAT, S_IRUSR | S_IWUSR);
 		if (fd > 0 && access(outfile, W_OK | R_OK) < 0)
-			ft_err_msg("Error opening append");
+			return (ft_err_msg("Error opening append"), 0);
 	}
 	if (fd < 0)
-		ft_err_msg("No such file or directory");
+		return (ft_err_msg("No such file or directory"), 0);
 	return (fd);
 }
 
@@ -122,7 +124,7 @@ void	ft_inout(t_command **cmd, t_minishell *shell)
 			aux->outfile = ft_substr(aux->command,
 					ft_strchr_out(aux->command, '>'),
 					ft_strlen(ft_strchr(aux->command, '>')));
-			shell->outfile = ft_open(aux->outfile, aux->out);
+			shell->outfile = ft_open(aux->outfile, aux->out, shell);
 		}
 		aux->built = ft_built(aux->command);
 		aux->command = ft_take_com(aux->command);

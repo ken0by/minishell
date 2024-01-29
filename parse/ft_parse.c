@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:28:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/25 18:43:19 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:58:11 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,20 +90,20 @@ static t_command	*ft_join(t_command **cmd)
 			aux = aux->next;
 		}
 		line = ft_strjoin_gnl(line, aux->command);
-		if (aux->next && aux->next->command[0] != '|')
+		if (aux->next && aux->space == 0 && aux->next->command[0] != '|')
 			line = ft_strjoin_gnl(line, " ");
 		aux = aux->next;
 	}
 	ft_lstadd_back_shell(pipe, ft_lstnew_shell(line));
-	ft_free_cmd(cmd);
+	//ft_free_cmd(cmd);
 	return (free(line), *pipe);
 }
 
 void	ft_check_line(t_command *cmd, t_minishell *shell)
 {
-	char		*line;
-	char		*cmd_line;
-	int			flag;
+	char	*line;
+	char	*cmd_line;
+	int		flag;
 
 	line = NULL;
 	flag = 0;

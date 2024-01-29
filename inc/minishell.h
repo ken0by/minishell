@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/24 18:42:31 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/29 19:00:21 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_command
 	int					dollar;
 	int					inf;
 	int					out;
+	int					space;
 	char				*infile;
 	char				*outfile;
 	struct s_command	*next;
@@ -169,7 +170,7 @@ void		ft_err_msg(char *s);
 void		ft_per_nb(char *s, int nb);
 
 /* FT_EXIT.C */
-void		ft_exit_code(t_minishell *shell);
+void		ft_exit_code(t_command *cmd, t_minishell *shell);
 
 /* FT_ERROR.C */
 void		ft_put_msg(char *var, char *s);
@@ -183,7 +184,7 @@ void		ft_lstadd_back_shell(t_command **lst, t_command *new);
 t_command	*ft_lstnew_shell(char *str);
 t_command	*ft_lstlast_shell(t_command *lst);
 int			ft_lstsize_shell(t_command *lst);
-t_command	*ft_lst_first(char *str, char c);
+t_command	*ft_lst_first(char *str, char c, int *space);
 
 /* FT_SIGNAL.C */
 void		ft_int(int i);

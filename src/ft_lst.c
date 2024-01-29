@@ -6,13 +6,13 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:25:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/24 12:42:14 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/29 15:32:33 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-t_command	*ft_lst_first(char *str, char c)
+t_command	*ft_lst_first(char *str, char c, int *space)
 {
 	t_command	*new;
 
@@ -26,6 +26,7 @@ t_command	*ft_lst_first(char *str, char c)
 	new->next = NULL;
 	new->inf = 0;
 	new->out = 0;
+	new->space = *space;
 	if (c == 39)
 		new->dollar = 1;
 	else

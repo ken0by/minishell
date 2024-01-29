@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:03:29 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/24 11:41:38 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/29 19:02:25 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,21 @@ static int	ft_code_nb(char *str)
 	return (0);
 }
 
-void	ft_exit_code(t_minishell *shell)
+void	ft_exit_code(t_command *cmd, t_minishell *shell)
 {
+	char	**tmp;
+
+	tmp = ft_split(cmd->command, ' ');
 	if (shell->shlvl == 1)
-		exit (ft_code_nb(shell->cmd_line));
+	{
+		if (tmp[1])
+			exit (ft_code_nb(shell->cmd_line));
+		else
+		{
+			ft_printf("exit\n");
+			exit (0);
+		}
+	}
 	else
 	{
 		g_code_error = ft_code_nb(shell->cmd_line);

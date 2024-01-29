@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 10:48:52 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/25 19:24:49 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/29 16:20:52 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,21 +85,23 @@ int	ft_inf(char *infile, int x, t_minishell *shell)
 	int	fd;
 
 	fd = 0;
+	if (shell->infile)
+		close(shell->infile);
 	if (x == 1)
 	{
 		fd = open(infile, O_RDONLY, 0644);
 		if (fd > 0 && access(infile, R_OK) < 0)
-			ft_err_msg("Error opening infile");
+			return (ft_err_msg("Error opening infile"), 0);
 	}
 	if (x == 2)
 	{
 		fd = open(infile, O_RDWR | O_CREAT | O_APPEND, 0644);
 		if (fd > 0 && access(infile, W_OK | R_OK) < 0)
-			ft_err_msg("Error opening heredoc");
+			return (ft_err_msg("Error opening heredoc"), 0);
 		shell->heredoc = 1;
 		shell->infile = ft_here(infile, fd, shell);
 	}
 	if (fd < 0)
-		ft_err_msg("No such file or directory");
+		return (ft_err_msg("No such file or directory"), 0);
 	return (fd);
 }

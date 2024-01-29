@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 17:24:53 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/24 17:36:25 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/29 12:44:34 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,6 @@ char	*ft_exp(char *line, char **env)
 			cmd[i] = ft_here_exp(cmd[i], env);
 		i++;
 	}
+	free(line);
 	return (ft_join_line(cmd));
 }

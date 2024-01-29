@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:44:31 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/25 19:25:09 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/29 18:59:53 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,17 @@ void	ft_system(t_command *cmd, t_minishell *shell, int fdin, int fdout)
 	if (ft_lstsize_shell(cmd) == 1)
 	{
 		if (!ft_strncmp(cmd->command, "exit", 4))
-			ft_exit_code(shell);
+			ft_exit_code(cmd, shell);
 		else if (!ft_strncmp(cmd->command, "minishell",
 				ft_strlen(cmd->command)))
 			ft_shell_up(shell);
 		else if (shell->heredoc)
 		{
-			ft_exec(ft_split(cmd->command, ' '), shell, fdin, fdout);
-			unlink(ft_split(cmd->command, ' ')[1]);
+			if (!ft_strncmp(cmd->built, "echo", ft_strlen(cmd->built)))
+				ft_putstr_fd("\n", fdout);
+			else
+				ft_exec(ft_split(cmd->command, ' '), shell, fdin, fdout);
+			unlink(cmd->infile);
 			shell->heredoc = 0;
 		}
 		else if (ft_select(cmd, shell, fdout) == 1)
