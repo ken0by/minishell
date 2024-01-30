@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse4.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 10:48:52 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/29 16:20:52 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/30 16:34:03 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,10 @@ char	*ft_sust_doll(char *line)
 	int		i;
 	int		j;
 	char	*fir_line;
-	char	*change;
 	char	*sec_line;
 
 	i = 0;
 	fir_line = NULL;
-	change = NULL;
 	sec_line = NULL;
 	while (line[i] != '$' && line[i])
 		i++;

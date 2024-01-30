@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_system.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:44:31 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/29 18:59:53 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/30 17:31:30 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	ft_system(t_command *cmd, t_minishell *shell, int fdin, int fdout)
 				ft_putstr_fd("\n", fdout);
 			else
 				ft_exec(ft_split(cmd->command, ' '), shell, fdin, fdout);
-			unlink(cmd->infile);
+			unlink(ft_split(cmd->command, ' ')[1]);
 			shell->heredoc = 0;
 		}
 		else if (ft_select(cmd, shell, fdout) == 1)
@@ -95,5 +95,7 @@ void	ft_system(t_command *cmd, t_minishell *shell, int fdin, int fdout)
 	}
 	else if (ft_lstsize_shell(cmd) > 1)
 		ft_ord(cmd, shell);
+	shell->outfile = STDOUT_FILENO;
+	shell->infile = STDIN_FILENO;
 	dup2(STDIN_FILENO, STDOUT_FILENO);
 }

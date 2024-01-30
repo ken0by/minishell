@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse5.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:18:39 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/29 18:57:51 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/30 17:29:07 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_built(char *cmd)
 	return ("exec");
 }
 
-static char	*ft_take_com(char *command)
+char	*ft_take_com(char *command)
 {
 	int		i;
 	int		j;
@@ -113,21 +113,13 @@ void	ft_inout(t_command **cmd, t_minishell *shell)
 		if (ft_strchr(aux->command, '<'))
 		{
 			aux->inf = ft_count(aux->command, '<');
-			aux->infile = ft_substr(aux->command,
-					ft_strchr_out(aux->command, '<'),
-					ft_space(aux->command, ft_strchr_out(aux->command, '<')));
-			shell->infile = ft_inf(aux->infile, aux->inf, shell);
+			shell->infile = ft_inf(aux->next->command, aux->inf, shell);
 		}
 		if (ft_strchr(aux->command, '>'))
 		{
 			aux->out = ft_count(aux->command, '>');
-			aux->outfile = ft_substr(aux->command,
-					ft_strchr_out(aux->command, '>'),
-					ft_strlen(ft_strchr(aux->command, '>')));
-			shell->outfile = ft_open(aux->outfile, aux->out, shell);
+			shell->outfile = ft_open(aux->next->command, aux->out, shell);
 		}
-		aux->built = ft_built(aux->command);
-		aux->command = ft_take_com(aux->command);
 		aux = aux->next;
 	}
 }

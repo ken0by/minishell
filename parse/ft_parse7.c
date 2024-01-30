@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse7.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 17:24:53 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/29 12:44:34 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/30 17:18:50 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,4 +106,17 @@ char	*ft_exp(char *line, char **env)
 	}
 	free(line);
 	return (ft_join_line(cmd));
+}
+
+void	ft_cmdtake(t_command **cmd)
+{
+	t_command	*aux;
+
+	aux = *cmd;
+	while (aux)
+	{
+		aux->built = ft_built(aux->command);
+		aux->command = ft_take_com(aux->command);
+		aux = aux->next;
+	}
 }

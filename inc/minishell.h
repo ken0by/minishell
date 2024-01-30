@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/29 19:00:21 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/30 17:19:04 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ int			ft_inf(char *infile, int x, t_minishell *shell);
 /* FT_PARSE5.C */
 char		*ft_built(char *cmd);
 void		ft_inout(t_command **cmd, t_minishell *shell);
+char		*ft_take_com(char *command);
 
 /* FT_PARSE6.C */
 void		ft_swap(t_command *cmd);
@@ -134,6 +135,7 @@ char		*ft_exp(char *line, char **env);
 
 /* FT_PARSE7.C */
 char		*ft_exp(char *line, char **env);
+void		ft_cmdtake(t_command **cmd);
 
 /* FT_PARSE8.C */
 char		*ft_find_var(char *line, char **env);
