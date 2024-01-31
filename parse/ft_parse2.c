@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 11:12:11 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/29 15:30:02 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/31 16:42:30 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_simple(char *str, char **line, int *space)
+static int	ft_simple(char *str, char **line, int *space, int quote)
 {
 	int	i;
 	int	j;
@@ -21,7 +21,7 @@ static int	ft_simple(char *str, char **line, int *space)
 	i = 1;
 	k = 1;
 	j = 0;
-	while (str[i] != 39)
+	while (str[i] != quote)
 		i++;
 	line[0] = malloc(sizeof(char) + i);
 	while (j < i - 1)
@@ -36,7 +36,7 @@ static int	ft_simple(char *str, char **line, int *space)
 	return (i);
 }
 
-static int	ft_doble(char *str, char **line, int *space)
+static int	ft_closequote(char *str)
 {
 	int	i;
 	int	j;
@@ -44,20 +44,20 @@ static int	ft_doble(char *str, char **line, int *space)
 
 	i = 1;
 	k = 1;
-	j = 0;
-	while (str[i] != '"')
-		i++;
-	line[0] = malloc(sizeof(char) + i);
-	while (j < i - 1)
+	if (str[0] == 39)
+		j = 39;
+	else
+		j = 34;
+	while (str[i])
 	{
-		line[0][j] = str[k];
-		j++;
-		k++;
+		if (str[i] == j)
+			k++;
+		i++;
 	}
-	line[0][j] = '\0';
-	if (str[i + 1] != ' ')
-		*space = 1;
-	return (i);
+	if (k % 2 == 0)
+		return (1);
+	g_code_error = 1;
+	return (0);
 }
 
 static int	ft_num(char *str, char **line, int *space)
@@ -119,23 +119,18 @@ t_command	*ft_take_cmd(t_command **cmd, char *line, char *cmd_line)
 		if (cmd_line[i] != ' ')
 		{
 			space = 0;
-			if (cmd_line[i] == 39)
-				i += ft_simple(&cmd_line[i], &line, &space);
-			else if (cmd_line[i] == '"')
-				i += ft_doble(&cmd_line[i], &line, &space);
-			else if (cmd_line[i] == '<')
-				i += ft_car(&cmd_line[i], &line);
-			else if (cmd_line[i] == '>')
-				i += ft_car(&cmd_line[i], &line);
-			else if (cmd_line[i] == '|')
+			if (cmd_line[i] == 39 || cmd_line[i] == 34)
+			{
+				if (!ft_closequote(&cmd_line[i]))
+					return (ft_printf("Please close quotes!\n"), NULL);
+				i += ft_simple(&cmd_line[i], &line, &space, cmd_line[i]);
+			}
+			else if (cmd_line[i] == '<' || cmd_line[i] == '>' || cmd_line[i] == '|')
 				i += ft_car(&cmd_line[i], &line);
 			else
 				i += ft_num(&cmd_line[i], &line, &space);
-			if (line[0] != '\0')
-			{
-				ft_lstadd_back_shell(cmd,
-					ft_lst_first(ft_skip_space(line), cmd_line[i], &space));
-			}
+			ft_lstadd_back_shell(cmd,
+				ft_lst_first(ft_skip_space(line), cmd_line[i], &space));
 			free (line);
 		}
 	}

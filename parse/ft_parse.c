@@ -6,7 +6,7 @@
 /*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:28:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/30 17:28:52 by rodro            ###   ########.fr       */
+/*   Updated: 2024/01/31 16:39:48 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ void	ft_check_line(t_command *cmd, t_minishell *shell)
 		flag = 1;
 	signal(SIGQUIT, ft_quit);
 	cmd = ft_take_cmd(&cmd, line, cmd_line);
+	if (!cmd)
+		return ;
 	cmd = ft_sust(&cmd, shell->env);
 	ft_inout(&cmd, shell);
 	cmd = ft_join(&cmd);
