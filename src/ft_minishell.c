@@ -6,7 +6,7 @@
 /*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:31:09 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/12 12:41:07 by rodro            ###   ########.fr       */
+/*   Updated: 2024/02/12 12:45:20 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	ft_init_var(t_minishell *shell, char **env)
 	shell->infile = 0;
 	shell->outfile = 0;
 	shell->heredoc = 0;
+	shell->last_error = 0;
 	shell->cmd_line = NULL;
 	if (!env[0])
 	{
@@ -68,6 +69,7 @@ int	main(int ac, char **av, char **env)
 			shell.cmd_line = readline(RED"Minishell  🤯 $ "RESET);
 		if (!shell.cmd_line)
 			ft_error_cmd();
+		shell.last_error = g_code_error;
 		g_code_error = 0;
 		shell.cmd_line[ft_strlen(shell.cmd_line)] = '\0';
 		add_history(shell.cmd_line);

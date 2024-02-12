@@ -6,7 +6,7 @@
 /*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 17:24:53 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/30 17:18:50 by rodro            ###   ########.fr       */
+/*   Updated: 2024/02/12 12:49:58 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static char	*ft_here_exp(char *line, char **env)
 /* Esta funcion mira si hay que sustituir cuando me pasan un variable
 por el heredoc, cuando pasan comillas se cierra directamente
 y no hace nada */
-char	*ft_exp(char *line, char **env)
+char	*ft_exp(char *line, t_minishell *shell)
 {
 	char	**cmd;
 	int		i;
@@ -97,11 +97,11 @@ char	*ft_exp(char *line, char **env)
 	while (cmd[i])
 	{
 		if (cmd[i][0] != '$')
-			cmd[i] = ft_find_var(cmd[i], env);
+			cmd[i] = ft_find_var(cmd[i], shell->env);
 		else if (ft_strnstr(cmd[i], "$?", ft_strlen(cmd[i])) != 0)
-			cmd[i] = ft_sust_doll(cmd[i]);
+			cmd[i] = ft_sust_doll(cmd[i], shell);
 		else if (ft_strnstr(cmd[i], "$", ft_strlen(cmd[i])) != 0)
-			cmd[i] = ft_here_exp(cmd[i], env);
+			cmd[i] = ft_here_exp(cmd[i], shell->env);
 		i++;
 	}
 	free(line);

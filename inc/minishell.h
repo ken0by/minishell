@@ -6,7 +6,7 @@
 /*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/30 17:19:04 by rodro            ###   ########.fr       */
+/*   Updated: 2024/02/12 12:50:37 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_minishell
 	int		infile;
 	int		outfile;
 	int		heredoc;
+	int		last_error;
 	char	*cmd_line;
 	char	*path;
 	char	*pwd;
@@ -116,11 +117,11 @@ char		*ft_spr(char *line);
 t_command	*ft_take_cmd(t_command **cmd, char *line, char *cmd_line);
 
 /* FT_PARSE3.C */
-t_command	*ft_sust(t_command **cmd, char **env);
+t_command	*ft_sust(t_command **cmd, t_minishell *shell);
 char		*ft_param(char *line, char **env);
 
 /* FT_PARSE4.C */
-char		*ft_sust_doll(char *line);
+char		*ft_sust_doll(char *line, t_minishell *shell);
 int			ft_inf(char *infile, int x, t_minishell *shell);
 
 /* FT_PARSE5.C */
@@ -131,10 +132,9 @@ char		*ft_take_com(char *command);
 /* FT_PARSE6.C */
 void		ft_swap(t_command *cmd);
 char		*ft_take_size(char *cmd);
-char		*ft_exp(char *line, char **env);
 
 /* FT_PARSE7.C */
-char		*ft_exp(char *line, char **env);
+char		*ft_exp(char *line, t_minishell *shell);
 void		ft_cmdtake(t_command **cmd);
 
 /* FT_PARSE8.C */

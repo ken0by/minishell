@@ -6,23 +6,23 @@
 /*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 10:48:52 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/30 16:34:03 by rodro            ###   ########.fr       */
+/*   Updated: 2024/02/12 12:52:14 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*ft_change_doll(char *fir_line, char *sec_line)
+static char	*ft_change_doll(char *fir_line, char *sec_line, t_minishell *shell)
 {
 	char	*line;
 
-	line = ft_strjoin_gnl(fir_line, ft_itoa(g_code_error));
+	line = ft_strjoin_gnl(fir_line, ft_itoa(shell->last_error));
 	if (sec_line)
 		line = ft_strjoin_gnl(line, sec_line);
 	return (line);
 }
 
-char	*ft_sust_doll(char *line)
+char	*ft_sust_doll(char *line, t_minishell *shell)
 {
 	int		i;
 	int		j;
@@ -39,7 +39,7 @@ char	*ft_sust_doll(char *line)
 	j += 2;
 	if (line[j])
 		sec_line = ft_substr(line, j, ft_strlen(&line[j]));
-	line = ft_change_doll(fir_line, sec_line);
+	line = ft_change_doll(fir_line, sec_line, shell);
 	return (line);
 }
 
@@ -47,7 +47,7 @@ static void	ft_loop(int fd, char *line, char *end, t_minishell *shell)
 {
 	while (line)
 	{
-		line = ft_exp(line, shell->env);
+		line = ft_exp(line, shell);
 		if ((ft_strncmp(line, end, ft_strlen(end)) == 0)
 			&& (ft_strlen(line) == ft_strlen(end) + 1))
 			exit(EXIT_SUCCESS);

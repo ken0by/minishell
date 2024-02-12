@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 12:31:43 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/25 19:24:55 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/12 12:47:56 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	*ft_param(char *line, char **env)
 	return (line);
 }
 
-t_command	*ft_sust(t_command **cmd, char **env)
+t_command	*ft_sust(t_command **cmd, t_minishell *shell)
 {
 	t_command	*aux;
 
@@ -96,9 +96,9 @@ t_command	*ft_sust(t_command **cmd, char **env)
 		if (aux->dollar == 1)
 			aux = aux->next;
 		else if (ft_strnstr(aux->command, "$?", ft_strlen(aux->command)) != 0)
-			aux->command = ft_sust_doll(aux->command);
+			aux->command = ft_sust_doll(aux->command, shell);
 		else if (ft_strnstr(aux->command, "$", ft_strlen(aux->command)) != 0)
-			aux->command = ft_param(aux->command, env);
+			aux->command = ft_param(aux->command, shell->env);
 		else
 			aux = aux->next;
 	}
