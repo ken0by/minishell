@@ -6,7 +6,7 @@
 /*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:28:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/31 16:39:48 by rodro            ###   ########.fr       */
+/*   Updated: 2024/02/12 12:36:18 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	ft_check_line(t_command *cmd, t_minishell *shell)
 		return ;
 	if (cmd_line[0] == '<')
 		flag = 1;
-	signal(SIGQUIT, ft_quit);
+	signal(SIGQUIT, ft_int);
 	cmd = ft_take_cmd(&cmd, line, cmd_line);
 	if (!cmd)
 		return ;
