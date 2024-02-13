@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:31:09 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/12 12:45:20 by rodro            ###   ########.fr       */
+/*   Updated: 2024/02/13 16:02:00 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,11 @@ int	main(int ac, char **av, char **env)
 	if (ac != 1 || av[1])
 		ft_error_arguments();
 	ft_init_var(&shell, env);
-	ft_signal_dis();
 	cmd = NULL;
 	while (1)
 	{
+		ft_signal_dis();
+		signal(SIGQUIT, ft_int);
 		if (!g_code_error)
 			shell.cmd_line = readline(GREEN"Minishell  🤯 $ "RESET);
 		else

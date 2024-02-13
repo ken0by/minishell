@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_system.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:44:31 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/30 17:31:30 by rodro            ###   ########.fr       */
+/*   Updated: 2024/02/13 17:33:56 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,15 @@ int	ft_cw(int fdout, pid_t pd)
 	return (status);
 }
 
+static void	ft_dupfd(int fdin, int fdout)
+{
+	if (fdin > 0)
+		dup2(fdin, STDIN_FILENO);
+	if (fdout > 1)
+		dup2(fdout, STDOUT_FILENO);
+	close(fdin);
+}
+
 void	ft_exec(char **cmd, t_minishell *shell, int fdin, int fdout)
 {
 	char	*path;
@@ -58,9 +67,7 @@ void	ft_exec(char **cmd, t_minishell *shell, int fdin, int fdout)
 			ft_put_msg(cmd[0], "command not found\n");
 			exit (127);
 		}
-		dup2(fdin, STDIN_FILENO);
-		dup2(fdout, STDOUT_FILENO);
-		close(fdin);
+		ft_dupfd(fdin, fdout);
 		if (execve(path, cmd, shell->env) == -1)
 			ft_peror(cmd[0], "");
 		free (path);
@@ -94,7 +101,7 @@ void	ft_system(t_command *cmd, t_minishell *shell, int fdin, int fdout)
 			ft_exec(ft_split(cmd->command, ' '), shell, fdin, fdout);
 	}
 	else if (ft_lstsize_shell(cmd) > 1)
-		ft_ord(cmd, shell);
+		ft_ord(cmd, shell, ft_check_in(shell), ft_check_out(shell));
 	shell->outfile = STDOUT_FILENO;
 	shell->infile = STDIN_FILENO;
 	dup2(STDIN_FILENO, STDOUT_FILENO);

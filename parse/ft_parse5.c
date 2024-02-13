@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse5.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:18:39 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/30 17:29:07 by rodro            ###   ########.fr       */
+/*   Updated: 2024/02/13 17:02:17 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ char	*ft_take_com(char *command)
 			j++;
 		}
 	}
-	free (command);
-	return (tmp);
+	tmp[j] = '\0';
+	return (free (command), tmp);
 }
 
 static int	ft_open(char *outfile, int x, t_minishell *shell)

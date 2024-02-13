@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/12 12:50:37 by rodro            ###   ########.fr       */
+/*   Updated: 2024/02/13 17:34:27 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,13 +149,14 @@ void		ft_error_fd(char *var, int fd);
 
 /* ----- PIPE ----- */
 /* FT_PIPE.C */
-void		ft_ord(t_command *cmd, t_minishell *shell);
-int			ft_check_in(t_minishell *shell);
-int			ft_check_out(t_minishell *shell);
+void		ft_ord(t_command *cmd, t_minishell *shell, int fdin, int fdout);
 
 /* FT_PIPE_UTILS.C */
+int			ft_check_in(t_minishell *shell);
+int			ft_check_out(t_minishell *shell);
 void		ft_free_cmd(t_command **cmd);
 void		ft_peror(char *var, char *s);
+int			ft_lst_size(t_command *lst);
 
 /* ----- SRC ----- */
 /* FT_UTILS.C */

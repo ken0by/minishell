@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 12:31:50 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/10 17:15:17 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/13 16:06:06 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_int(int i)
 
 void	ft_quit(int sig)
 {
-	ft_putstr_fd("Quit: ", STDERR_FILENO);
+	ft_putstr_fd("^\\Quit: ", STDERR_FILENO);
 	ft_putnbr_fd(sig, STDERR_FILENO);
 	ft_putchar_fd('\n', STDERR_FILENO);
 }
