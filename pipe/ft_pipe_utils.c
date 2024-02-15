@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 17:05:35 by rodro             #+#    #+#             */
-/*   Updated: 2024/02/15 12:57:25 by rodro            ###   ########.fr       */
+/*   Updated: 2024/02/15 15:43:19 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ int	ft_check_in(t_minishell *shell)
 {
 	if (shell->infile)
 		return (shell->infile);
-	return (-1);
+	return (0);
 }
 
 int	ft_check_out(t_minishell *shell)
 {
 	if (shell->outfile)
 		return (shell->outfile);
-	return (-1);
+	return (1);
 }
 
 int	ft_lst_size(t_command *lst)

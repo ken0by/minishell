@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:25:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/29 15:32:33 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/15 14:28:24 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_command	*ft_lst_first(char *str, char c, int *space)
 		new->dollar = 1;
 	else
 		new->dollar = 0;
+	free(str);
 	return (new);
 }
 

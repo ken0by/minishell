@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:31:09 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/13 16:02:00 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/15 15:37:59 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,24 @@ static void	ft_init_var(t_minishell *shell, char **env)
 	ft_init_signal();
 }
 
-/* void leaks()
+static void	ft_free_cmdline(char *line, t_command **cmd)
 {
-	atexit (leaks);
+	free(line);
+	ft_free_cmd(cmd);
+	return ;
+}
+
+void leaks()
+{
 	system("leaks -q minishell");
-} */
+}
 
 int	main(int ac, char **av, char **env)
 {
 	t_minishell	shell;
 	t_command	*cmd;
 
+	//atexit (leaks);
 	if (ac != 1 || av[1])
 		ft_error_arguments();
 	ft_init_var(&shell, env);
@@ -63,7 +70,7 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		ft_signal_dis();
-		signal(SIGQUIT, ft_int);
+		signal(SIGINT, ft_int);
 		if (!g_code_error)
 			shell.cmd_line = readline(GREEN"Minishell  🤯 $ "RESET);
 		else
@@ -75,8 +82,8 @@ int	main(int ac, char **av, char **env)
 		shell.cmd_line[ft_strlen(shell.cmd_line)] = '\0';
 		add_history(shell.cmd_line);
 		ft_check_line(cmd, &shell);
-		free(shell.cmd_line);
-		ft_free_cmd(&cmd);
+		ft_free_cmdline(shell.cmd_line, &cmd);
+		//system("leaks -q minishell");
 	}
 	return (0);
 }

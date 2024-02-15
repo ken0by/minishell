@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 11:12:11 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/31 16:42:30 by rodro            ###   ########.fr       */
+/*   Updated: 2024/02/15 14:28:34 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,13 +125,13 @@ t_command	*ft_take_cmd(t_command **cmd, char *line, char *cmd_line)
 					return (ft_printf("Please close quotes!\n"), NULL);
 				i += ft_simple(&cmd_line[i], &line, &space, cmd_line[i]);
 			}
-			else if (cmd_line[i] == '<' || cmd_line[i] == '>' || cmd_line[i] == '|')
+			else if (cmd_line[i] == '<'
+				|| cmd_line[i] == '>' || cmd_line[i] == '|')
 				i += ft_car(&cmd_line[i], &line);
 			else
 				i += ft_num(&cmd_line[i], &line, &space);
 			ft_lstadd_back_shell(cmd,
 				ft_lst_first(ft_skip_space(line), cmd_line[i], &space));
-			free (line);
 		}
 	}
 	return (*cmd);
