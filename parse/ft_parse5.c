@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse5.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:18:39 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/13 17:02:17 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/15 12:49:24 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,22 @@ char	*ft_built(char *cmd)
 {
 	if (ft_strnstr(cmd, "echo", ft_strlen(cmd))
 		&& ft_strlen(cmd) > 0)
-		return (ft_spr(ft_strnstr(cmd, "echo", ft_strlen(cmd))));
+		return (ft_spr(ft_split(cmd, ' '), "echo"));
 	else if (ft_strnstr(cmd, "cd", ft_strlen(cmd))
 		&& ft_strlen(cmd) > 0)
-		return (ft_spr(ft_strnstr(cmd, "cd", ft_strlen(cmd))));
+		return (ft_spr(ft_split(cmd, ' '), "cd"));
 	else if (ft_strnstr(cmd, "pwd", ft_strlen(cmd))
 		&& ft_strlen(cmd) > 0)
-		return (ft_spr(ft_strnstr(cmd, "pwd", ft_strlen(cmd))));
+		return (ft_spr(ft_split(cmd, ' '), "pwd"));
 	else if (ft_strnstr(cmd, "export", ft_strlen(cmd))
 		&& ft_strlen(cmd) > 0)
-		return (ft_spr(ft_strnstr(cmd, "export", ft_strlen(cmd))));
+		return (ft_spr(ft_split(cmd, ' '), "export"));
 	else if (ft_strnstr(cmd, "unset", ft_strlen(cmd))
 		&& ft_strlen(cmd) > 0)
-		return (ft_spr(ft_strnstr(cmd, "unset", ft_strlen(cmd))));
+		return (ft_spr(ft_split(cmd, ' '), "unset"));
 	else if (ft_strnstr(cmd, "env", ft_strlen(cmd))
 		&& ft_strlen(cmd) > 0)
-		return (ft_spr(ft_strnstr(cmd, "env", ft_strlen(cmd))));
+		return (ft_spr(ft_split(cmd, ' '), "env"));
 	return ("exec");
 }
 

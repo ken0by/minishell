@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:28:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/13 17:05:27 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/15 12:51:29 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,28 +127,29 @@ void	ft_check_line(t_command *cmd, t_minishell *shell)
 	ft_system(cmd, shell, ft_check_in(shell), ft_check_out(shell));
 }
 
-char	*ft_spr(char *line)
+char	*ft_spr(char **line, char *built)
 {
 	int		i;
 	int		j;
-	int		k;
 	char	*word;
 
 	i = 0;
 	j = 0;
-	k = 0;
-	while (line[i] && line[i] != ' ')
-		i--;
-	while (line[j] && line[j] != ' ')
-		j++;
-	i++;
-	word = malloc(sizeof(char) * j + (i * -1));
-	while (i < j)
+	while (line[i])
 	{
-		word[k] = line[i];
+		if (ft_strncmp(line[i], built, ft_strlen(line[i])) == 0)
+		{
+			word = malloc(sizeof(char) * ft_strlen(line[i]));
+			while (line[i][j])
+			{
+				word[j] = line[i][j];
+				j++;
+			}
+			free(line);
+			return (word);
+		}
 		i++;
-		k++;
 	}
-	word[k] = '\0';
-	return (word);
+	free(line);
+	return ("Error");
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:24:27 by rodro             #+#    #+#             */
-/*   Updated: 2024/02/13 17:34:15 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/15 13:12:30 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	ft_ord(t_command *cmd, t_minishell *shell, int fdin, int fdout)
 	pid_t		*pd;
 	int			i;
 
-	pd = malloc(sizeof(pid_t) * ft_lst_size(cmd) + 1);
+	pd = malloc(sizeof(pid_t) * ft_lst_size(cmd) + 1);	//cambiar el malloc por un calloc a ver si el error de heap-buffer-overflow desaparace
 	aux = cmd;
 	i = 0;
 	while (aux)
@@ -111,6 +111,8 @@ void	ft_ord(t_command *cmd, t_minishell *shell, int fdin, int fdout)
 		fdin = fd[0];
 		aux = aux->next;
 	}
+	ft_printf("%d\n", i);
+	ft_printf("%d\n", ft_lst_size(cmd) + 1);
 	pd[i] = '\0';
 	g_code_error = (ft_cw2(pd) >> 8) & 0xFF;
 	close(fdin);
