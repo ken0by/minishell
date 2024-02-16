@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:24:27 by rodro             #+#    #+#             */
-/*   Updated: 2024/02/15 14:24:25 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/16 15:00:59 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	ft_dupfd2(int fdin, int fdout)
 		dup2(fdin, STDIN_FILENO);
 	if (fdout > 1)
 		dup2(fdout, STDOUT_FILENO);
-	close(fdin);
+	//close(fdin);
 }
 
 pid_t	ft_exec2(char **cmd, t_minishell *shell, int fdin, int fdout)
@@ -56,8 +56,7 @@ pid_t	ft_exec2(char **cmd, t_minishell *shell, int fdin, int fdout)
 		ft_free_mtx(cmd);
 		close(fdout);
 	}
-	else
-		close(fdout);
+	close(fdout);
 	return (pd);
 }
 
