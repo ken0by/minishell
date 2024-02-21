@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:31:09 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/21 19:05:48 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/21 19:15:00 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ static void	ft_free_cmdline(char *line, t_command **cmd)
 	return ;
 }
 
+static void	ft_sig_disable(void)
+{
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, ft_int);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	t_minishell	shell;
@@ -61,11 +67,11 @@ int	main(int ac, char **av, char **env)
 	if (ac != 1 || av[1])
 		ft_error_arguments();
 	ft_init_var(&shell, env);
+	ft_signal_dis();
 	cmd = NULL;
 	while (1)
 	{
-		ft_signal_dis();
-		signal(SIGINT, ft_int);
+		ft_sig_disable();
 		if (!g_code_error)
 			shell.cmd_line = readline(GREEN"Minishell  🤯 $ "RESET);
 		else
