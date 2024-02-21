@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:28:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/15 14:36:02 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:33:59 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ static t_command	*ft_join(t_command **cmd)
 		aux = aux->next;
 	}
 	ft_lstadd_back_shell(pipe, ft_lstnew_shell(line));
-	//ft_free_cmd(cmd);
 	return (free(line), *pipe);
 }
 
@@ -112,6 +111,7 @@ void	ft_check_line(t_command *cmd, t_minishell *shell)
 		return ;
 	if (cmd_line[0] == '<')
 		flag = 1;
+	signal(SIGINT, ft_intnl);
 	signal(SIGQUIT, ft_quit);
 	cmd = ft_take_cmd(&cmd, line, cmd_line);
 	if (!cmd)

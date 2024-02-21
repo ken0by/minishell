@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_system.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:44:31 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/20 13:11:12 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:30:02 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,15 @@ int	ft_cw(int fdout, pid_t pd)
 	return (status);
 }
 
-static void	ft_dupfd(int fdin, int fdout)
+void	ft_dupfd(int fdin, int fdout)
 {
-	if (fdin > 0)
+	if (fdin > 0 || fdin != -1)
+	{
 		dup2(fdin, STDIN_FILENO);
+		close(fdin);
+	}
 	if (fdout > 1)
 		dup2(fdout, STDOUT_FILENO);
-	close(fdin);
 }
 
 void	ft_exec(char **cmd, t_minishell *shell, int fdin, int fdout)

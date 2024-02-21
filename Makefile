@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+         #
+#    By: rodro <rodro@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/29 10:00:52 by dmonjas-          #+#    #+#              #
-#    Updated: 2024/02/15 14:42:22 by rofuente         ###   ########.fr        #
+#    Updated: 2024/02/20 18:31:28 by rodro            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,21 +14,21 @@ LIB	=	ar rcs
 RM	=	rm -f
 
 ###CASA###
-#READLINE_DIR = $(shell brew --prefix readline)
-#FLAG	=	-lreadline -lhistory -L $(READLINE_DIR)/lib
-###42###
-READLINE_DIR = /sgoinfre/students/$(USER)/homebrew/opt/readline
+READLINE_DIR = $(shell brew --prefix readline)
 FLAG	=	-lreadline -lhistory -L $(READLINE_DIR)/lib
+###42###
+#READLINE_DIR = /sgoinfre/students/$(USER)/homebrew/opt/readline
+#FLAG	=	-lreadline -lhistory -L $(READLINE_DIR)/lib
 
 CC	=	gcc
-CFLAGS	=	-Wall -Wextra -Werror -I ./inc -I ./libft/inc/ -I $(READLINE_DIR)/include
+CFLAGS	=	-g3 -fsanitize=address -Wall -Wextra -Werror -I ./inc -I ./libft/inc/ -I $(READLINE_DIR)/include
 DEBUG	=	-g3 -fsanitize=address
 
 NAME	=	minishell
 
 BUILT	=	ft_cd.c ft_echo.c ft_export.c ft_exutil.c ft_exutil2.c ft_print.c ft_unset.c
 PARSE	=	ft_parse.c ft_parse2.c ft_parse3.c ft_parse4.c ft_parse5.c ft_parse_error.c ft_parse6.c ft_parse7.c ft_parse8.c
-PIPE	=	ft_pipe.c ft_pipe_utils.c
+PIPE	=	ft_pipe.c ft_pipe_utils.c ft_pipe_utils2.c
 SRC	=	ft_minishell.c ft_utils.c ft_error.c ft_lst.c ft_utils2.c ft_signal.c ft_system.c ft_path.c ft_exit.c
 
 SRC_DIR	=	./src/

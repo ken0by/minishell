@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:31:09 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/15 15:37:59 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:04:50 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,11 @@ static void	ft_free_cmdline(char *line, t_command **cmd)
 	return ;
 }
 
-void leaks()
-{
-	system("leaks -q minishell");
-}
-
 int	main(int ac, char **av, char **env)
 {
 	t_minishell	shell;
 	t_command	*cmd;
 
-	//atexit (leaks);
 	if (ac != 1 || av[1])
 		ft_error_arguments();
 	ft_init_var(&shell, env);

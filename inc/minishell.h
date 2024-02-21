@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/15 14:36:05 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:56:47 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,9 @@ void		ft_free_cmd(t_command **cmd);
 void		ft_peror(char *var, char *s);
 int			ft_lst_size(t_command *lst);
 
+/* FT_PIPE_UTILS2.C */
+pid_t		ft_order_single(char *cmd, t_minishell *shell, int fdin, int fdout);
+
 /* ----- SRC ----- */
 /* FT_UTILS.C */
 char		*ft_env(char **env, char *c);
@@ -191,6 +194,7 @@ t_command	*ft_lst_first(char *str, char c, int *space);
 
 /* FT_SIGNAL.C */
 void		ft_int(int i);
+void		ft_intnl(int i);
 void		ft_quit(int sig);
 void		ft_init_signal(void);
 void		ft_signal_dis(void);
@@ -199,6 +203,7 @@ void		ft_signal_dis(void);
 void		ft_system(t_command *cmd, t_minishell *shell, int fdin, int fdout);
 void		ft_exec(char **cmd, t_minishell *shell, int fdin, int fdout);
 char		*ft_cmdpath(char *cmd, char **env);
+void		ft_dupfd(int fdin, int fdout);
 int			ft_cw(int fdout, pid_t pd);
 
 /* FT_PATH.C */

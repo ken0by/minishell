@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_signal.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 12:31:50 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/15 14:36:16 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:59:38 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@ void	ft_signal_dis(void)
 		perror("tcsetattr");
 		exit(0);
 	}
+}
+
+void	ft_intnl(int i)
+{
+	ft_printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", '\0');
+	(void)i;
 }
 
 void	ft_int(int i)
