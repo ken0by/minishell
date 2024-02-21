@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:25:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/15 14:28:24 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/21 18:56:00 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ t_command	*ft_lst_first(char *str, char c, int *space)
 	if (!new)
 		return (NULL);
 	new->command = ft_strdup(str);
+	if (c == 34 || c == 39)
+		new->quotes = 1;
+	else
+		new->quotes = 0;
 	new->built = NULL;
 	new->infile = NULL;
 	new->outfile = NULL;
@@ -62,7 +66,7 @@ t_command	*ft_lstlast_shell(t_command *lst)
 	return (aux);
 }
 
-t_command	*ft_lstnew_shell(char *str)
+t_command	*ft_lstnew_shell(char *str, int x)
 {
 	t_command	*new;
 
@@ -70,6 +74,10 @@ t_command	*ft_lstnew_shell(char *str)
 	if (!new)
 		return (NULL);
 	new->command = ft_strdup(str);
+	if (x)
+		new->quotes = 1;
+	else
+		new->quotes = 0;
 	new->built = NULL;
 	new->infile = NULL;
 	new->outfile = NULL;

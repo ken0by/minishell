@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:37:07 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/20 18:28:22 by rodro            ###   ########.fr       */
+/*   Updated: 2024/02/21 16:22:15 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	ft_echo(char *cmd, int fd)
 	int	i;
 
 	i = 5;
-	ft_printf("%s\n", cmd);
 	if (!cmd[i - 1])
 		ft_putstr_fd("\n", fd);
 	if (cmd[i] == '-' && cmd[i + 1] == 'n')

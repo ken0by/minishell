@@ -3,37 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:37:03 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/15 12:38:28 by rodro            ###   ########.fr       */
+/*   Updated: 2024/02/21 17:24:06 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	ft_create_oldpwd(t_minishell *shell, char *oldpwd)
+{
+	char	**tmp;
+	int		i;
+
+	i = 0;
+	while (shell->env[i])
+		i++;
+	tmp = malloc(sizeof(char *) * (i + 2));
+	if (!tmp)
+		return ;
+	i = -1;
+	while (shell->env[++i])
+		tmp[i] = ft_strdup(shell->env[i]);
+	tmp[i] = ft_strdup(oldpwd);
+	tmp[i + 1] = NULL;
+	ft_free_mtx(shell->env);
+	shell->env = tmp;
+}
+
+static void	ft_new_env(t_minishell *shell, int i, char *new)
+{
+	free(shell->env[i]);
+	shell->env[i] = ft_strdup(new);
+}
+
 static void	ft_update(t_minishell *shell)
 {
 	int		i;
+	int		flag;
 	char	*pwd;
 	char	*oldpwd;
 
+	flag = 0;
 	pwd = ft_strjoin("PWD=", shell->pwd);
 	oldpwd = ft_strjoin("OLDPWD=", shell->oldpwd);
 	i = -1;
 	while (shell->env[++i])
 	{
 		if (!ft_strncmp(shell->env[i], "PWD=", 4))
-		{
-			free(shell->env[i]);
-			shell->env[i] = ft_strdup(pwd);
-		}
+			ft_new_env(shell, i, pwd);
 		if (!ft_strncmp(shell->env[i], "OLDPWD=", 7))
 		{
-			free(shell->env[i]);
-			shell->env[i] = ft_strdup(oldpwd);
+			flag = 1;
+			ft_new_env(shell, i, oldpwd);
 		}
 	}
+	if (!flag)
+		ft_create_oldpwd(shell, oldpwd);
 	free(pwd);
 	free(oldpwd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse5.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:18:39 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/15 12:49:24 by rodro            ###   ########.fr       */
+/*   Updated: 2024/02/21 18:44:04 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_built(char *cmd)
 	return ("exec");
 }
 
-char	*ft_take_com(char *command)
+char	*ft_take_com(char *command, int quotes)
 {
 	int		i;
 	int		j;
@@ -46,9 +46,9 @@ char	*ft_take_com(char *command)
 	j = 0;
 	while (command[++i])
 	{
-		if (command[i] == '>')
+		if (command[i] == '>' && !quotes)
 			break ;
-		if (command[i] == '<')
+		if (command[i] == '<' && !quotes)
 		{
 			i++;
 			while (command[i] == ' ' && command[i + 1] == ' ')
@@ -106,16 +106,18 @@ static int	ft_count(char *cmd, char c)
 void	ft_inout(t_command **cmd, t_minishell *shell)
 {
 	t_command	*aux;
+	int			flag;
 
+	flag = 0;
 	aux = *cmd;
 	while (aux)
 	{
-		if (ft_strchr(aux->command, '<'))
+		if (aux->command[0] == '<')
 		{
 			aux->inf = ft_count(aux->command, '<');
 			shell->infile = ft_inf(aux->next->command, aux->inf, shell);
 		}
-		if (ft_strchr(aux->command, '>'))
+		if (aux->command[0] == '>')
 		{
 			aux->out = ft_count(aux->command, '>');
 			shell->outfile = ft_open(aux->next->command, aux->out, shell);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:28:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/20 18:33:59 by rodro            ###   ########.fr       */
+/*   Updated: 2024/02/21 18:57:54 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,28 +74,29 @@ static t_command	*ft_join(t_command **cmd)
 {
 	t_command	**pipe;
 	t_command	*aux;
+	t_command	*node;
 	char		*line;
 
 	pipe = malloc(sizeof(t_command));
 	*pipe = 0;
 	line = NULL;
 	aux = *cmd;
+	node = *cmd;
 	while (aux)
 	{
 		if (ft_strlen(aux->command) == 1 && aux->command[0] == '|')
 		{
-			ft_lstadd_back_shell(pipe, ft_lstnew_shell(line));
-			free(line);
-			line = NULL;
+			ft_add_whenpipe(pipe, &line, node, aux);
 			aux = aux->next;
+			node = aux;
 		}
 		line = ft_strjoin_gnl(line, aux->command);
 		if (aux->next && aux->space == 0 && aux->next->command[0] != '|')
 			line = ft_strjoin_gnl(line, " ");
 		aux = aux->next;
 	}
-	ft_lstadd_back_shell(pipe, ft_lstnew_shell(line));
-	return (free(line), *pipe);
+	return (ft_lstadd_back_shell(pipe, ft_lstnew_shell(line,
+				ft_check_quotes(node, aux))), free(line), *pipe);
 }
 
 void	ft_check_line(t_command *cmd, t_minishell *shell)

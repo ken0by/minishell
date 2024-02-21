@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse7.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 17:24:53 by rofuente          #+#    #+#             */
-/*   Updated: 2024/02/12 12:49:58 by rodro            ###   ########.fr       */
+/*   Updated: 2024/02/21 18:00:32 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	ft_cmdtake(t_command **cmd)
 	while (aux)
 	{
 		aux->built = ft_built(aux->command);
-		aux->command = ft_take_com(aux->command);
+		aux->command = ft_take_com(aux->command, aux->quotes);
 		aux = aux->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:50:00 by rofuente          #+#    #+#             */
-/*   Updated: 2024/02/13 16:56:57 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/21 18:58:35 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,31 @@ char	*ft_take_size(char *cmd)
 	}
 	tmp = ft_calloc((j + 1), sizeof(char));
 	return (tmp);
+}
+
+int	ft_check_quotes(t_command *cmd, t_command *node)
+{
+	t_command	*aux;
+	int			flag;
+
+	aux = cmd;
+	flag = 0;
+	while (aux)
+	{
+		if (aux == node)
+			break ;
+		if (aux->quotes)
+			flag++;
+		aux = aux->next;
+	}
+	return (flag);
+}
+
+void	ft_add_whenpipe(t_command **pipe, char **line,
+			t_command *node, t_command *aux)
+{
+	ft_lstadd_back_shell(pipe,
+		ft_lstnew_shell(*line, ft_check_quotes(node, aux)));
+	free(*line);
+	*line = NULL;
 }
