@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse5.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:18:39 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/21 18:44:04 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/23 14:07:28 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*ft_take_com(char *command, int quotes)
 	int		j;
 	char	*tmp;
 
-	tmp = ft_take_size(command);
+	tmp = ft_take_size(command, quotes);
 	i = -1;
 	j = 0;
 	while (command[++i])
@@ -106,9 +106,8 @@ static int	ft_count(char *cmd, char c)
 void	ft_inout(t_command **cmd, t_minishell *shell)
 {
 	t_command	*aux;
-	int			flag;
 
-	flag = 0;
+
 	aux = *cmd;
 	while (aux)
 	{

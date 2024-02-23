@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse6.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:50:00 by rofuente          #+#    #+#             */
-/*   Updated: 2024/02/21 18:58:35 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/23 14:07:53 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_swap(t_command *cmd)
 	ft_free_mtx(tmp);
 }
 
-char	*ft_take_size(char *cmd)
+char	*ft_take_size(char *cmd, int quotes)
 {
 	int		i;
 	int		j;
@@ -66,9 +66,9 @@ char	*ft_take_size(char *cmd)
 	j = 0;
 	while (cmd[++i])
 	{
-		if (cmd[i] == '>')
+		if (cmd[i] == '>' && !quotes)
 			break ;
-		if (cmd[i] == '<')
+		if (cmd[i] == '<' && !quotes)
 		{
 			i++;
 			while (cmd[i] == ' ')

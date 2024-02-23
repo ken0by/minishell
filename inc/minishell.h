@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/21 18:55:49 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/23 14:08:14 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ char		*ft_take_com(char *command, int quotes);
 
 /* FT_PARSE6.C */
 void		ft_swap(t_command *cmd);
-char		*ft_take_size(char *cmd);
+char		*ft_take_size(char *cmd, int quotes);
 int			ft_check_quotes(t_command *cmd, t_command *node);
 void		ft_add_whenpipe(t_command **pipe,
 				char **line, t_command *node, t_command *aux);
