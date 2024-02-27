@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:31:09 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/27 16:12:04 by rodro            ###   ########.fr       */
+/*   Updated: 2024/02/27 16:34:46 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,17 @@
 
 static void	ft_cpy_no_env(t_minishell *shell)
 {
+	shell->pwd = malloc(sizeof(char) * 100);
+	if (!shell->pwd || !getcwd(shell->pwd, 100))
+		ft_err_msg("malloc");
 	shell->env = malloc(sizeof(char *) * 4);
 	shell->env[0] = ft_strjoin("PWD=", getcwd(shell->pwd, 100));
 	shell->env[1] = ft_strdup("SHLVL=1");
 	shell->env[2] = ft_strdup("_=/usr/bin/env");
 	shell->env[3] = NULL;
+	shell->path = NULL;
+	shell->oldpwd = NULL;
+	shell->root = NULL;
 }
 
 static void	ft_init_var(t_minishell *shell, char **env)
@@ -30,10 +36,7 @@ static void	ft_init_var(t_minishell *shell, char **env)
 	shell->last_error = 0;
 	shell->cmd_line = NULL;
 	if (!env[0])
-	{
 		ft_cpy_no_env(shell);
-		shell->pwd = ft_env(shell->env, "PWD=");
-	}
 	else
 	{
 		shell->env = ft_cpy_env(env);
