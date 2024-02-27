@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/23 14:08:14 by rodro            ###   ########.fr       */
+/*   Updated: 2024/02/27 15:41:39 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_minishell
 	char	*oldpwd;
 	char	*root;
 	char	**env;
+	char	*inf;
 }	t_minishell;
 
 typedef struct s_command
@@ -63,12 +64,9 @@ typedef struct s_command
 	char				*command;
 	char				*built;
 	int					dollar;
-	int					quotes;
 	int					inf;
 	int					out;
 	int					space;
-	char				*infile;
-	char				*outfile;
 	struct s_command	*next;
 }	t_command;
 
@@ -112,37 +110,32 @@ void		ft_cd(char *cmd, t_minishell *shell);
 void		ft_check_line(t_command *cmd, t_minishell *shell);
 void		ft_shell_up(t_minishell *shell);
 void		ft_shell_down(t_minishell *shell);
-char		*ft_spr(char **line, char *built);
 
 /* FT_PARSE2.C */
 t_command	*ft_take_cmd(t_command **cmd, char *line, char *cmd_line);
 
 /* FT_PARSE3.C */
 t_command	*ft_sust(t_command **cmd, t_minishell *shell);
-char		*ft_param(char *line, char **env);
 
 /* FT_PARSE4.C */
 char		*ft_sust_doll(char *line, t_minishell *shell);
-int			ft_inf(char *infile, int x, t_minishell *shell);
 
 /* FT_PARSE5.C */
-char		*ft_built(char *cmd);
-void		ft_inout(t_command **cmd, t_minishell *shell);
-char		*ft_take_com(char *command, int quotes);
+t_command	*ft_inout(t_command **cmd, t_minishell *shell);
 
 /* FT_PARSE6.C */
-void		ft_swap(t_command *cmd);
-char		*ft_take_size(char *cmd, int quotes);
-int			ft_check_quotes(t_command *cmd, t_command *node);
-void		ft_add_whenpipe(t_command **pipe,
-				char **line, t_command *node, t_command *aux);
+int			ft_here(char *end, int file, t_minishell *shell);
+
 
 /* FT_PARSE7.C */
-char		*ft_exp(char *line, t_minishell *shell);
-void		ft_cmdtake(t_command **cmd);
+char		*ft_find_var(char *line, char **env);
 
 /* FT_PARSE8.C */
-char		*ft_find_var(char *line, char **env);
+int			ft_len(char **cmd);
+char		*ft_swap(char *cmd, char *inf);
+void		ft_cmdtake(t_command **cmd);
+
+/* FT_PARSE9.C */
 
 /* FT_PARSE_ERROR.C */
 void		ft_error_car(void);
@@ -191,7 +184,7 @@ void		ft_error_perror(char *command, char *s);
 
 /* FT_LST.C */
 void		ft_lstadd_back_shell(t_command **lst, t_command *new);
-t_command	*ft_lstnew_shell(char *str, int x);
+t_command	*ft_lstnew_shell(char *str);
 t_command	*ft_lstlast_shell(t_command *lst);
 int			ft_lstsize_shell(t_command *lst);
 t_command	*ft_lst_first(char *str, char c, int *space);

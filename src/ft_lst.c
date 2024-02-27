@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lst.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:25:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/21 18:56:00 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/27 11:14:43 by dmonjas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,15 @@ t_command	*ft_lst_first(char *str, char c, int *space)
 	if (!new)
 		return (NULL);
 	new->command = ft_strdup(str);
-	if (c == 34 || c == 39)
-		new->quotes = 1;
-	else
-		new->quotes = 0;
 	new->built = NULL;
-	new->infile = NULL;
-	new->outfile = NULL;
 	new->next = NULL;
 	new->inf = 0;
 	new->out = 0;
 	new->space = *space;
 	if (c == 39)
 		new->dollar = 1;
+	else if (c == 34)
+		new->dollar = 2;
 	else
 		new->dollar = 0;
 	free(str);
@@ -66,7 +62,7 @@ t_command	*ft_lstlast_shell(t_command *lst)
 	return (aux);
 }
 
-t_command	*ft_lstnew_shell(char *str, int x)
+t_command	*ft_lstnew_shell(char *str)
 {
 	t_command	*new;
 
@@ -74,13 +70,7 @@ t_command	*ft_lstnew_shell(char *str, int x)
 	if (!new)
 		return (NULL);
 	new->command = ft_strdup(str);
-	if (x)
-		new->quotes = 1;
-	else
-		new->quotes = 0;
 	new->built = NULL;
-	new->infile = NULL;
-	new->outfile = NULL;
 	new->inf = 0;
 	new->out = 0;
 	if (str[0] == 39)

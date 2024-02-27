@@ -3,137 +3,144 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse8.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 17:24:53 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/24 18:31:03 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/27 11:12:48 by dmonjas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static char	*ft_join_all(char *first, char *var, char *second, int k)
+int	ft_len(char **cmd)
+{
+	int		i;
+	int		j;
+	int		k;
+
+	i = -1;
+	k = 0;
+	while (cmd[++i])
+	{
+		j = -1;
+		while (cmd[i][++j])
+			k++;
+		k++;
+	}
+	return (k + 1);
+}
+
+char	*ft_swap(char *cmd, char *inf)
+{
+	char	**tmp;
+	char	*command;
+	int		i;
+
+	i = 1;
+	tmp = ft_split(cmd, ' ');
+	if (open(inf, O_RDONLY, 0644) < 0)
+	{
+		free (tmp);
+		return ("ERROR INF");
+	}
+	command = ft_strjoin(tmp[0], " ");
+	command = ft_strjoin(command, inf);
+	while (tmp[i])
+	{
+		command = ft_strjoin(command, tmp[i]);
+		i++;
+	}
+	ft_free_mtx(tmp);
+	return (command);
+}
+
+static char	*ft_spr(char **line, char *built)
+{
+	int		i;
+	int		j;
+	char	*word;
+
+	i = 0;
+	j = 0;
+	while (line[i])
+	{
+		if (ft_strncmp(line[i], built, ft_strlen(line[i])) == 0)
+		{
+			word = malloc(sizeof(char) * ft_strlen(line[i]));
+			while (line[i][j])
+			{
+				word[j] = line[i][j];
+				j++;
+			}
+			free(line);
+			return (word);
+		}
+		i++;
+	}
+	free(line);
+	return ("Error");
+}
+static char	*ft_built(char *cmd)
+{
+	if (ft_strnstr(cmd, "echo", ft_strlen(cmd))
+		&& ft_strlen(cmd) > 0)
+		return (ft_spr(ft_split(cmd, ' '), "echo"));
+	else if (ft_strnstr(cmd, "cd", ft_strlen(cmd))
+		&& ft_strlen(cmd) > 0)
+		return (ft_spr(ft_split(cmd, ' '), "cd"));
+	else if (ft_strnstr(cmd, "pwd", ft_strlen(cmd))
+		&& ft_strlen(cmd) > 0)
+		return (ft_spr(ft_split(cmd, ' '), "pwd"));
+	else if (ft_strnstr(cmd, "export", ft_strlen(cmd))
+		&& ft_strlen(cmd) > 0)
+		return (ft_spr(ft_split(cmd, ' '), "export"));
+	else if (ft_strnstr(cmd, "unset", ft_strlen(cmd))
+		&& ft_strlen(cmd) > 0)
+		return (ft_spr(ft_split(cmd, ' '), "unset"));
+	else if (ft_strnstr(cmd, "env", ft_strlen(cmd))
+		&& ft_strlen(cmd) > 0)
+		return (ft_spr(ft_split(cmd, ' '), "env"));
+	return ("exec");
+}
+
+void	ft_cmdtake(t_command **cmd)
+{
+	t_command	*aux;
+
+	aux = *cmd;
+	while (aux)
+	{
+		aux->built = ft_built(aux->command);
+		//aux->command = ft_take_com(aux->command);
+		aux = aux->next;
+	}
+}
+
+/* char	*ft_take_com(char *command)
 {
 	int		i;
 	int		j;
 	char	*tmp;
 
-	tmp = malloc(sizeof(char) * (ft_strlen(first)
-				+ ft_strlen(var) + ft_strlen(second) + k));
-	if (!tmp)
-		return (NULL);
+	tmp = ft_take_size(command);
 	i = -1;
 	j = 0;
-	while (first[++i])
-		tmp[j++] = first[i];
-	if (!var)
-		return (tmp[j] = '\n', tmp[j + 1] = '\0', tmp);
-	i = -1;
-	while (var[++i])
-		tmp[j++] = var[i];
-	i = -1;
-	while (second[++i])
-		tmp[j++] = second[i];
+	while (command[++i])
+	{
+		if (command[i] == '>')
+			break ;
+		if (command[i] == '<')
+		{
+			i++;
+			while (command[i] == ' ' && command[i + 1] == ' ')
+				i++;
+		}
+		else
+		{
+			tmp[j] = command[i];
+			j++;
+		}
+	}
 	tmp[j] = '\0';
-	free(first);
-	free(var);
-	free(second);
-	return (tmp);
-}
-
-static char	*ft_second(char *line, int i)
-{
-	char	*second;
-	int		j;
-	int		k;
-
-	i++;
-	while (ft_isalpha(line[i]))
-		i++;
-	k = i - 1;
-	if (!line[i])
-		return (NULL);
-	while (line[i])
-		i++;
-	second = malloc(sizeof(char) * (i - k) + 1);
-	if (!second)
-		return (NULL);
-	j = 0;
-	while (line[++k])
-		second[j++] = line[k];
-	second[j] = '\0';
-	return (second);
-}
-
-static char	*ft_var(char *line, char **env, int k)
-{
-	int		i;
-	int		j;
-	char	*var;
-
-	while (line[++k])
-		if (!ft_isalpha(line[k]))
-			break ;
-	var = malloc(sizeof(char) * k + 1);
-	if (!var)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (line[++i])
-	{
-		if (!ft_isalpha(line[i]))
-			break ;
-		var[j++] = line[i];
-	}
-	var[j] = '\0';
-	i = -1;
-	while (env[++i])
-		if (!ft_strncmp(env[i], var, ft_strlen(var)))
-			return (ft_substr(env[i], ft_strlen(var) + 1,
-					(ft_strlen(env[i]) - ft_strlen(var))));
-	return (NULL);
-}
-
-static char	*ft_first(char *line, int i)
-{
-	char	*first;
-
-	first = malloc(sizeof(char) * i + 1);
-	if (!first)
-		return (NULL);
-	i = -1;
-	while (line[++i])
-	{
-		if (line[i] == '$')
-			break ;
-		first[i] = line[i];
-	}
-	first[i] = '\0';
-	return (first);
-}
-
-char	*ft_find_var(char *line, char **env)
-{
-	int		i;
-	char	*first;
-	char	*var;
-	char	*second;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '$')
-			break ;
-		i++;
-	}
-	if (!line[i])
-		return (line);
-	first = ft_first(line, i);
-	if (!first)
-		return (NULL);
-	var = ft_var(&line[i], env, 0);
-	if (!var)
-		return (free(line), ft_join_all(first, NULL, NULL, 2));
-	second = ft_second(line, i);
-	return (free(line), ft_join_all(first, var, second, 1));
-}
+	return (free (command), tmp);
+} */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exutil2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:44:48 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/16 17:20:17 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/26 15:16:38 by dmonjas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	ft_varct(char *str)
 	return (0);
 }
 
-static int	ft_count(char **env)
+static int	ft_count_en(char **env)
 {
 	int	i;
 
@@ -81,7 +81,7 @@ void	ft_alfa(char **env, int fd)
 	char	*aux;
 
 	i = 0;
-	len = ft_count(env);
+	len = ft_count_en(env);
 	while (i < len)
 	{
 		j = -1;

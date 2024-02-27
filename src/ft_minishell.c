@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:31:09 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/21 19:15:00 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/27 15:33:41 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 static void	ft_cpy_no_env(t_minishell *shell)
 {
-	shell->env = malloc(sizeof(char *) * 4);
+	shell->env = (char **)malloc(sizeof(char *) * (3));
 	shell->env[0] = ft_strjoin("PWD=", getcwd(shell->pwd, 100));
 	shell->env[1] = ft_strdup("SHLVL=1");
-	shell->env[2] = ft_strdup("_=/usr/bin/env");
-	shell->env[3] = NULL;
+	shell->env[2] = ft_strdup("_=");
 }
 
 static void	ft_init_var(t_minishell *shell, char **env)

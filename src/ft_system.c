@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:44:31 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/21 19:02:52 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/27 15:41:18 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	ft_system(t_command *cmd, t_minishell *shell, int fdin, int fdout)
 	{
 		if (!ft_strncmp(cmd->command, "exit", 4))
 			ft_exit_code(cmd, shell);
-		else if (!ft_strncmp(cmd->command, "./minishell",
+		else if (!ft_strncmp(cmd->command, "minishell",
 				ft_strlen(cmd->command)))
 			ft_shell_up(shell);
 		else if (shell->heredoc)
