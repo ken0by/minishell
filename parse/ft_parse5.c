@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse5.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:18:39 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/27 10:54:39 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/02/27 16:57:14 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ static int	ft_open(char *outfile, char *command, t_minishell *shell)
 	return (fd);
 }
 
-
 t_command	*ft_inout(t_command **cmd, t_minishell *shell)
 {
 	t_command	*aux;
@@ -118,16 +117,17 @@ t_command	*ft_inout(t_command **cmd, t_minishell *shell)
 			*cmd = ft_del_node(aux);
 			aux = *cmd;
 		}
-		if (aux->next && (ft_strchr(aux->next->command, '>') && aux->next->dollar == 0))
+		if (aux->next && (ft_strchr(aux->next->command, '>')
+				&& aux->next->dollar == 0))
 		{
-			//shell->out = ft_cp_out(aux->next);
-			shell->outfile = ft_open(aux->next->next->command, aux->next->command, shell);
+			shell->outfile = ft_open(aux->next->next->command,
+					aux->next->command, shell);
 			aux->next = NULL;
 			break ;
 		}
-		aux = aux->next; 
+		aux = aux->next;
 	}
-	return(*cmd);
+	return (*cmd);
 }
 /*
 static void	ft_lstclear_shell(t_command **lst)

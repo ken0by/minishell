@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:37:03 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/27 16:38:03 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/27 16:55:33 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	ft_new_env(t_minishell *shell, int i, char *new)
 	free(shell->env[i]);
 	shell->env[i] = ft_strdup(new);
 }
+
 static void	ft_update(t_minishell *shell)
 {
 	int		i;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse6.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 15:46:02 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/27 11:09:02 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/02/27 16:57:31 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,4 +124,3 @@ int	ft_here(char *end, int file, t_minishell *shell)
 		wait(NULL);
 	return (file);
 }
-

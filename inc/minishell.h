@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/27 15:41:39 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/27 16:55:50 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ t_command	*ft_inout(t_command **cmd, t_minishell *shell);
 
 /* FT_PARSE6.C */
 int			ft_here(char *end, int file, t_minishell *shell);
-
 
 /* FT_PARSE7.C */
 char		*ft_find_var(char *line, char **env);
