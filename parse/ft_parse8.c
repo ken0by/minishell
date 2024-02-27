@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse8.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 17:24:53 by rofuente          #+#    #+#             */
-/*   Updated: 2024/02/27 16:57:58 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/27 19:54:45 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ static char	*ft_spr(char **line, char *built)
 	free(line);
 	return ("Error");
 }
-
 static char	*ft_built(char *cmd)
 {
 	if (ft_strnstr(cmd, "echo", ft_strlen(cmd))
@@ -101,6 +100,12 @@ static char	*ft_built(char *cmd)
 	else if (ft_strnstr(cmd, "env", ft_strlen(cmd))
 		&& ft_strlen(cmd) > 0)
 		return (ft_spr(ft_split(cmd, ' '), "env"));
+	else if (ft_strnstr(cmd, "exit", ft_strlen(cmd))
+		&& ft_strlen(cmd) > 0)
+		return (ft_spr(ft_split(cmd, ' '), "exit"));
+	else if (ft_strnstr(cmd, "./minishell", ft_strlen(cmd))
+		&& ft_strlen(cmd) > 0)
+		return (ft_spr(ft_split(cmd, ' '), "./minishell"));
 	return ("exec");
 }
 
@@ -112,6 +117,7 @@ void	ft_cmdtake(t_command **cmd)
 	while (aux)
 	{
 		aux->built = ft_built(aux->command);
+		//aux->command = ft_take_com(aux->command);
 		aux = aux->next;
 	}
 }

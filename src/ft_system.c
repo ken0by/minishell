@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_system.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:44:31 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/27 15:41:18 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/27 19:54:50 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,10 @@ void	ft_system(t_command *cmd, t_minishell *shell, int fdin, int fdout)
 	g_code_error = 0;
 	if (ft_lstsize_shell(cmd) == 1)
 	{
-		if (!ft_strncmp(cmd->command, "exit", 4))
+		if (!ft_strncmp(cmd->built, "exit", ft_strlen(cmd->built)))
 			ft_exit_code(cmd, shell);
-		else if (!ft_strncmp(cmd->command, "minishell",
-				ft_strlen(cmd->command)))
+		else if (!ft_strncmp(cmd->built, "./minishell",
+				ft_strlen(cmd->built)))
 			ft_shell_up(shell);
 		else if (shell->heredoc)
 		{

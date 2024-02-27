@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:03:29 by rofuente          #+#    #+#             */
-/*   Updated: 2024/02/27 17:11:43 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/01/29 19:02:25 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	ft_code_nb(char *str)
 	int	j;
 	int	flag;
 
-	i = 0;
+	i = -1;
 	while (str[i] == ' ' || str[i] == '\t')
 		i++;
 	while (str[++i])
@@ -63,7 +63,7 @@ void	ft_exit_code(t_command *cmd, t_minishell *shell)
 		else
 		{
 			ft_printf("exit\n");
-			exit (shell->last_error);
+			exit (0);
 		}
 	}
 	else
