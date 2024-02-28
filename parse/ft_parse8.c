@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse8.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 17:24:53 by rofuente          #+#    #+#             */
-/*   Updated: 2024/02/27 19:54:45 by rodro            ###   ########.fr       */
+/*   Updated: 2024/02/28 17:05:47 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,10 @@ char	*ft_swap(char *cmd, char *inf)
 		free (tmp);
 		return ("ERROR INF");
 	}
-	command = ft_strjoin(tmp[0], " ");
+	command = ft_strjoin(tmp[1], " ");
 	command = ft_strjoin(command, inf);
-	while (tmp[i])
-	{
+	while (tmp[++i])
 		command = ft_strjoin(command, tmp[i]);
-		i++;
-	}
 	ft_free_mtx(tmp);
 	return (command);
 }
@@ -121,32 +118,3 @@ void	ft_cmdtake(t_command **cmd)
 		aux = aux->next;
 	}
 }
-
-/* char	*ft_take_com(char *command)
-{
-	int		i;
-	int		j;
-	char	*tmp;
-
-	tmp = ft_take_size(command);
-	i = -1;
-	j = 0;
-	while (command[++i])
-	{
-		if (command[i] == '>')
-			break ;
-		if (command[i] == '<')
-		{
-			i++;
-			while (command[i] == ' ' && command[i + 1] == ' ')
-				i++;
-		}
-		else
-		{
-			tmp[j] = command[i];
-			j++;
-		}
-	}
-	tmp[j] = '\0';
-	return (free (command), tmp);
-} */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_system.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:44:31 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/27 19:54:50 by rodro            ###   ########.fr       */
+/*   Updated: 2024/02/28 17:56:02 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ void	ft_system(t_command *cmd, t_minishell *shell, int fdin, int fdout)
 			if (!ft_strncmp(cmd->built, "echo", ft_strlen(cmd->built)))
 				ft_putstr_fd("\n", fdout);
 			else
-				ft_exec(ft_split(cmd->command, ' '), shell, fdin, fdout);
-			unlink(ft_split(cmd->command, ' ')[1]);
+				ft_exec(ft_take_one(ft_split(cmd->command, ' ')), shell, fdin, fdout);
+			ft_unlink(ft_split(cmd->command, ' '));
 			shell->heredoc = 0;
 		}
 		else if (ft_select(cmd, shell, fdout) == 1)

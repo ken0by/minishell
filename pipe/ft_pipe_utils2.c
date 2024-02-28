@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 17:05:35 by rofuente          #+#    #+#             */
-/*   Updated: 2024/02/27 15:37:51 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/28 18:22:24 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,10 @@ pid_t	ft_order_single(char *cmd, t_minishell *shell, int fdin, int fdout)
 	if (pd != -1)
 		return (pd);
 	return (-1);
+}
+
+void	ft_close(int fd1, int fd2)
+{
+	close(fd1);
+	close(fd2);
 }

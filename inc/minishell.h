@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/27 15:41:39 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/28 18:22:28 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ typedef struct s_minishell
 	char	*root;
 	char	**env;
 	char	*inf;
+	char	*here;
+	char	**del;
 }	t_minishell;
 
 typedef struct s_command
@@ -136,6 +138,10 @@ char		*ft_swap(char *cmd, char *inf);
 void		ft_cmdtake(t_command **cmd);
 
 /* FT_PARSE9.C */
+t_command	*ft_out_chech(t_command *cmd);
+t_command	*ft_del_node(t_command *aux);
+char		**ft_take_one(char **cmd);
+void		ft_unlink(char **cmd);
 
 /* FT_PARSE_ERROR.C */
 void		ft_error_car(void);
@@ -157,6 +163,7 @@ int			ft_lst_size(t_command *lst);
 
 /* FT_PIPE_UTILS2.C */
 pid_t		ft_order_single(char *cmd, t_minishell *shell, int fdin, int fdout);
+void		ft_close(int fd1, int fd2);
 
 /* ----- SRC ----- */
 /* FT_UTILS.C */

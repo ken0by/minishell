@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 17:12:21 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/24 12:30:54 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/28 15:41:38 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	ft_exist(char *cmd, t_minishell *shell, int fd)
 	char	*var;
 	char	*ct;
 	char	**command;
+	int		i;
 
 	command = ft_split(cmd, ' ');
 	if (!command[1])
@@ -100,10 +101,15 @@ void	ft_exist(char *cmd, t_minishell *shell, int fd)
 		ft_alfa(shell->env, fd);
 		return ;
 	}
-	var = ft_get_var(command[1]);
-	ct = ft_get_content(command[1], var);
-	if (!ft_check_var(var, shell->env))
-		ft_export(shell, var, ct);
-	else
-		ft_change(shell, command[1], var);
+	i = 0;
+	while (command[++i])
+	{
+		var = ft_get_var(command[i]);
+		ct = ft_get_content(command[i], var);
+		if (!ft_check_var(var, shell->env))
+			ft_export(shell, var, ct);
+		else
+			ft_change(shell, command[i], var);
+	}
+	ft_free_mtx(command);
 }

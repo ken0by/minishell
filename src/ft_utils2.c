@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 08:24:23 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/27 10:31:03 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/02/28 17:55:39 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,18 +88,3 @@ void	ft_per_nb(char *s, int nb)
 	perror(s);
 	g_code_error = nb;
 }
-/*  static void	ft_pintar(t_command *cmd)
-{
-	t_command	*aux;
-	int	i;
-
-	i = 0;
-	aux = cmd;
-	while (aux)	
-	{
-		ft_printf("ccommand: %s\n", aux->command);
-		//ft_printf("infile: %s\n", aux->infile);
-		//ft_printf("outfile: %s\n", aux->outfile);
-		aux = aux->next;
-	}
-} */

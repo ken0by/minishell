@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:37:03 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/27 16:16:46 by rodro            ###   ########.fr       */
+/*   Updated: 2024/02/28 16:09:39 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ static void	ft_update(t_minishell *shell)
 static void	ft_new_pwd(t_minishell *shell, char *oldpwd, char *new_pwd)
 {
 	free(shell->pwd);
-	free(shell->oldpwd);
+	if (shell->oldpwd)
+		free(shell->oldpwd);
 	shell->pwd = ft_strdup(new_pwd);
 	shell->oldpwd = ft_strdup(oldpwd);
 	ft_update(shell);
@@ -93,7 +94,10 @@ void	ft_cd(char *cmd, t_minishell *shell)
 			ft_per(comm[0], comm[1]);
 	}
 	else if (chdir(comm[1]) != 0)
+	{
 		ft_per(comm[0], comm[1]);
+		g_code_error = 126;
+	}
 	oldpwd = ft_strdup(shell->pwd);
 	if (getcwd(new_pwd, sizeof(new_pwd) - 1))
 		ft_new_pwd(shell, oldpwd, new_pwd);

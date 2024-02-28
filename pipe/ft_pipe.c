@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:24:27 by rodro             #+#    #+#             */
-/*   Updated: 2024/02/27 15:42:04 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/02/28 18:22:10 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ static pid_t	ft_order(char *cmd, t_minishell *shell, int fdin, int *fd)
 	if (!ft_strncmp(command[0], "echo", ft_strlen(command[0])))
 		ft_echo(cmd, fd[1]);
 	else if (!ft_strncmp(command[0], "cd", ft_strlen(command[0])))
-		ft_cd(cmd, shell);
+		return (-1);
 	else if (!ft_strncmp(command[0], "pwd", ft_strlen(command[0])))
 		ft_print_pwd(shell, fd[1]);
 	else if (!ft_strncmp(command[0], "export", ft_strlen(command[0])))
-		ft_exist(cmd, shell, fd[1]);
+		return (-1);
 	else if (!ft_strncmp(command[0], "unset", ft_strlen(command[0])))
-		ft_unset(cmd, shell);
+		return (-1);
 	else if (!ft_strncmp(command[0], "env", ft_strlen(command[0])))
 		ft_print_env(shell, fd[1]);
 	else
@@ -78,6 +78,28 @@ static pid_t	ft_order(char *cmd, t_minishell *shell, int fdin, int *fd)
 	return (-1);
 }
 
+static t_command	*ft_check_heredoc(t_command *cmd, t_minishell *shell)
+{
+	t_command	*aux;
+	char		**tmp;
+
+	aux = cmd;
+	tmp = NULL;
+	while (aux)
+	{
+		if (ft_strnstr(aux->command, shell->here, ft_strlen(aux->command)))
+		{
+			shell->del = ft_split(aux->command, ' ');
+			tmp = ft_take_one(ft_split(aux->command, ' '));
+			free(aux->command);
+			aux->command = ft_strjoin_gnl(tmp[0], " ");
+			aux->command = ft_strjoin_gnl(aux->command, tmp[1]);
+		}
+		aux = aux->next;
+	}
+	return (cmd);
+}
+
 void	ft_ord(t_command *cmd, t_minishell *shell, int fdin, int fdout)
 {
 	t_command	*aux;
@@ -86,7 +108,7 @@ void	ft_ord(t_command *cmd, t_minishell *shell, int fdin, int fdout)
 	int			i;
 
 	pd = ft_calloc((ft_lst_size(cmd) + 1), sizeof(pid_t));
-	aux = cmd;
+	aux = ft_check_heredoc(cmd, shell);
 	i = 0;
 	fdin = -1;
 	while (aux)
@@ -103,6 +125,6 @@ void	ft_ord(t_command *cmd, t_minishell *shell, int fdin, int fdout)
 		aux = aux->next;
 	}
 	g_code_error = (ft_cw2(pd) >> 8) & 0xFF;
-	close(fdin);
-	close(fdout);
+	ft_close(fdin, fdout);
+	ft_unlink(shell->del);
 }
