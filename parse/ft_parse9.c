@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse9.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:50:00 by rofuente          #+#    #+#             */
-/*   Updated: 2024/02/28 18:10:23 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/02 17:31:23 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,13 @@ void	ft_unlink(char **cmd)
 {
 	int	i;
 
+	if (!cmd || !cmd[0])
+		return ;
 	i = 0;
 	while (cmd[++i])
 		unlink(cmd[i]);
 	ft_free_mtx(cmd);
+	cmd = NULL;
 }
 
 char	**ft_take_one(char **cmd)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:31:09 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/28 18:03:02 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/02 17:23:20 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,23 @@ static void	ft_init_var(t_minishell *shell, char **env)
 	ft_init_signal();
 }
 
-static void	ft_free_cmdline(char *line, t_command **cmd)
+static void	ft_free_cmdline(t_minishell *shell, t_command **cmd)
 {
-	free(line);
+	free(shell->cmd_line);
+	if (shell->inf)
+	{
+		free(shell->inf);
+		shell->inf = NULL;
+	}
+	if (shell->here)
+	{
+		free(shell->here);
+		shell->here = NULL;
+	}
+	/* free(shell->path);
+	free(shell->pwd);
+	free(shell->oldpwd);
+	free(shell->root); */
 	ft_free_cmd(cmd);
 	return ;
 }
@@ -87,7 +101,7 @@ int	main(int ac, char **av, char **env)
 		shell.cmd_line[ft_strlen(shell.cmd_line)] = '\0';
 		add_history(shell.cmd_line);
 		ft_check_line(cmd, &shell);
-		ft_free_cmdline(shell.cmd_line, &cmd);
+		ft_free_cmdline(&shell, &cmd);
 		//system("leaks -q minishell");
 	}
 	return (0);

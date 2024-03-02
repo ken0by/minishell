@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:24:27 by rodro             #+#    #+#             */
-/*   Updated: 2024/02/28 18:22:10 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/02 17:36:26 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ pid_t	ft_exec2(char **cmd, t_minishell *shell, int fdin, int *fdout)
 	pid_t	pd;
 
 	pd = fork();
+	path = NULL;
 	if (pd == -1)
 		ft_error("fork() error");
 	if (pd == 0)
@@ -44,9 +45,9 @@ pid_t	ft_exec2(char **cmd, t_minishell *shell, int fdin, int *fdout)
 		ft_dupfd(fdin, fdout[1]);
 		if (execve(path, cmd, shell->env) == -1)
 			ft_peror(cmd[0], "");
-		free (path);
-		ft_free_mtx(cmd);
 	}
+	if (path)
+		free (path);
 	close(fdin);
 	return (pd);
 }
@@ -83,6 +84,8 @@ static t_command	*ft_check_heredoc(t_command *cmd, t_minishell *shell)
 	t_command	*aux;
 	char		**tmp;
 
+	if (!shell->here)
+		return (cmd);
 	aux = cmd;
 	tmp = NULL;
 	while (aux)

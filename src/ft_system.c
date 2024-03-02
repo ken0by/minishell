@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_system.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:44:31 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/28 17:56:02 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/02 17:35:00 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	ft_exec(char **cmd, t_minishell *shell, int fdin, int fdout)
 	pid_t	pd;
 
 	pd = fork();
+	path = NULL;
 	if (pd == -1)
 		ft_error("fork() error");
 	if (pd == 0)
@@ -72,12 +73,13 @@ void	ft_exec(char **cmd, t_minishell *shell, int fdin, int fdout)
 		ft_dupfd(fdin, fdout);
 		if (execve(path, cmd, shell->env) == -1)
 			ft_peror(cmd[0], "");
-		free (path);
-		ft_free_mtx(cmd);
-		close(fdout);
 	}
 	else
 		g_code_error = (ft_cw(fdout, pd) >> 8) & 0xFF;
+	if (path)
+		free (path);
+	ft_free_mtx(cmd);
+	close(fdout);
 }
 
 void	ft_system(t_command *cmd, t_minishell *shell, int fdin, int fdout)
