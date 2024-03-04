@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exutil2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:44:48 by rofuente          #+#    #+#             */
-/*   Updated: 2024/02/26 15:16:38 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/03/04 18:59:02 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static char	*ft_cpy_ct(char *str, int i)
 	int		j;
 	int		n;
 
+	if (str[i] == '=')
+		i += 1;
 	j = i;
 	while (str[j])
 		j++;
@@ -41,7 +43,7 @@ char	*ft_get_content(char *str, char *var)
 
 	if (!str || !var)
 		return (NULL);
-	ct = ft_cpy_ct(str, (ft_strlen(var) + 1));
+	ct = ft_cpy_ct(str, (ft_strlen(var)));
 	if (ct != NULL && ct[0] == '\0')
 	{
 		free(ct);
@@ -50,15 +52,28 @@ char	*ft_get_content(char *str, char *var)
 	return (ct);
 }
 
-int	ft_varct(char *str)
+t_command	*ft_list_convert(char *cmd)
 {
-	int	i;
+	t_command	*aux;
+	int			i;
+	int			j;
 
-	i = -1;
-	while (str[++i])
-		if (str[i] == '=')
-			return (1);
-	return (0);
+	aux = malloc(sizeof(t_command));
+	if (!aux)
+		return (NULL);
+	aux = NULL;
+	j = 0;
+	i = 0;
+	while (cmd[i])
+	{
+		j = i;
+		while (cmd[i] != ' ' && cmd[i])
+			i++;
+		ft_lstadd_back_shell(&aux, ft_lstnew_shell(ft_substr(cmd, j, (i - j))));
+		if (cmd[i] == ' ')
+			i++;
+	}
+	return (aux);
 }
 
 static int	ft_count_en(char **env)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:37:03 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/28 16:09:39 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/04 19:00:23 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	ft_new_env(t_minishell *shell, int i, char *new)
 	free(shell->env[i]);
 	shell->env[i] = ft_strdup(new);
 }
+
 static void	ft_update(t_minishell *shell)
 {
 	int		i;

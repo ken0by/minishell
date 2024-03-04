@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/28 18:22:28 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/04 18:58:56 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void		ft_print_env(t_minishell *shell, int fd);
 void		ft_print_ordenv(char **env, int fd);
 
 /* FT_EXPORT.C */
-void		ft_exist(char *cmd, t_minishell *shell, int fd);
+void		ft_exist(char *command, t_minishell *shell, int fd);
 
 /* FT_EXUTIL.C */
 int			ft_check_var(char *str, char **env);
@@ -98,7 +98,7 @@ int			ft_strcmp(char *s1, char *s2);
 
 /* FT_EXUTIL2.C */
 char		*ft_get_content(char *str, char *var);
-int			ft_varct(char *str);
+t_command	*ft_list_convert(char *cmd);
 void		ft_alfa(char **env, int fd);
 
 /* FT_UNSET.C */
