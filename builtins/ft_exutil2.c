@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exutil2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:44:48 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/04 18:59:02 by rodro            ###   ########.fr       */
+/*   Updated: 2024/03/05 17:25:17 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,28 +52,15 @@ char	*ft_get_content(char *str, char *var)
 	return (ct);
 }
 
-t_command	*ft_list_convert(char *cmd)
+int	ft_varct(char *str)
 {
-	t_command	*aux;
-	int			i;
-	int			j;
+	int	i;
 
-	aux = malloc(sizeof(t_command));
-	if (!aux)
-		return (NULL);
-	aux = NULL;
-	j = 0;
-	i = 0;
-	while (cmd[i])
-	{
-		j = i;
-		while (cmd[i] != ' ' && cmd[i])
-			i++;
-		ft_lstadd_back_shell(&aux, ft_lstnew_shell(ft_substr(cmd, j, (i - j))));
-		if (cmd[i] == ' ')
-			i++;
-	}
-	return (aux);
+	i = -1;
+	while (str[++i])
+		if (str[i] == '=')
+			return (1);
+	return (0);
 }
 
 static int	ft_count_en(char **env)

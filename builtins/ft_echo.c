@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:37:07 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/28 15:29:09 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/05 17:48:22 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ void	ft_echo(char *cmd, int fd)
 
 	i = 5;
 	if (!cmd[i - 1])
+	{
 		ft_putstr_fd("\n", fd);
+		return ;
+	}
 	if (cmd[i] == '-' && cmd[i + 1] == 'n')
 		ft_skipn(&cmd[i], fd);
 	else

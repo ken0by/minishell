@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:03:29 by rofuente          #+#    #+#             */
-/*   Updated: 2024/01/29 19:02:25 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/05 17:33:56 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,29 @@ static int	ft_code_nb(char *str)
 	}
 	ft_printf("exit\n");
 	return (0);
+}
+
+static void	ft_free_exit(t_command **cmd, t_minishell **shell)
+{
+	ft_free_cmd(cmd);
+	free((*shell)->cmd_line);
+	if ((*shell)->path)
+		free((*shell)->path);
+	if ((*shell)->pwd)
+		free((*shell)->pwd);
+	if ((*shell)->oldpwd)
+		free((*shell)->oldpwd);
+	if ((*shell)->root)
+		free((*shell)->root);
+	if ((*shell)->env && (*shell)->env[0])
+		ft_free_mtx((*shell)->env);
+	if ((*shell)->inf)
+		free((*shell)->inf);
+	if ((*shell)->here)
+		free((*shell)->here);
+	if ((*shell)->del && (*shell)->del[0])
+		ft_free_mtx((*shell)->del);
+	*shell = NULL;
 }
 
 void	ft_exit_code(t_command *cmd, t_minishell *shell)

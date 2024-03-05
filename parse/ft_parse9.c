@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse9.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:50:00 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/02 17:31:23 by rodro            ###   ########.fr       */
+/*   Updated: 2024/03/05 18:33:36 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,19 @@ char	**ft_take_one(char **cmd)
 	tmp[2] = NULL;
 	ft_free_mtx(cmd);
 	return (tmp);
+}
+
+int	ft_checker(t_command *cmd)
+{
+	if (ft_strchr(cmd->command, '<')
+		&& ft_strchr(cmd->next->command, '|')
+		&& ft_strchr(cmd->next->next->command, '>'))
+		return (ft_printf("syntax error near unexpected token `|'\n"),
+			g_code_error = 258, 1);
+	else if (ft_strchr(cmd->command, '>')
+		&& ft_strchr(cmd->next->command, '|')
+		&& ft_strchr(cmd->next->next->command, '<'))
+		return (ft_printf("syntax error near unexpected token `<'\n"),
+			g_code_error = 258, 1);
+	return (0);
 }

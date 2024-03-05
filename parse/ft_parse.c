@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:28:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/27 15:34:11 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/05 17:50:19 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_shell_down(t_minishell *shell)
 	}
 }
 
-static t_command	*ft_join(t_command **cmd)
+static t_command	*ft_join(t_command *cmd)
 {
 	t_command	**pipe;
 	t_command	*aux;
@@ -79,7 +79,7 @@ static t_command	*ft_join(t_command **cmd)
 	pipe = malloc(sizeof(t_command));
 	*pipe = 0;
 	line = NULL;
-	aux = *cmd;
+	aux = cmd;
 	while (aux)
 	{
 		if (ft_strlen(aux->command) == 1 && aux->command[0] == '|')
@@ -117,9 +117,9 @@ void	ft_check_line(t_command *cmd, t_minishell *shell)
 	cmd = ft_take_cmd(&cmd, line, cmd_line);
 	if (!cmd)
 		return ;
-	cmd = ft_sust(&cmd, shell);
-	cmd = ft_inout(&cmd, shell);
-	cmd = ft_join(&cmd);
+	ft_sust(&cmd, shell);
+	ft_inout(&cmd, shell);
+	cmd = ft_join(cmd);
 	ft_cmdtake(&cmd);
 	if (g_code_error != 0)
 		return ;

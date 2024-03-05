@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 17:24:53 by rofuente          #+#    #+#             */
-/*   Updated: 2024/02/28 17:05:47 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/05 17:50:06 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ void	ft_cmdtake(t_command **cmd)
 	while (aux)
 	{
 		aux->built = ft_built(aux->command);
-		//aux->command = ft_take_com(aux->command);
 		aux = aux->next;
 	}
 }

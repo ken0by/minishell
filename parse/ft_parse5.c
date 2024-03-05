@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse5.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:18:39 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/02 17:00:46 by rodro            ###   ########.fr       */
+/*   Updated: 2024/03/04 15:06:01 by dmonjas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static t_command	*ft_check_first(t_command *cmd, t_minishell *shell)
 	return (cmd);
 }
 
-t_command	*ft_inout(t_command **cmd, t_minishell *shell)
+void	ft_inout(t_command **cmd, t_minishell *shell)
 {
 	t_command	*aux;
 
@@ -121,5 +121,4 @@ t_command	*ft_inout(t_command **cmd, t_minishell *shell)
 		else
 			aux = aux->next;
 	}
-	return(*cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 11:12:11 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/15 14:28:34 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/05 17:50:46 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ static int	ft_car(char *str, char **line)
 	return (i - 1);
 }
 
+
 t_command	*ft_take_cmd(t_command **cmd, char *line, char *cmd_line)
 {
 	int	i;
@@ -131,8 +132,8 @@ t_command	*ft_take_cmd(t_command **cmd, char *line, char *cmd_line)
 			else
 				i += ft_num(&cmd_line[i], &line, &space);
 			ft_lstadd_back_shell(cmd,
-				ft_lst_first(ft_skip_space(line), cmd_line[i], &space));
+				ft_lst_first(line, cmd_line[i], &space));
 		}
 	}
-	return (*cmd);
+	return (ft_comp_list(*cmd));
 }

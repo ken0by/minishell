@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/04 18:58:56 by rodro            ###   ########.fr       */
+/*   Updated: 2024/03/05 18:32:18 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void		ft_print_env(t_minishell *shell, int fd);
 void		ft_print_ordenv(char **env, int fd);
 
 /* FT_EXPORT.C */
-void		ft_exist(char *command, t_minishell *shell, int fd);
+void		ft_exist(char *cmd, t_minishell *shell, int fd);
 
 /* FT_EXUTIL.C */
 int			ft_check_var(char *str, char **env);
@@ -98,7 +98,7 @@ int			ft_strcmp(char *s1, char *s2);
 
 /* FT_EXUTIL2.C */
 char		*ft_get_content(char *str, char *var);
-t_command	*ft_list_convert(char *cmd);
+int			ft_varct(char *str);
 void		ft_alfa(char **env, int fd);
 
 /* FT_UNSET.C */
@@ -117,13 +117,16 @@ void		ft_shell_down(t_minishell *shell);
 t_command	*ft_take_cmd(t_command **cmd, char *line, char *cmd_line);
 
 /* FT_PARSE3.C */
-t_command	*ft_sust(t_command **cmd, t_minishell *shell);
+void	ft_sust(t_command **cmd, t_minishell *shell);
+char	*ft_param(char *line, char **env);
 
 /* FT_PARSE4.C */
 char		*ft_sust_doll(char *line, t_minishell *shell);
+t_command	*ft_comp_list(t_command	*cmd);
+t_command	*ft_select_sust(t_command **cmd, t_command *aux, t_minishell *shell);
 
 /* FT_PARSE5.C */
-t_command	*ft_inout(t_command **cmd, t_minishell *shell);
+void	ft_inout(t_command **cmd, t_minishell *shell);
 
 /* FT_PARSE6.C */
 int			ft_here(char *end, int file, t_minishell *shell);
@@ -142,6 +145,7 @@ t_command	*ft_out_chech(t_command *cmd);
 t_command	*ft_del_node(t_command *aux);
 char		**ft_take_one(char **cmd);
 void		ft_unlink(char **cmd);
+int			ft_checker(t_command *cmd);
 
 /* FT_PARSE_ERROR.C */
 void		ft_error_car(void);

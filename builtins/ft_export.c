@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 17:12:21 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/04 19:00:06 by rodro            ###   ########.fr       */
+/*   Updated: 2024/03/05 17:23:57 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,31 +88,30 @@ static void	ft_change(t_minishell *shell, char *str, char *var)
 
 /* Esta funcion comprueba si la variable existe, si existe cambia su contenido
 y sino la crea. Ns si hay q gestionar si te pasan una variable sin =
-Si al final pones (ft_free_cmd(&cmd)), da un error de heap-use-after-free */
-void	ft_exist(char *command, t_minishell *shell, int fd)
-{
-	char		*var;
-	char		*ct;
-	t_command	*aux;
-	t_command	*cmd;
+Pues si jjaajjaajja */
 
-	cmd = ft_list_convert(command);
-	if (ft_lst_size(cmd) == 1)
+void	ft_exist(char *cmd, t_minishell *shell, int fd)
+{
+	char	*var;
+	char	*ct;
+	char	**command;
+	int		i;
+
+	command = ft_split(cmd, ' ');
+	if (!command[1])
 	{
 		ft_alfa(shell->env, fd);
 		return ;
 	}
-	aux = cmd->next;
-	while (aux)
+	i = 0;
+	while (command[++i])
 	{
-		var = ft_get_var(aux->command);
-		ct = ft_get_content(aux->command, var);
+		var = ft_get_var(command[i]);
+		ct = ft_get_content(command[i], var);
 		if (!ft_check_var(var, shell->env))
 			ft_export(shell, var, ct);
 		else
-			ft_change(shell, aux->command, var);
-		free(var);
-		free(ct);
-		aux = aux->next;
+			ft_change(shell, command[i], var);
 	}
+	ft_free_mtx(command);
 }
