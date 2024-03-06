@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:44:31 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/06 16:24:40 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/06 16:42:11 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	ft_system(t_command *cmd, t_minishell *shell, int fdin, int fdout)
 	}
 	else if (ft_lstsize_shell(cmd) > 1)
 		ft_ord(cmd, shell, ft_check_in(shell), ft_check_out(shell));
-	shell->outfile = STDOUT_FILENO;
-	shell->infile = STDIN_FILENO;
+	shell->outfile = -1;
+	shell->infile = -1;
 	dup2(STDIN_FILENO, STDOUT_FILENO);
 }
