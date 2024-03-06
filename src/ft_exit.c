@@ -6,11 +6,32 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:03:29 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/06 15:56:26 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/06 17:48:02 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+static void	ft_free_exit(t_command **cmd, t_minishell **shell)
+{
+	ft_free_cmd(cmd);
+	free((*shell)->cmd_line);
+	if ((*shell)->path)
+		free((*shell)->path);
+	if ((*shell)->pwd)
+		free((*shell)->pwd);
+	if ((*shell)->oldpwd)
+		free((*shell)->oldpwd);
+	if ((*shell)->root)
+		free((*shell)->root);
+	if ((*shell)->env && (*shell)->env[0])
+		ft_free_mtx((*shell)->env);
+	if ((*shell)->inf)
+		free((*shell)->inf);
+	if ((*shell)->here)
+		free((*shell)->here);
+	*shell = NULL;
+}
 
 static int	ft_flag(int flag, char *nb)
 {
@@ -51,40 +72,23 @@ static int	ft_code_nb(char *str)
 	return (0);
 }
 
-static void	ft_free_exit(t_command **cmd, t_minishell **shell)
-{
-	ft_free_cmd(cmd);
-	free((*shell)->cmd_line);
-	if ((*shell)->path)
-		free((*shell)->path);
-	if ((*shell)->pwd)
-		free((*shell)->pwd);
-	if ((*shell)->oldpwd)
-		free((*shell)->oldpwd);
-	if ((*shell)->root)
-		free((*shell)->root);
-	if ((*shell)->env && (*shell)->env[0])
-		ft_free_mtx((*shell)->env);
-	if ((*shell)->inf)
-		free((*shell)->inf);
-	if ((*shell)->here)
-		free((*shell)->here);
-	if ((*shell)->del && (*shell)->del[0])
-		ft_free_mtx((*shell)->del);
-	*shell = NULL;
-}
-
 void	ft_exit_code(t_command *cmd, t_minishell *shell)
 {
 	char	**tmp;
+	int		i;
 
 	tmp = ft_split(cmd->command, ' ');
 	if (shell->shlvl == 1)
 	{
 		if (tmp[1])
-			exit (ft_code_nb(shell->cmd_line));
+		{
+			i = ft_code_nb(shell->cmd_line);
+			ft_free_exit(&cmd, &shell);
+			exit (i);
+		}
 		else
 		{
+			ft_free_exit(&cmd, &shell);
 			ft_printf("exit\n");
 			exit (0);
 		}

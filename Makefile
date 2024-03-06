@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+         #
+#    By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/29 10:00:52 by dmonjas-          #+#    #+#              #
-#    Updated: 2024/03/04 14:05:15 by dmonjas-         ###   ########.fr        #
+#    Updated: 2024/03/06 17:46:17 by rofuente         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ READLINE_DIR = /sgoinfre/students/$(USER)/homebrew/opt/readline
 FLAG	=	-lreadline -lhistory -L $(READLINE_DIR)/lib
 
 CC	=	gcc
-CFLAGS	=	-g3 -fsanitize=address -Wall -Wextra -I ./inc -I ./libft/inc/ -I $(READLINE_DIR)/include
+CFLAGS	=	-Wall -Wextra -I ./inc -I ./libft/inc/ -I $(READLINE_DIR)/include
 DEBUG	=	-g3 -fsanitize=address
 
 NAME	=	minishell
