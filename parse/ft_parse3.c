@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 12:31:43 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/04 15:05:36 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/03/06 15:34:40 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,24 @@ static char	*ft_dollar(char *change, char *env)
 
 static int	ft_pos(char *line, char **env)
 {
-	int	i;
+	int		i;
+	int		j;
+	char	*str;
 
 	i = 0;
+	j = 0;
 	while (env[i])
 	{
 		if (!ft_strncmp(env[i], line, ft_strlen(line)))
-			return (i);
+		{
+			while (env[i][j] != '=')
+				j++;
+			str = ft_substr(env[i], 0, j);
+			if (!ft_strncmp(env[i], line, ft_strlen(str)))
+				return (i);
+			else
+				return (-1);
+		}
 		i++;
 	}
 	return (-1);

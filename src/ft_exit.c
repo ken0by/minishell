@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:03:29 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/05 17:33:56 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/06 15:56:26 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	ft_code_nb(char *str)
 	int	j;
 	int	flag;
 
-	i = -1;
+	i = 0;
 	while (str[i] == ' ' || str[i] == '\t')
 		i++;
 	while (str[++i])

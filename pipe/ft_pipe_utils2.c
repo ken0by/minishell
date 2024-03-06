@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 17:05:35 by rofuente          #+#    #+#             */
-/*   Updated: 2024/02/28 18:22:24 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/06 16:07:00 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static pid_t	ft_single(char **cmd, t_minishell *shell, int fdin, int fdout)
 	pid_t	pd;
 
 	pd = fork();
+	path = NULL;
 	if (pd == -1)
 		ft_error("fork() error");
 	if (pd == 0)
@@ -31,10 +32,9 @@ static pid_t	ft_single(char **cmd, t_minishell *shell, int fdin, int fdout)
 		ft_dupfd(fdin, fdout);
 		if (execve(path, cmd, shell->env) == -1)
 			ft_peror(cmd[0], "");
-		free (path);
-		ft_free_mtx(cmd);
 	}
 	close(fdin);
+	free (path);
 	return (pd);
 }
 

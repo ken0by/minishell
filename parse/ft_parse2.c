@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 11:12:11 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/05 17:50:46 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/06 15:33:08 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,11 @@ static int	ft_num(char *str, char **line, int *space)
 
 	i = 0;
 	j = 0;
+	if (str[i] == '$')
+		i++;
 	while (str[i] && str[i] != ' ')
 	{
-		if (str[i] == '|' || str[i] == '"' || str[i] == 39)
+		if (str[i] == '|' || str[i] == '"' || str[i] == 39 || str[i] == '$')
 			break ;
 		i++;
 	}
@@ -93,9 +95,9 @@ static int	ft_car(char *str, char **line)
 	i = 1;
 	j = 0;
 	if (str[0] == str[1] && str[1] == str[2])
-		ft_error_car();
+		g_code_error = 258;
 	if (str[0] == '|' && str[1] == '|')
-		ft_error_car();
+		g_code_error = 258;
 	if (str[0] == str[1])
 		i = 2;
 	line[0] = malloc(sizeof(char) * i + 1);

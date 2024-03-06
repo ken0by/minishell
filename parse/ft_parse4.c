@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 10:48:52 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/05 18:35:44 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/06 15:54:07 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,20 @@
 
 t_command	*ft_comp_list(t_command	*cmd)
 {
-	if (ft_lst_size(cmd) == 1)
+	if (ft_strchr(cmd->command, '>'))
+	return (ft_printf("syntax error near unexpected token `newline'\n"), g_code_error = 2258, NULL);
+	if (ft_lst_size(cmd) == 1 || ft_lst_size(cmd) == 2)
 	{
 		if (ft_strchr(cmd->command, '<') || ft_strchr(cmd->command, '>'))
-			return (ft_printf("syntax error near unexpected token `newline'\n"),
-				g_code_error = 258, NULL);
+			return (ft_printf("syntax error near unexpected token `newline'\n"), g_code_error = 2258, NULL);
+		else if (ft_strchr(cmd->command, '>') || cmd->command[1] == '>')
+			return (ft_printf("syntax error near unexpected token `newline'\n"), g_code_error = 2258, NULL);
 		else if (ft_strchr(cmd->command, '|'))
-			return (ft_printf("syntax error near unexpected token `|'\n"),
-				g_code_error = 258, NULL);
+			return (ft_printf("syntax error near unexpected token `|'\n"), g_code_error = 2258, NULL);
+		else if(cmd->command[0] == '<' && cmd->command[1] == '<' && cmd->next->command[0] == '|')
+			return (ft_printf("syntax error near unexpected token `newline'\n"), g_code_error = 2258, NULL);
 	}
-	if (ft_lst_size(cmd) == 2)
-	{
-		if (ft_strchr(cmd->command, '<') && ft_strchr(cmd->next->command, '>'))
-			return (ft_printf("syntax error near unexpected token `newline'\n"),
-				g_code_error = 258, NULL);
-		else if (ft_strchr(cmd->command, '>')
-			&& ft_strchr(cmd->next->command, '<'))
-			return (ft_printf("syntax error near unexpected token `<'\n"),
-				g_code_error = 258, NULL);
-	}
-	if (ft_lst_size(cmd) == 3)
-		if (ft_checker(cmd))
+	else if (ft_checker(cmd))
 			return (NULL);
 	return (cmd);
 }

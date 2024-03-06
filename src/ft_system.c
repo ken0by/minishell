@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_system.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:44:31 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/02 17:35:00 by rodro            ###   ########.fr       */
+/*   Updated: 2024/03/06 16:24:40 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_cw(int fdout, pid_t pd)
 
 void	ft_dupfd(int fdin, int fdout)
 {
-	if (fdin > 0 || fdin != -1)
+	if (fdin > 0)
 	{
 		dup2(fdin, STDIN_FILENO);
 		close(fdin);

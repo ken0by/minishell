@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:50:00 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/05 18:33:36 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/06 15:45:04 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,12 @@ char	**ft_take_one(char **cmd)
 
 int	ft_checker(t_command *cmd)
 {
+	if(cmd->command[0] == '<' && cmd->command[1] == '<' && cmd->next->command[0] == '|')
+		return (ft_printf("syntax error near unexpected token `|'\n"),
+		g_code_error = 258, 1);
+	else if(cmd->command[0] == '<' && cmd->next->command[0] == '|')
+		return (ft_printf("syntax error near unexpected token `newline'\n"),
+		g_code_error = 258, 1);
 	if (ft_strchr(cmd->command, '<')
 		&& ft_strchr(cmd->next->command, '|')
 		&& ft_strchr(cmd->next->next->command, '>'))
