@@ -6,28 +6,11 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:58:21 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/24 11:41:30 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:11:47 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-/* void	ft_free_list(t_command *cmd, char **command)
-{
-	int	i;
-
-	i = 0;
-	while (command[i])
-	{
-		free(command[i]);
-		i++;
-	}
-	while (cmd)
-	{
-		free (cmd->command);
-		cmd = cmd->next;
-	}
-} */
 
 void	ft_free_mtx(char **mtx)
 {

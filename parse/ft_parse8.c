@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 17:24:53 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/05 17:50:06 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/12 17:43:45 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char	*ft_swap(char *cmd, char *inf)
 	while (tmp[++i])
 		command = ft_strjoin(command, tmp[i]);
 	ft_free_mtx(tmp);
+	free(cmd);
 	return (command);
 }
 
@@ -69,12 +70,12 @@ static char	*ft_spr(char **line, char *built)
 				word[j] = line[i][j];
 				j++;
 			}
-			free(line);
+			ft_free_mtx(line);
 			return (word);
 		}
 		i++;
 	}
-	free(line);
+	ft_free_mtx(line);
 	return ("Error");
 }
 static char	*ft_built(char *cmd)

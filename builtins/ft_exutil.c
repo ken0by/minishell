@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:37:25 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/01/24 12:31:16 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:12:34 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	ft_check_var(char *str, char **env)
 	i = -1;
 	while (env[++i])
 		if (!ft_strncmp(env[i], aux, ft_strlen(aux)))
-			return (1);
-	return (0);
+			return (free(aux), 1);
+	return (free(aux), 0);
 }
 
 static int	ft_contain(char *str, char c)

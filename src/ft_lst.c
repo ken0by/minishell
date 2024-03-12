@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lst.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 12:25:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/27 11:14:43 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/03/12 16:39:52 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,13 @@ t_command	*ft_lstnew_shell(char *str)
 		return (NULL);
 	new->command = ft_strdup(str);
 	new->built = NULL;
+	new->next = NULL;
 	new->inf = 0;
 	new->out = 0;
 	if (str[0] == 39)
 		new->dollar = 1;
 	else
 		new->dollar = 0;
-	new->next = NULL;
 	return (new);
 }
 

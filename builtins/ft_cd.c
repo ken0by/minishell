@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:37:03 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/28 16:09:39 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:00:15 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static void	ft_new_pwd(t_minishell *shell, char *oldpwd, char *new_pwd)
 		free(shell->oldpwd);
 	shell->pwd = ft_strdup(new_pwd);
 	shell->oldpwd = ft_strdup(oldpwd);
+	free(oldpwd);
 	ft_update(shell);
 }
 
@@ -98,6 +99,7 @@ void	ft_cd(char *cmd, t_minishell *shell)
 		ft_per(comm[0], comm[1]);
 		g_code_error = 126;
 	}
+	ft_free_mtx(comm);
 	oldpwd = ft_strdup(shell->pwd);
 	if (getcwd(new_pwd, sizeof(new_pwd) - 1))
 		ft_new_pwd(shell, oldpwd, new_pwd);

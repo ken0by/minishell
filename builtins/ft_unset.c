@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 17:38:16 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/07 16:14:26 by rodro            ###   ########.fr       */
+/*   Updated: 2024/03/12 18:18:05 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static int	ft_no_var(char *str)
 {
 	int	i;
 
+	if (!str || !str[0])
+		return (1);
 	i = -1;
 	while (str[++i])
 	{
@@ -35,24 +37,7 @@ static int	ft_no_var(char *str)
 	return (0);
 }
 
-static int	ft_if_var(char **tmp, char *env)
-{
-	int	k;
-	int	i;
-
-	k = 0;
-	i = 0;
-	while (tmp[++k])
-	{
-		if (ft_strncmp(env, tmp[k], ft_strlen(tmp[k])))
-			i++;
-	}
-	if (i == (k - 1))
-		return (1);
-	return (0);
-}
-
-static char	**ft_malloc(t_minishell *shell, char **var)
+static char	**ft_malloc(t_minishell *shell, char *var)
 {
 	int		i;
 	int		j;
@@ -61,12 +46,10 @@ static char	**ft_malloc(t_minishell *shell, char **var)
 	i = -1;
 	j = 0;
 	while (shell->env[++i])
-	{
-		if (ft_if_var(var, shell->env[i]))
-			j++;
-	}
-	if (j)
-		aux = malloc(sizeof(char *) * (j + 1));
+		if (!ft_strncmp(shell->env[i], var, ft_strlen(var)))
+			j = 1;
+	if (j == 1)
+		aux = malloc(sizeof(char *) * i);
 	else
 		return (NULL);
 	if (!aux)
@@ -74,41 +57,31 @@ static char	**ft_malloc(t_minishell *shell, char **var)
 	return (aux);
 }
 
-static char	**ft_delete_vars(char **tmp, t_minishell *shell)
+void	ft_unset(char *cmd, t_minishell *shell)
 {
 	int		i;
 	int		j;
 	char	**aux;
+	char	**tmp;
 
-	aux = ft_malloc(shell, tmp);
+	tmp = ft_split(cmd, ' ');
+	if (ft_no_var(tmp[1]))
+		return (ft_free_mtx(tmp));
+	aux = ft_malloc(shell, tmp[1]);
 	if (!aux)
-		return (NULL);
+		return ;
 	i = -1;
 	j = 0;
 	while (shell->env[++i])
 	{
-		if (ft_if_var(tmp, shell->env[i]))
+		if (ft_strncmp(shell->env[i], tmp[1], ft_strlen(tmp[1])))
 		{
 			aux[j] = ft_strdup(shell->env[i]);
 			j++;
 		}
 	}
 	aux[j] = NULL;
-	return (aux);
-}
-
-void	ft_unset(char *cmd, t_minishell *shell)
-{
-	char	**aux;
-	char	**tmp;
-
-	tmp = ft_split(cmd, ' ');
-	if (ft_no_var(tmp[1]))
-		return ;
-	aux = ft_delete_vars(tmp, shell);
-	if (!aux)
-		return ;
 	ft_free_mtx(shell->env);
-	free(tmp);
+	ft_free_mtx(tmp);
 	shell->env = aux;
 }

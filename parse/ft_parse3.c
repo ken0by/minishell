@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 12:31:43 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/06 15:34:40 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:24:36 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static char	*ft_dollar(char *change, char *env)
 	i = ft_strlen(change) + 1;
 	j = ft_strlen(env) - ft_strlen(change) - 1;
 	line = ft_substr(env, i, j);
+	free(change);
 	return (line);
 }
 
@@ -69,6 +70,9 @@ static char	*ft_change(char *fir_line, char *sec_line, char *change, char **env)
 		if (sec_line)
 			line = ft_strjoin_gnl(line, sec_line);
 	}
+	free(change);
+	if (sec_line)
+		free(sec_line);
 	return (line);
 }
 
@@ -94,6 +98,7 @@ char	*ft_param(char *line, char **env)
 	change = ft_substr(line, i, (j - i));
 	if (line[j])
 		sec_line = ft_substr(line, j, ft_strlen(&line[j]));
+	free(line);
 	line = ft_change(fir_line, sec_line, change, env);
 	return (line);
 }
@@ -101,6 +106,9 @@ char	*ft_param(char *line, char **env)
 void	ft_sust(t_command **cmd, t_minishell *shell)
 {
 	t_command	*aux;
+	int	i;
+
+	i = 0;
 
 	aux = *cmd;
 	while (aux)
@@ -109,5 +117,6 @@ void	ft_sust(t_command **cmd, t_minishell *shell)
 			aux = aux->next;
 		else
 			aux = ft_select_sust(cmd, aux, shell);
+		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 17:12:21 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/05 17:23:57 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/12 18:18:44 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,14 @@ static void	ft_export(t_minishell *shell, char *var, char *ct)
 static void	ft_change(t_minishell *shell, char *str, char *var)
 {
 	int		i;
-	char	*aux;
 
 	i = -1;
 	while (shell->env[++i])
 	{
 		if (!ft_strncmp(shell->env[i], var, ft_strlen(var)))
 		{
-			shell->env[i] = NULL;
-			aux = ft_strdup(str);
-			shell->env[i] = aux;
+			free(shell->env[i]);
+			shell->env[i] = ft_strdup(str);
 			break ;
 		}
 	}
@@ -101,7 +99,7 @@ void	ft_exist(char *cmd, t_minishell *shell, int fd)
 	if (!command[1])
 	{
 		ft_alfa(shell->env, fd);
-		return ;
+		return (ft_free_mtx(command));
 	}
 	i = 0;
 	while (command[++i])
@@ -112,6 +110,9 @@ void	ft_exist(char *cmd, t_minishell *shell, int fd)
 			ft_export(shell, var, ct);
 		else
 			ft_change(shell, command[i], var);
+		free(var);
+		if (ct)
+			free(ct);
 	}
 	ft_free_mtx(command);
 }

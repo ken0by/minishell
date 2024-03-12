@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_path.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:44:57 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/06 22:40:25 by rodro            ###   ########.fr       */
+/*   Updated: 2024/01/17 17:50:31 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,4 @@ char	*ft_cmdpath(char *cmd, char **env)
 			return (NULL);
 	}
 	return (path);
-}
-
-void	ft_restore(t_minishell *shell)
-{
-	shell->outfile = -1;
-	shell->infile = -1;
-	shell->heredoc = 0;
 }

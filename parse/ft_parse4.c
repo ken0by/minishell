@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 10:48:52 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/06 15:54:07 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:20:52 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,11 @@ static void	ft_why(t_command *cmd, t_command **change)
 static char	*ft_change_doll(char *fir_line, char *sec_line, t_minishell *shell)
 {
 	char	*line;
+	char	*nb;
 
-	line = ft_strjoin_gnl(fir_line, ft_itoa(shell->last_error));
+	nb = ft_itoa(shell->last_error);
+	line = ft_strjoin_gnl(fir_line, nb);
+	free(nb);
 	if (sec_line)
 		line = ft_strjoin_gnl(line, sec_line);
 	return (line);
@@ -73,12 +76,17 @@ char	*ft_sust_doll(char *line, t_minishell *shell)
 	j += 2;
 	if (line[j])
 		sec_line = ft_substr(line, j, ft_strlen(&line[j]));
+	free(line);
 	line = ft_change_doll(fir_line, sec_line, shell);
+	if (sec_line)
+		free(sec_line);
 	return (line);
 }
 
 t_command	*ft_select_sust(t_command **cmd, t_command *aux, t_minishell *shell)
 {
+	char	*tmp;
+
 	if (ft_strnstr(aux->command, "$", ft_strlen(aux->command)) != 0
 		&& ft_strlen(aux->command) == 1
 		&& (aux->space == 0 || (aux->space == 1 && aux->next == NULL)))
@@ -89,7 +97,12 @@ t_command	*ft_select_sust(t_command **cmd, t_command *aux, t_minishell *shell)
 	else if (ft_strnstr(aux->command, "$?", ft_strlen(aux->command)) != 0)
 		aux->command = ft_sust_doll(aux->command, shell);
 	else if (ft_strnstr(aux->command, "$", ft_strlen(aux->command)) != 0)
-		aux->command = ft_param(aux->command, shell->env);
+	{
+		tmp = ft_param(aux->command, shell->env);
+		free(aux->command);
+		aux->command = tmp;
+		system("leaks -q minishell");
+	}
 	else if (ft_strnstr(aux->command, "$", ft_strlen(aux->command)) == 0)
 		aux = aux->next;
 	return (aux);
