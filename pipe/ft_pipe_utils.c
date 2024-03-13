@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 17:05:35 by rodro             #+#    #+#             */
-/*   Updated: 2024/03/12 17:11:40 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/13 16:36:25 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ void	ft_free_cmd(t_command **cmd)
 {
 	t_command	*aux;
 
-	while (*cmd)
+	while (*cmd != NULL)
 	{
+		ft_printf("%p\n", cmd[0]->command);
 		aux = (*cmd)->next;
 		free(cmd[0]->command);
 		if (cmd[0]->built && !ft_strnstr(cmd[0]->built, "exec", ft_strlen(cmd[0]->built)))
@@ -40,14 +41,14 @@ void	ft_free_cmd(t_command **cmd)
 
 int	ft_check_in(t_minishell *shell)
 {
-	if (shell->infile)
+	if (shell->infile > 0)
 		return (shell->infile);
 	return (0);
 }
 
 int	ft_check_out(t_minishell *shell)
 {
-	if (shell->outfile)
+	if (shell->outfile > 1)
 		return (shell->outfile);
 	return (1);
 }

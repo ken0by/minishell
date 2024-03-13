@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:28:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/12 19:05:18 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/13 19:12:01 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ static t_command	*ft_join(t_command *cmd)
 			aux = aux->next;
 		}
 		line = ft_strjoin_gnl(line, aux->command);
-		if (aux->next && aux->space == 0 && aux->next->command[0] != '|')
+		if (aux->next && aux->next->command
+			&& aux->space == 0 && aux->next->command[0] != '|')
 			line = ft_strjoin_gnl(line, " ");
 		aux = aux->next;
 	}
@@ -98,7 +99,7 @@ static t_command	*ft_join(t_command *cmd)
 	return (free(line), pipe);
 }
 
-t_command	*ft_check_line(t_command *cmd, t_minishell *shell)
+void	ft_check_line(t_command *cmd, t_minishell *shell)
 {
 	char	*line;
 	char	*cmd_line;
@@ -108,21 +109,21 @@ t_command	*ft_check_line(t_command *cmd, t_minishell *shell)
 	flag = 0;
 	cmd_line = shell->cmd_line;
 	if (cmd_line[0] == '\0')
-		return (NULL);
+		return ;
 	if (cmd_line[0] == '<')
 		flag = 1;
 	signal(SIGINT, ft_intnl);
 	signal(SIGQUIT, ft_quit);
 	cmd = ft_take_cmd(&cmd, line, cmd_line);
 	if (!cmd)
-		return (NULL);
+		return ;
 	ft_sust(&cmd, shell);
 	ft_inout(&cmd, shell);
 	cmd = ft_join(cmd);
 	ft_cmdtake(&cmd);
 	if (g_code_error != 0)
-		return (cmd);
+		return (ft_free_cmd(&cmd));
 	if (flag)
 		cmd->command = ft_swap(cmd->command, shell->inf);
-	return (ft_system(cmd, shell, ft_check_in(shell), ft_check_out(shell)), cmd);
+	return (ft_system(cmd, shell, ft_check_in(shell), ft_check_out(shell)), ft_free_cmd(&cmd));
 }

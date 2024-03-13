@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 10:48:52 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/12 19:20:52 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/13 18:49:01 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,10 @@ t_command	*ft_select_sust(t_command **cmd, t_command *aux, t_minishell *shell)
 	else if (ft_strnstr(aux->command, "$", ft_strlen(aux->command)) != 0)
 	{
 		tmp = ft_param(aux->command, shell->env);
+		if (tmp[0] == '\0')
+			tmp = ft_calloc(1, 1);
 		free(aux->command);
 		aux->command = tmp;
-		system("leaks -q minishell");
 	}
 	else if (ft_strnstr(aux->command, "$", ft_strlen(aux->command)) == 0)
 		aux = aux->next;

@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:31:09 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/12 17:49:38 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/13 19:11:36 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ static void	ft_free_cmdline(t_minishell *shell, t_command **cmd)
 	}
 	if (shell->del)
 		ft_free_mtx(shell->del);
-	ft_free_cmd(cmd);
+	*cmd = NULL;
+	//ft_free_cmd(cmd);
 	return ;
 }
 
@@ -97,7 +98,7 @@ int	main(int argc, char **argv, char **env)
 		g_code_error = 0;
 		shell.cmd_line[ft_strlen(shell.cmd_line)] = '\0';
 		add_history(shell.cmd_line);
-		cmd = ft_check_line(cmd, &shell);
+		ft_check_line(cmd, &shell);
 		ft_free_cmdline(&shell, &cmd);
 		system("leaks -q minishell");
 	}
