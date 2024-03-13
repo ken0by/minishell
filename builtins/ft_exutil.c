@@ -3,30 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exutil.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:37:25 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/12 18:12:34 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/13 20:32:28 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-/* Esta funcion comprueba q si la variable existe */
-int	ft_check_var(char *str, char **env)
-{
-	int		i;
-	char	*aux;
-
-	aux = ft_strjoin(str, "=");
-	i = -1;
-	while (env[++i])
-		if (!ft_strncmp(env[i], aux, ft_strlen(aux)))
-			return (free(aux), 1);
-	return (free(aux), 0);
-}
-
-static int	ft_contain(char *str, char c)
+int	ft_contain(char *str, char c)
 {
 	int	i;
 
@@ -39,6 +25,26 @@ static int	ft_contain(char *str, char c)
 		i++;
 	if (str[i] == c)
 		return (1);
+	return (0);
+}
+
+/* Esta funcion comprueba q si la variable existe */
+int	ft_check_var(char *str, char **env)
+{
+	int		i;
+
+
+	i = -1;
+	while (env[++i])
+	{
+		if (!ft_contain(env[i], '='))
+		{
+			if (!ft_strncmp(env[i], str, ft_strlen(env[i])))
+				return (1);
+		}
+		if (!ft_strncmp(env[i], str, ft_strlen(str)))
+			return (1);
+	}
 	return (0);
 }
 
@@ -64,7 +70,7 @@ char	*ft_get_var(char *cmd)
 	else
 	{
 		i = ft_find(cmd, '=');
-		var = ft_substr(cmd, 0, i);
+		var = ft_substr(cmd, 0, i + 1);
 	}
 	if (var != NULL && var[0] == '\0')
 	{
