@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 17:24:53 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/13 18:47:38 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:17:40 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char	*ft_swap(char *cmd, char *inf)
 {
 	char	**tmp;
 	char	*command;
+	char	*aux;
 	int		i;
 
 	i = 1;
@@ -43,8 +44,10 @@ char	*ft_swap(char *cmd, char *inf)
 		free (tmp);
 		return ("ERROR INF");
 	}
-	command = ft_strjoin(tmp[1], " ");
+	command = ft_strjoin(tmp[i], " ");
+	aux = command;
 	command = ft_strjoin(command, inf);
+	free(aux);
 	while (tmp[++i])
 		command = ft_strjoin(command, tmp[i]);
 	ft_free_mtx(tmp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exutil.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:37:25 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/13 20:32:28 by rodro            ###   ########.fr       */
+/*   Updated: 2024/03/19 18:14:53 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,17 @@ int	ft_check_var(char *str, char **env)
 	i = -1;
 	while (env[++i])
 	{
-		if (!ft_contain(env[i], '='))
+		if (ft_contain(env[i], '='))
 		{
 			if (!ft_strncmp(env[i], str, ft_strlen(env[i])))
 				return (1);
 		}
-		if (!ft_strncmp(env[i], str, ft_strlen(str)))
+		else if (ft_strlen(str) == 1)
+		{
+			if (!ft_strncmp(env[i], str, ft_strlen(env[i])))
+			return (1);
+		}
+		else if (!ft_strncmp(env[i], str, ft_strlen(str)))
 			return (1);
 	}
 	return (0);

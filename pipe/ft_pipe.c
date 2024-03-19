@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:24:27 by rodro             #+#    #+#             */
-/*   Updated: 2024/03/06 16:05:35 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/19 19:31:43 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	ft_cw2(pid_t *pd)
 	i = -1;
 	while (pd[++i])
 		waitpid(pd[i], &status, 0);
+	free(pd);
 	return (status);
 }
 

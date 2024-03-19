@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 17:12:21 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/19 17:11:02 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/19 18:04:23 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	ft_exist(char *cmd, t_minishell *shell, int fd)
 	{
 		var = ft_get_var(command[i]);
 		ct = ft_get_content(command[i], var);
+		ft_printf("%d\n", ft_check_var(var, shell->env));
 		if (!ft_check_var(var, shell->env))
 			ft_export(shell, var, ct);
 		else
