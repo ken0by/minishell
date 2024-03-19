@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 17:12:21 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/13 20:34:18 by rodro            ###   ########.fr       */
+/*   Updated: 2024/03/19 17:11:02 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,15 @@ static void	ft_export(t_minishell *shell, char *var, char *ct)
 static void	ft_change(t_minishell *shell, char *str, char *var)
 {
 	int		i;
+	int		j;
 
+	j = 0;
+	while (var[j] != '=')
+		j++;
 	i = -1;
 	while (shell->env[++i])
 	{
-		if (!ft_strncmp(shell->env[i], var, ft_strlen(shell->env[i])))
+		if (!ft_strncmp(shell->env[i], var, j))
 		{
 			free(shell->env[i]);
 			shell->env[i] = ft_strdup(str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 16:26:57 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/13 20:23:42 by rodro            ###   ########.fr       */
+/*   Updated: 2024/03/19 17:08:13 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static void	ft_env_print(char *str, int fd)
 		else
 			ft_putchar_fd(str[i], fd);
 	}
+	if (!ft_contain(str, '='))
+		ft_putstr_fd("=\"", fd);
 }
 
 void	ft_print_ordenv(char **env, int fd)
