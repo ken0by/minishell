@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:44:57 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/20 19:54:22 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/20 20:00:01 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,10 @@ void	ft_next_lvl(t_minishell *shell, int fdout)
 	if (pd == -1)
 		ft_error("fork() error");
 	if (pd == 0)
+	{
 		ft_shell_up(shell);
+	}
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, ft_int);
 	g_code_error = (ft_cw(fdout, pd) >> 8) & 0xFF;
 }

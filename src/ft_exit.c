@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:03:29 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/20 19:52:58 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:58:16 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_exit_code(t_command *cmd, t_minishell *shell)
 		ft_check_arg(tmp, shell);
 	else
 	{
-		ft_shell_down(shell);		//no baja el contador del shlvl despues de salir de la subshell
+		ft_shell_down(shell);
 		exit(ft_code_nb(shell->cmd_line));
 	}
 	ft_free_mtx(tmp);
