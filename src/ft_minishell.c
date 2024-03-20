@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:31:09 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/19 19:35:14 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:31:39 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 
 static void	ft_cpy_no_env(t_minishell *shell)
 {
-	//shell->pwd = NULL;
+	char	*pwd;
+
+	shell->pwd = NULL;
 	shell->env = malloc(sizeof(char *) * 4);
-	shell->env[0] = ft_strjoin("PWD=", getcwd(shell->pwd, 100));
+	pwd = getcwd(shell->pwd, 100);
+	shell->env[0] = ft_strjoin("PWD=", pwd);
+	free(pwd);
 	shell->env[1] = ft_strdup("SHLVL=1");
 	shell->env[2] = ft_strdup("_=/usr/bin/env");
 	shell->env[3] = NULL;
@@ -63,7 +67,7 @@ static void	ft_free_cmdline(t_minishell *shell, t_command **cmd)
 		shell->here = NULL;
 	}
 	if (shell->del)
-		ft_free_mtx(shell->del);
+		shell->del = NULL;
 	*cmd = NULL;
 	return ;
 }
@@ -99,7 +103,6 @@ int	main(int argc, char **argv, char **env)
 		add_history(shell.cmd_line);
 		ft_check_line(cmd, &shell);
 		ft_free_cmdline(&shell, &cmd);
-		system("leaks -q minishell");
 	}
 	return (0);
 }

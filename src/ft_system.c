@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:44:31 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/19 19:08:53 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:57:57 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,6 @@ int	ft_cw(int fdout, pid_t pd)
 	return (status);
 }
 
-void	ft_dupfd(int fdin, int fdout)
-{
-	if (fdin > 0)
-	{
-		dup2(fdin, STDIN_FILENO);
-		close(fdin);
-	}
-	if (fdout > 1)
-		dup2(fdout, STDOUT_FILENO);
-}
-
 void	ft_exec(char **cmd, t_minishell *shell, int fdin, int fdout)
 {
 	char	*path;
@@ -82,28 +71,32 @@ void	ft_exec(char **cmd, t_minishell *shell, int fdin, int fdout)
 	close(fdout);
 }
 
+static void	ft_single_cmd(t_command *cmd, t_minishell *shell, int fdin, int fdout)
+{
+	if (!ft_strncmp(cmd->built, "exit", ft_strlen(cmd->built)))
+		ft_exit_code(cmd, shell);
+	else if (!ft_strncmp(cmd->built, "./minishell",
+			ft_strlen(cmd->built)))
+		ft_shell_up(shell);
+	else if (shell->heredoc)
+	{
+		if (!ft_strncmp(cmd->built, "echo", ft_strlen(cmd->built)))
+			ft_putstr_fd("\n", fdout);
+		else
+			ft_exec(ft_take_one(ft_split(cmd->command, ' ')),
+				shell, fdin, fdout);
+		ft_unlink(ft_split(cmd->command, ' '));
+		shell->heredoc = 0;
+	}
+	else if (ft_select(cmd, shell, fdout) == 1)
+		ft_exec(ft_split(cmd->command, ' '), shell, fdin, fdout);
+}
+
 void	ft_system(t_command *cmd, t_minishell *shell, int fdin, int fdout)
 {
 	g_code_error = 0;
 	if (ft_lstsize_shell(cmd) == 1)
-	{
-		if (!ft_strncmp(cmd->built, "exit", ft_strlen(cmd->built)))
-			ft_exit_code(cmd, shell);
-		else if (!ft_strncmp(cmd->built, "./minishell",
-				ft_strlen(cmd->built)))
-			ft_shell_up(shell);
-		else if (shell->heredoc)
-		{
-			if (!ft_strncmp(cmd->built, "echo", ft_strlen(cmd->built)))
-				ft_putstr_fd("\n", fdout);
-			else
-				ft_exec(ft_take_one(ft_split(cmd->command, ' ')), shell, fdin, fdout);
-			ft_unlink(ft_split(cmd->command, ' '));
-			shell->heredoc = 0;
-		}
-		else if (ft_select(cmd, shell, fdout) == 1)
-			ft_exec(ft_split(cmd->command, ' '), shell, fdin, fdout);
-	}
+		ft_single_cmd(cmd, shell, fdin, fdout);
 	else if (ft_lstsize_shell(cmd) > 1)
 		ft_ord(cmd, shell, ft_check_in(shell), ft_check_out(shell));
 	shell->outfile = -1;

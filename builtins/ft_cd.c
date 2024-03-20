@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:37:03 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/12 18:00:15 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:35:13 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	ft_new_env(t_minishell *shell, int i, char *new)
 	free(shell->env[i]);
 	shell->env[i] = ft_strdup(new);
 }
+
 static void	ft_update(t_minishell *shell)
 {
 	int		i;
@@ -87,18 +88,15 @@ void	ft_cd(char *cmd, t_minishell *shell)
 	if (!comm[1] || (comm[1][0] == '~' && ft_strlen(comm[1]) == 1))
 	{
 		if (chdir(shell->root) != 0)
-			ft_per(comm[0], comm[1]);
+			ft_per(comm[0], comm[1], 127);
 	}
 	else if (comm[1][0] == '-')
 	{
 		if (chdir(shell->oldpwd) != 0)
-			ft_per(comm[0], comm[1]);
+			ft_per(comm[0], comm[1], 127);
 	}
 	else if (chdir(comm[1]) != 0)
-	{
-		ft_per(comm[0], comm[1]);
-		g_code_error = 126;
-	}
+		ft_per(comm[0], comm[1], 1);
 	ft_free_mtx(comm);
 	oldpwd = ft_strdup(shell->pwd);
 	if (getcwd(new_pwd, sizeof(new_pwd) - 1))

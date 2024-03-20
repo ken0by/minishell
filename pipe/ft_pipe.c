@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:24:27 by rodro             #+#    #+#             */
-/*   Updated: 2024/03/19 19:31:43 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/20 16:07:32 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ static t_command	*ft_check_heredoc(t_command *cmd, t_minishell *shell)
 			free(aux->command);
 			aux->command = ft_strjoin_gnl(tmp[0], " ");
 			aux->command = ft_strjoin_gnl(aux->command, tmp[1]);
+			free(tmp[1]);
+			free(tmp);
 		}
 		aux = aux->next;
 	}

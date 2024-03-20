@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 17:50:00 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/19 19:36:09 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/20 16:01:27 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,10 @@ void	ft_unlink(char **cmd)
 
 	if (!cmd || !cmd[0])
 		return ;
-	i = -1;
+	i = 0;
 	while (cmd[++i])
 		unlink(cmd[i]);
+	ft_free_mtx(cmd);
 }
 
 char	**ft_take_one(char **cmd)

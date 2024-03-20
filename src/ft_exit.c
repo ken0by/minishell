@@ -6,13 +6,13 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:03:29 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/19 17:00:12 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/20 16:46:00 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void	ft_free_exit(t_command **cmd, t_minishell **shell)
+/* static void	ft_free_exit(t_command **cmd, t_minishell **shell)
 {
 	ft_free_cmd(cmd);
 	free((*shell)->cmd_line);
@@ -31,7 +31,7 @@ static void	ft_free_exit(t_command **cmd, t_minishell **shell)
 	if ((*shell)->here)
 		free((*shell)->here);
 	*shell = NULL;
-}
+} */
 
 static int	ft_flag(int flag, char *nb)
 {
@@ -72,30 +72,49 @@ static int	ft_code_nb(char *str)
 	return (0);
 }
 
+static void	ft_check_arg(char **tmp, t_command *cmd, t_minishell *shell)
+{
+	int	i;
+
+	(void)cmd;
+	(void)shell;
+	if (tmp[1])
+	{
+		i = ft_code_nb(shell->cmd_line);
+		//ft_free_exit(&cmd, &shell);
+		//ft_free_mtx(tmp);
+		exit (i);
+	}
+	else
+	{
+		//ft_free_exit(&cmd, &shell);
+		ft_printf("exit\n");
+		//ft_free_mtx(tmp);
+		exit (0);
+	}
+}
+
 void	ft_exit_code(t_command *cmd, t_minishell *shell)
 {
 	char	**tmp;
 	int		i;
 
 	tmp = ft_split(cmd->command, ' ');
-	if (shell->shlvl == 1)
+	i = 0;
+	while (tmp[i])
+		i++;
+	if (i > 2)
 	{
-		if (tmp[1])
-		{
-			i = ft_code_nb(shell->cmd_line);
-			ft_free_exit(&cmd, &shell);
-			exit (i);
-		}
-		else
-		{
-			ft_free_exit(&cmd, &shell);
-			ft_printf("exit\n");
-			exit (0);
-		}
+		ft_printf("exit\n");
+		ft_putstr_fd("exit : too many arguments\n", STDERR_FILENO);
+		g_code_error = 1;
 	}
+	else if (shell->shlvl == 1)
+		ft_check_arg(tmp, cmd, shell);
 	else
 	{
 		g_code_error = ft_code_nb(shell->cmd_line);
 		ft_shell_down(shell);
 	}
+	ft_free_mtx(tmp);
 }

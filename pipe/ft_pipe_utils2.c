@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 17:05:35 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/06 16:07:00 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/20 16:42:31 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,15 @@ void	ft_close(int fd1, int fd2)
 {
 	close(fd1);
 	close(fd2);
+}
+
+void	ft_dupfd(int fdin, int fdout)
+{
+	if (fdin > 0)
+	{
+		dup2(fdin, STDIN_FILENO);
+		close(fdin);
+	}
+	if (fdout > 1)
+		dup2(fdout, STDOUT_FILENO);
 }

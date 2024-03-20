@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/13 20:22:42 by rodro            ###   ########.fr       */
+/*   Updated: 2024/03/20 17:36:35 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,20 +118,20 @@ void		ft_shell_down(t_minishell *shell);
 t_command	*ft_take_cmd(t_command **cmd, char *line, char *cmd_line);
 
 /* FT_PARSE3.C */
-void	ft_sust(t_command **cmd, t_minishell *shell);
-char	*ft_param(char *line, char **env);
+void		ft_sust(t_command **cmd, t_minishell *shell);
+char		*ft_param(char *line, char **env);
 
 /* FT_PARSE4.C */
 char		*ft_sust_doll(char *line, t_minishell *shell);
 t_command	*ft_comp_list(t_command	*cmd);
-t_command	*ft_select_sust(t_command **cmd, t_command *aux, t_minishell *shell);
+t_command	*ft_select_sust(t_command **cmd, t_command *aux,
+				t_minishell *shell);
 
 /* FT_PARSE5.C */
-void	ft_inout(t_command **cmd, t_minishell *shell);
+void		ft_inout(t_command **cmd, t_minishell *shell);
 
 /* FT_PARSE6.C */
 int			ft_here(char *end, int file, t_minishell *shell);
-
 
 /* FT_PARSE7.C */
 char		*ft_find_var(char *line, char **env);
@@ -169,6 +169,7 @@ int			ft_lst_size(t_command *lst);
 /* FT_PIPE_UTILS2.C */
 pid_t		ft_order_single(char *cmd, t_minishell *shell, int fdin, int fdout);
 void		ft_close(int fd1, int fd2);
+void		ft_dupfd(int fdin, int fdout);
 
 /* ----- SRC ----- */
 /* FT_UTILS.C */
@@ -190,7 +191,7 @@ void		ft_exit_code(t_command *cmd, t_minishell *shell);
 /* FT_ERROR.C */
 void		ft_put_msg(char *var, char *s);
 void		ft_error(char *str);
-void		ft_per(char *var, char *s);
+void		ft_per(char *var, char *s, int i);
 void		ft_free_mtx(char **mtx);
 void		ft_error_perror(char *command, char *s);
 
@@ -212,7 +213,6 @@ void		ft_signal_dis(void);
 void		ft_system(t_command *cmd, t_minishell *shell, int fdin, int fdout);
 void		ft_exec(char **cmd, t_minishell *shell, int fdin, int fdout);
 char		*ft_cmdpath(char *cmd, char **env);
-void		ft_dupfd(int fdin, int fdout);
 int			ft_cw(int fdout, pid_t pd);
 
 /* FT_PATH.C */

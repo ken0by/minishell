@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 11:12:11 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/06 15:33:08 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:37:05 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ static int	ft_car(char *str, char **line)
 	line[0][j] = '\0';
 	return (i - 1);
 }
-
 
 t_command	*ft_take_cmd(t_command **cmd, char *line, char *cmd_line)
 {

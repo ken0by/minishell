@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:58:21 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/12 17:11:47 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:33:57 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ void	ft_put_msg(char *var, char *s)
 	g_code_error = 127;
 }
 
-void	ft_per(char *var, char *s)
+void	ft_per(char *var, char *s, int i)
 {
 	ft_putstr_fd(var, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	perror(s);
-	g_code_error = 127;
+	g_code_error = i;
 }
 
 void	ft_error(char *str)
