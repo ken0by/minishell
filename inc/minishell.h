@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/20 17:36:35 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:55:04 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,5 +217,6 @@ int			ft_cw(int fdout, pid_t pd);
 
 /* FT_PATH.C */
 char		*ft_cmdpath(char *cmd, char **env);
+void		ft_next_lvl(t_minishell *shell, int fdout);
 
 #endif

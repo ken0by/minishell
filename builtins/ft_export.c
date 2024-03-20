@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 17:12:21 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/20 17:31:02 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:30:54 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	ft_change(t_minishell *shell, char *str, char *var)
 	int		j;
 
 	j = 0;
-	while (var[j] != '=')
+	while (var[j] != '=' && var[j])
 		j++;
 	i = -1;
 	while (shell->env[++i])

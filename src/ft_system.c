@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:44:31 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/20 15:57:57 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:55:18 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	ft_single_cmd(t_command *cmd, t_minishell *shell, int fdin, int fdou
 		ft_exit_code(cmd, shell);
 	else if (!ft_strncmp(cmd->built, "./minishell",
 			ft_strlen(cmd->built)))
-		ft_shell_up(shell);
+		ft_next_lvl(shell, fdout);
 	else if (shell->heredoc)
 	{
 		if (!ft_strncmp(cmd->built, "echo", ft_strlen(cmd->built)))

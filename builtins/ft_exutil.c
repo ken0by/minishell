@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:37:25 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/20 17:29:58 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/20 19:20:56 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,19 @@ int	ft_contain(char *str, char c)
 /* Esta funcion comprueba si la variable existe */
 int	ft_check_var(char *str, char **env)
 {
-	int		i;
+	int	i;
 
 	i = -1;
 	while (env[++i])
 	{
-		if (ft_strlen(str) == 1 && ft_strlen(env[i]) == 1)
+		if (ft_strlen(str) == 1)
 		{
-			if (!ft_strncmp(env[i], str, ft_strlen(str)))
+			if (!ft_strncmp(env[i], str, ft_strlen(env[i])))
 				return (1);
 		}
-		if (!ft_contain(env[i], '='))
+		else if (!ft_contain(str, '='))
 		{
-			if (!ft_strncmp(env[i], str, ft_strlen(env[i]) + 1))
+			if (!ft_strncmp(env[i], str, ft_strlen(str)))
 				return (1);
 		}
 		else if (!ft_strncmp(env[i], str, ft_strlen(env[i])))

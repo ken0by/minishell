@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 17:38:16 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/20 17:27:18 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/20 18:53:08 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,12 @@ static char	**ft_malloc(t_minishell *shell, char *var)
 	i = -1;
 	j = 0;
 	while (shell->env[++i])
+	{
 		if (!ft_strncmp(shell->env[i], var, ft_strlen(var)))
 			j = 1;
+	}
 	if (j == 1)
-		aux = malloc(sizeof(char *) * i);
+		aux = malloc(sizeof(char *) * (i + 1));
 	else
 		return (NULL);
 	if (!aux)
@@ -69,7 +71,7 @@ static int	ft_check_cpy(char *tmp, char *env)
 		if (ft_strncmp(env, tmp, ft_strlen(env) + 1))
 			return (1);
 	}
-	else if (ft_strncmp(env, tmp, ft_strlen(env)))
+	else if (ft_strncmp(env, tmp, ft_strlen(tmp)))
 		return (1);
 	return (0);
 }
@@ -107,7 +109,7 @@ void	ft_unset(char *cmd, t_minishell *shell)
 			return (ft_free_mtx(tmp));
 		aux = ft_malloc(shell, tmp[i]);
 		if (!aux)
-			return ;
+			break ;
 		aux = ft_new_env(tmp[i], shell->env, aux);
 		ft_free_mtx(shell->env);
 		shell->env = ft_cpy_env(aux);
