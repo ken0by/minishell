@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 17:44:48 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/05 17:25:17 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/21 15:53:02 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,23 +81,25 @@ void	ft_alfa(char **env, int fd)
 	int		j;
 	int		len;
 	char	*aux;
+	char	**tmp;
 
 	i = 0;
 	len = ft_count_en(env);
+	tmp = ft_cpy_env(env);
 	while (i < len)
 	{
 		j = -1;
 		while (++j < (len - i - 1))
 		{
-			aux = env[j];
-			if (ft_strcmp(env[j], env[j + 1]) > 0)
+			aux = tmp[j];
+			if (ft_strcmp(tmp[j], tmp[j + 1]) > 0)
 			{
-				aux = env[j];
-				env[j] = env[j + 1];
-				env[j + 1] = aux;
+				aux = tmp[j];
+				tmp[j] = tmp[j + 1];
+				tmp[j + 1] = aux;
 			}
 		}
 		i++;
 	}
-	ft_print_ordenv(env, fd);
+	ft_print_ordenv(tmp, fd);
 }

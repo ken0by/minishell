@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse6.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 15:46:02 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/02/27 11:09:02 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/03/21 18:05:16 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,20 +108,25 @@ static void	ft_loop(int fd, char *line, char *end, t_minishell *shell)
 int	ft_here(char *end, int file, t_minishell *shell)
 {
 	pid_t	pid;
+	int		status;
 	char	*line;
 
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	pid = fork();
 	if (pid < 0)
+	{
 		ft_per_nb("fork", STDERR_FILENO);
+		exit(2);
+	}
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
 		write(1, "> ", 2);
 		line = get_next_line(STDIN_FILENO);
 		ft_loop(file, line, end, shell);
 		close(file);
 	}
-	else
-		wait(NULL);
+	waitpid(pid, &status, 0);
 	return (file);
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_system.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:44:31 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/20 19:55:18 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/21 12:56:18 by dmonjas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void	ft_exec(char **cmd, t_minishell *shell, int fdin, int fdout)
 	close(fdout);
 }
 
-static void	ft_single_cmd(t_command *cmd, t_minishell *shell, int fdin, int fdout)
+static void	ft_single_cmd(t_command *cmd,
+	t_minishell *shell, int fdin, int fdout)
 {
 	if (!ft_strncmp(cmd->built, "exit", ft_strlen(cmd->built)))
 		ft_exit_code(cmd, shell);

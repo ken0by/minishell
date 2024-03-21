@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:31:09 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/20 19:43:11 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:11:16 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int	main(int argc, char **argv, char **env)
 		add_history(shell.cmd_line);
 		ft_check_line(cmd, &shell);
 		ft_free_cmdline(&shell, &cmd);
+		//system("leaks -q minishell");
 	}
 	return (0);
 }

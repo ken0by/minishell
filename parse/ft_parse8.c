@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse8.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 17:24:53 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/20 13:16:15 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/21 12:52:16 by dmonjas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ static char	*ft_spr(char **line, char *built)
 	ft_free_mtx(line);
 	return ("Error");
 }
+
 static char	*ft_built(char *cmd)
 {
 	if (ft_strnstr(cmd, "echo", ft_strlen(cmd))

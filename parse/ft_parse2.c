@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 11:12:11 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/20 17:37:05 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/21 12:49:37 by dmonjas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ static int	ft_num(char *str, char **line, int *space)
 	while (str[i] && str[i] != ' ')
 	{
 		if (str[i] == '|' || str[i] == '"' || str[i] == 39 || str[i] == '$')
+			break ;
+		else if (str[i] == '<' || str[i] == '>')
 			break ;
 		i++;
 	}

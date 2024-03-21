@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse5.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 12:18:39 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/19 19:25:56 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/21 13:05:21 by dmonjas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	ft_count(char *cmd, char c)
 	return (count);
 }
 
-static int	ft_inf(char *infile, char *command, t_minishell *shell)
+int	ft_inf(char *infile, char *command, t_minishell *shell)
 {
 	int	fd;
 	int	x;
@@ -106,16 +106,12 @@ void	ft_inout(t_command **cmd, t_minishell *shell)
 		if (!aux->next)
 			break ;
 		if (ft_strchr(aux->next->command, '<') && aux->next->dollar == 0)
+			aux->next = ft_so_long(aux, shell);
+		else if (aux->next && (ft_strchr(aux->next->command, '>')
+				&& aux->next->dollar == 0))
 		{
-			if (shell->inf == NULL)
-				free (shell->inf);
-			shell->inf = ft_strdup(aux->next->next->command);
-			shell->infile = ft_inf(aux->next->next->command, aux->next->command, shell);
-			aux->next = ft_del_node(aux->next);
-		}
-		else if (aux->next && (ft_strchr(aux->next->command, '>') && aux->next->dollar == 0))
-		{
-			shell->outfile = ft_open(aux->next->next->command, aux->next->command, shell);
+			shell->outfile = ft_open(aux->next->next->command,
+					aux->next->command, shell);
 			aux->next = ft_out_chech(aux->next);
 		}
 		else
