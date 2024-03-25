@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 11:12:11 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/21 12:49:37 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/03/21 18:53:12 by david            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	ft_num(char *str, char **line, int *space)
 	{
 		if (str[i] == '|' || str[i] == '"' || str[i] == 39 || str[i] == '$')
 			break ;
-		else if (str[i] == '<' || str[i] == '>')
+		else if (str[i] == '<' || str[i] == '>' || str[i] == '/')
 			break ;
 		i++;
 	}
@@ -89,17 +89,21 @@ static int	ft_num(char *str, char **line, int *space)
 	return (i - 1);
 }
 
-static int	ft_car(char *str, char **line)
+static int	ft_car(char *str, char **line, int *space)
 {
 	int	i;
 	int	j;
 
 	i = 1;
 	j = 0;
-	if (str[0] == str[1] && str[1] == str[2])
-		g_code_error = 258;
-	if (str[0] == '|' && str[1] == '|')
-		g_code_error = 258;
+	if (str[0] == '/')
+	{
+		i = 0;
+		while (str[i] == '/')
+			i++;
+	}
+	else
+		ft_g_code(str);
 	if (str[0] == str[1])
 		i = 2;
 	line[0] = malloc(sizeof(char) * i + 1);
@@ -109,6 +113,7 @@ static int	ft_car(char *str, char **line)
 		j++;
 	}
 	line[0][j] = '\0';
+	*space = 1;
 	return (i - 1);
 }
 
@@ -129,9 +134,9 @@ t_command	*ft_take_cmd(t_command **cmd, char *line, char *cmd_line)
 					return (ft_printf("Please close quotes!\n"), NULL);
 				i += ft_simple(&cmd_line[i], &line, &space, cmd_line[i]);
 			}
-			else if (cmd_line[i] == '<'
-				|| cmd_line[i] == '>' || cmd_line[i] == '|')
-				i += ft_car(&cmd_line[i], &line);
+			else if (cmd_line[i] == '<' || cmd_line[i] == '>'
+				|| cmd_line[i] == '/' || cmd_line[i] == '|')
+				i += ft_car(&cmd_line[i], &line, &space);
 			else
 				i += ft_num(&cmd_line[i], &line, &space);
 			ft_lstadd_back_shell(cmd,
