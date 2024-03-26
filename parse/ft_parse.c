@@ -6,7 +6,7 @@
 /*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:28:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/25 19:23:45 by rodro            ###   ########.fr       */
+/*   Updated: 2024/03/27 00:49:06 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,17 @@ void	ft_shell_down(t_minishell *shell)
 	free(aux);
 }
 
-static t_command	*ft_join(t_command *cmd)
+static t_command	*ft_join(t_command *cmd, char *line)
 {
 	t_command	*pipe;
 	t_command	*aux;
-	char		*line;
 
 	pipe = NULL;
-	line = NULL;
 	aux = cmd;
 	while (aux)
 	{
+		if (aux->command[0] == '|' && !aux->next)
+			return (ft_er_out("`|'", 1), free(line), cmd);
 		if (ft_strlen(aux->command) == 1 && aux->command[0] == '|')
 		{
 			ft_lstadd_back_shell(&pipe, ft_lstnew_shell(line));
@@ -117,9 +117,9 @@ void	ft_check_line(t_command *cmd, t_minishell *shell)
 		return ;
 	ft_sust(&cmd, shell);
 	ft_inout(&cmd, shell);
+	cmd = ft_join(cmd, line);
 	if (g_code_error != 0)
 		return (ft_free_cmd(&cmd));
-	cmd = ft_join(cmd);
 	ft_cmdtake(&cmd);
 	if (flag)
 		cmd->command = ft_swap(cmd->command, shell->inf);

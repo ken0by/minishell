@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse4.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 10:48:52 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/21 12:50:48 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/03/27 00:30:59 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,25 @@ t_command	*ft_comp_list(t_command	*cmd)
 {
 	if (ft_strchr(cmd->command, '>'))
 		return (ft_printf("syntax error near unexpected token `newline'\n"),
-			g_code_error = 2258, NULL);
+			g_code_error = 2258, ft_free_cmd(&cmd), NULL);
 	if (ft_lst_size(cmd) == 1 || ft_lst_size(cmd) == 2)
 	{
 		if (ft_strchr(cmd->command, '<') || ft_strchr(cmd->command, '>'))
 			return (ft_printf("syntax error near unexpected token `newline'\n"),
-				g_code_error = 2258, NULL);
+				g_code_error = 2258, ft_free_cmd(&cmd), NULL);
 		else if (ft_strchr(cmd->command, '>') || cmd->command[1] == '>')
 			return (ft_printf("syntax error near unexpected token `newline'\n"),
-				g_code_error = 2258, NULL);
+				g_code_error = 2258, ft_free_cmd(&cmd), NULL);
 		else if (ft_strchr(cmd->command, '|'))
 			return (ft_printf("syntax error near unexpected token `|'\n"),
-				g_code_error = 2258, NULL);
+				g_code_error = 2258, ft_free_cmd(&cmd), NULL);
 		else if (cmd->command[0] == '<' && cmd->command[1] == '<'
 			&& cmd->next->command[0] == '|')
 			return (ft_printf("syntax error near unexpected token `newline'\n"),
-				g_code_error = 2258, NULL);
+				g_code_error = 2258, ft_free_cmd(&cmd), NULL);
 	}
 	else if (ft_checker(cmd))
-		return (NULL);
+		return (ft_free_cmd(&cmd), NULL);
 	return (cmd);
 }
 

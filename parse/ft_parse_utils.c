@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 12:57:47 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/25 15:40:09 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/03/27 00:54:10 by rodro            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_er_out(char *str, int i)
 {
+	ft_putstr_fd("syntax error near unexpected token ", STDERR_FILENO);
 	ft_putstr_fd(str, STDERR_FILENO);
 	ft_putstr_fd("\n", STDERR_FILENO);
 	g_code_error = i;
@@ -49,6 +50,8 @@ int	ft_size_param(char *line)
 
 t_command	*ft_so_long(t_command *aux, t_minishell *shell)
 {
+	if (!aux->next->next)
+		return (ft_er_out("`<'", 1), ft_free_cmd(&aux->next), NULL);
 	if (shell->inf == NULL)
 		free (shell->inf);
 	shell->inf = ft_strdup(aux->next->next->command);
