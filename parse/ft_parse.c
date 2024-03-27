@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 11:28:37 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/27 00:49:06 by rodro            ###   ########.fr       */
+/*   Updated: 2024/03/27 14:20:08 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,19 @@ static t_command	*ft_join(t_command *cmd, char *line)
 	return (free(line), pipe);
 }
 
+static int	ft_only_space(char *str)
+{
+	int	i;
+	int	k;
+
+	i = -1;
+	k = 0;
+	while (str[++i])
+		if (str[i] != ' ')
+			k++;
+	return (k);
+}
+
 void	ft_check_line(t_command *cmd, t_minishell *shell)
 {
 	char	*line;
@@ -106,7 +119,7 @@ void	ft_check_line(t_command *cmd, t_minishell *shell)
 
 	line = NULL;
 	flag = 0;
-	if (shell->cmd_line[0] == '\0')
+	if (shell->cmd_line[0] == '\0' || !ft_only_space(shell->cmd_line))
 		return ;
 	if (shell->cmd_line[0] == '<')
 		flag = 1;

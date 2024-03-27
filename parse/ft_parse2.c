@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: david <david@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 11:12:11 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/21 18:53:12 by david            ###   ########.fr       */
+/*   Updated: 2024/03/27 14:13:28 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ static int	ft_simple(char *str, char **line, int *space, int quote)
 	int	k;
 
 	i = 1;
-	k = 1;
+	k = 0;
 	j = 0;
 	while (str[i] != quote)
 		i++;
-	line[0] = malloc(sizeof(char) + i);
-	while (j < i - 1)
+	line[0] = malloc(sizeof(char) + (i + 2));
+	while (j < i + 1)
 	{
 		line[0][j] = str[k];
 		j++;
