@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 17:44:31 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/27 14:30:27 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:31:52 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ static void	ft_single_cmd(t_command *cmd,
 
 void	ft_system(t_command *cmd, t_minishell *shell, int fdin, int fdout)
 {
+	if (!cmd->command)
+		return ;
 	g_code_error = 0;
 	if (ft_lstsize_shell(cmd) == 1)
 		ft_single_cmd(cmd, shell, fdin, fdout);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse8.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 17:24:53 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/21 12:52:16 by dmonjas-         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:30:21 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ char	*ft_swap(char *cmd, char *inf)
 		free (tmp);
 		return ("ERROR INF");
 	}
-	command = ft_strjoin(tmp[i], " ");
+	if (tmp[i])
+		command = ft_strjoin(tmp[i], " ");
+	else
+		return (ft_free_mtx(tmp), free(cmd), NULL);
 	command = ft_strjoin_gnl(command, inf);
 	while (tmp[++i])
 		command = ft_strjoin_gnl(command, tmp[i]);

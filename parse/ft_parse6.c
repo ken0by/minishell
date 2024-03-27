@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse6.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodro <rodro@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 15:46:02 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/25 19:51:57 by rodro            ###   ########.fr       */
+/*   Updated: 2024/03/27 15:13:48 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static void	ft_loop(int fd, char *line, char *end, t_minishell *shell)
 		line[ft_strlen(line)] = '\0';
 		line = ft_exp(line, shell);
 		if ((ft_strncmp(line, end, ft_strlen(end)) == 0)
-			&& (ft_strlen(line) == ft_strlen(end) + 1))
+			&& (ft_strlen(line) == ft_strlen(end)))
 			break ;
 		ft_putstr_fd(line, fd);
 		ft_putstr_fd("\n", fd);
