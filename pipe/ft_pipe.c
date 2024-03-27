@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 17:24:27 by rodro             #+#    #+#             */
-/*   Updated: 2024/03/20 16:07:32 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/27 11:35:58 by dmonjas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,15 @@ static pid_t	ft_order(char *cmd, t_minishell *shell, int fdin, int *fd)
 	if (!ft_strncmp(command[0], "echo", ft_strlen(command[0])))
 		ft_echo(cmd, fd[1]);
 	else if (!ft_strncmp(command[0], "cd", ft_strlen(command[0])))
-		return (-1);
+		return (ft_free_mtx(command), -1);
 	else if (!ft_strncmp(command[0], "pwd", ft_strlen(command[0])))
 		ft_print_pwd(shell, fd[1]);
 	else if (!ft_strncmp(command[0], "export", ft_strlen(command[0])))
-		return (-1);
+		return (ft_free_mtx(command), -1);
 	else if (!ft_strncmp(command[0], "unset", ft_strlen(command[0])))
-		return (-1);
+		return (ft_free_mtx(command), -1);
+	else if (!ft_strncmp(command[0], "exit", ft_strlen(command[0])))
+		return (ft_free_mtx(command), -1);
 	else if (!ft_strncmp(command[0], "env", ft_strlen(command[0])))
 		ft_print_env(shell, fd[1]);
 	else

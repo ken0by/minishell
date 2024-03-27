@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 17:05:35 by rofuente          #+#    #+#             */
-/*   Updated: 2024/03/20 16:42:31 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/03/27 11:36:26 by dmonjas-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ pid_t	ft_order_single(char *cmd, t_minishell *shell, int fdin, int fdout)
 		ft_unset(cmd, shell);
 	else if (!ft_strncmp(command[0], "env", ft_strlen(command[0])))
 		ft_print_env(shell, fdout);
+	else if (!ft_strncmp(command[0], "exit", ft_strlen(command[0])))
+		return (ft_free_mtx(command), -1);
 	else
 		pd = ft_single(command, shell, fdin, fdout);
 	ft_free_mtx(command);

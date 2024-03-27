@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: david <david@student.42.fr>                +#+  +:+       +#+         #
+#    By: dmonjas- <dmonjas-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/29 10:00:52 by dmonjas-          #+#    #+#              #
-#    Updated: 2024/03/25 21:34:21 by david            ###   ########.fr        #
+#    Updated: 2024/03/27 10:37:17 by dmonjas-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,11 @@ LIB	=	ar rcs
 RM	=	rm -f
 
 ###CASA###
-READLINE_DIR = $(shell brew --prefix readline)
-FLAG	=	-lreadline -lhistory -L $(READLINE_DIR)/lib
-###42###
-#READLINE_DIR = /sgoinfre/students/$(USER)/homebrew/opt/readline
+#READLINE_DIR = $(shell brew --prefix readline)
 #FLAG	=	-lreadline -lhistory -L $(READLINE_DIR)/lib
+###42###
+READLINE_DIR = /sgoinfre/students/$(USER)/homebrew/opt/readline
+FLAG	=	-lreadline -lhistory -L $(READLINE_DIR)/lib
 
 CC	=	gcc
 CFLAGS	=	-Wall -Werror -Wextra -I ./inc -I ./libft/inc/ -I $(READLINE_DIR)/include
