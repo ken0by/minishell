@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 12:44:42 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/27 14:30:49 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/04/02 16:05:10 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,9 @@ t_command	*ft_so_long(t_command *aux, t_minishell *shell);
 void		ft_g_code(char *str);
 void		ft_er_out(char *str, int i);
 char		**ft_check_quotes(t_command *cmd);
+
+/* FT_PARSE_UTILS2.C */
+int			ft_check_space(char *str);
 
 /* ----- PIPE ----- */
 /* FT_PIPE.C */

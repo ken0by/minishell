@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 10:48:52 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/27 15:23:33 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/04/02 16:16:24 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ t_command	*ft_comp_list(t_command	*cmd)
 			g_code_error = 2258, ft_free_cmd(&cmd), NULL);
 	if (ft_lst_size(cmd) == 1 || ft_lst_size(cmd) == 2)
 	{
-		if ((ft_strchr(cmd->command, '<') && ft_strlen(cmd->command) > 2) || ft_strchr(cmd->command, '>'))
+		if ((ft_strchr(cmd->command, '<') && ft_strlen(cmd->command) > 2)
+			|| ft_strchr(cmd->command, '>'))
 			return (ft_printf("syntax error near unexpected token `newline'\n"),
 				g_code_error = 2258, ft_free_cmd(&cmd), NULL);
 		else if (ft_strchr(cmd->command, '>') || cmd->command[1] == '>')

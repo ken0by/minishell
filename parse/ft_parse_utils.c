@@ -6,7 +6,7 @@
 /*   By: rofuente <rofuente@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 12:57:47 by dmonjas-          #+#    #+#             */
-/*   Updated: 2024/03/27 14:31:05 by rofuente         ###   ########.fr       */
+/*   Updated: 2024/04/02 16:10:02 by rofuente         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	**ft_check_quotes(t_command *cmd)
 	int		j;
 	int		k;
 
-	if (cmd->command[0] == 34 || cmd->command[0] == 39)
+	if (!ft_check_space(cmd->command))
 	{
 		tmp = NULL;
 		tmp = malloc(sizeof(char *) * 2);
@@ -74,10 +74,10 @@ char	**ft_check_quotes(t_command *cmd)
 		i = 0;
 		while (cmd->command[i])
 			i++;
-		tmp[0] = malloc(sizeof(char) * (i - 1));
+		tmp[0] = malloc(sizeof(char) * (i + 1));
 		j = -1;
-		k = 1;
-		while (++j < i - 2)
+		k = 0;
+		while (++j < i)
 		{
 			tmp[0][j] = cmd->command[k];
 			k++;
